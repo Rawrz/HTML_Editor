@@ -1,16 +1,15 @@
-
 package Entities;
 
-
-public class Document {
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
-    }
-
+public interface Document {
+	
+	public void cut();
+	
+	public void paste();
+	
+	public void save();
+	
+	public void saveAs();
+	
+	public void close();
+	
 }
-
