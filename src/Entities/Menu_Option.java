@@ -2,7 +2,9 @@
 package Entities;
 
 
-public class Menu_Option {
-
+public interface Menu_Option {
+	
+	public void execute();
+	
 }
 
