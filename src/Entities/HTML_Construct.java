@@ -1,8 +1,13 @@
 
 package Entities;
 
+import java.util.Enumeration;
 
-public class HTML_Construct {
+import javax.swing.tree.TreeNode;
+
+
+public interface HTML_Construct extends TreeNode{
+    
 
 }
 
