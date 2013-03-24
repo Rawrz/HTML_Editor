@@ -2,14 +2,18 @@ package Entities;
 
 import java.awt.*;
 import javax.swing.*;
+import Commands.*;
 
 public class EditorGUI extends JFrame{
 	
 	private HTML_Editor editor;
+	private EditorMenu editorMenu;
 	private Container container = getContentPane();
+	
 	
 	public EditorGUI(HTML_Editor htmlEditor){
 		editor = htmlEditor;
+		editorMenu = createEditorMenu();
 		
 		//Window Settings
 		setTitle("HTML Editor");
@@ -23,4 +27,12 @@ public class EditorGUI extends JFrame{
 		new EditorGUI(aEditor);
 
     }
+	private EditorMenu createEditorMenu(){
+		NewCommand newFile = new NewCommand(editor);
+		OpenCommand open = new OpenCommand(editor);
+		CloseCommand close = new CloseCommand(editor);
+		TerminateCommand terminate = new TerminateCommand(editor);
+		EditorMenu editorMenu = new EditorMenu(newFile,open,close,terminate);
+		return editorMenu;
+	}
 }
