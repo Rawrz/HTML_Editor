@@ -38,7 +38,6 @@ public class Document {
 
 	}
 	
-	
 	public void indent() {
 		
 	}
