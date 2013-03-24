@@ -4,9 +4,9 @@ package Entities;
 import java.util.ArrayList;
 
 
-public class Menu {
+public class DocumentMenu {
 	private Menu_Option cutCommand,pasteCommand,insertCommand,indentCommand;
-	public Menu(Menu_Option cut, Menu_Option paste, Menu_Option insert, Menu_Option indent){
+	public DocumentMenu(Menu_Option cut, Menu_Option paste, Menu_Option insert, Menu_Option indent){
 		cutCommand = cut;
 		pasteCommand = paste;
 		insertCommand = insert;
