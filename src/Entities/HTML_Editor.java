@@ -26,9 +26,8 @@ public class HTML_Editor {
     }
     
     public void openDocument(String fileName) {
-    	try{
-    	BufferedReader input = new BufferedReader(new FileReader(new File(fileName)));
-    	}catch(FileNotFoundException e){	}
+    	Document openedDoc = new Document(fileName);
+    	docs.add(openedDoc);
     }
     
     public void closeDocument(int i) {
