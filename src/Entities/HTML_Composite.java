@@ -23,8 +23,6 @@ public class HTML_Composite extends BlockElement{
     
     public Element getElement(){
         return element;
-    }
-    
-    
+    } 
 }
 
