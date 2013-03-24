@@ -29,6 +29,7 @@ public class DocumentGUI extends JPanel{
 	private JRadioButton indentOn = new JRadioButton("On", true);
 	private JRadioButton indentOff = new JRadioButton("Off");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
+	private JTextArea docArea = new JTextArea();
 	
 	
 	public DocumentGUI(Document docParam) {
@@ -61,7 +62,6 @@ public class DocumentGUI extends JPanel{
 		indentPanel.add(indentOn);
 		indentPanel.add(indentOff);
 		statePanel.add(indentPanel);
-		
 		
 		menuPanel.setLayout(new GridLayout(2, 1));
 		menuPanel.add(buttonPanel);
