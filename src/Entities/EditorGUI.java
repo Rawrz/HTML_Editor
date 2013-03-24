@@ -10,6 +10,7 @@ public class EditorGUI extends JFrame{
 	private EditorMenu editorMenu;
 	private JPanel menuPanel = new JPanel(new GridLayout(1, 4));
 	private JTabbedPane docsPanel = new JTabbedPane();
+	private JPanel bottomPanel = new JPanel();
 	private JButton newDocBtn = new JButton("New Doc");
 	private JButton openDocBtn = new JButton("Open Doc");
 	private JButton closeDocBtn = new JButton("Close Doc");
@@ -32,6 +33,9 @@ public class EditorGUI extends JFrame{
 		docsPanel.add(new DocumentGUI(new Document("newDoc.html")), "newDoc.html");
 		docsPanel.add(new DocumentGUI(new Document("twoDoc.html")), "twoDoc.html");
 		add(docsPanel, thisLayout.CENTER);
+		
+		bottomPanel.add(new JLabel("Copyright 2013 TKO Productions"));
+		add(bottomPanel, thisLayout.SOUTH);
 		
 		setTitle("HTML Editor");
 		pack();
