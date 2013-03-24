@@ -18,7 +18,6 @@ public class TerminateCommand implements Menu_Option{
 	}
     @Override
     public void execute(Tag tag) {
-        // TODO Auto-generated method stub
-        
+        // TODO Auto-generated method stub     
     }
 }
