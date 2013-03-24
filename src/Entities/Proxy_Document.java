@@ -35,5 +35,10 @@ public class Proxy_Document implements Document {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void indent() {
+		
+	}
 
 }

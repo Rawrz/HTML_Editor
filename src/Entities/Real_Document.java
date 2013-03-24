@@ -32,4 +32,10 @@ public class Real_Document implements Document {
 
 	}
 
+	@Override
+	public void indent() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

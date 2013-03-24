@@ -12,4 +12,5 @@ public interface Document {
 	
 	public void close();
 	
+	public void indent();
 }
