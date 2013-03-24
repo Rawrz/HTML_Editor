@@ -2,13 +2,19 @@ package Entities;
 
 public class Document {
 	
-	private boolean isWrapped = false;
-	private boolean isIndented = false;
+	private boolean isWrapped;
+	private boolean isIndented;
+	private boolean isSaved;
+	private String name;
 	
-	public Document() {
+	public Document(String nameParam) {
+		name = nameParam;
+		isWrapped = false;
+		isIndented = false;
+		isSaved = true;
 	}
 
-	
+
 	public void cut() {
 		
 		
@@ -22,24 +28,33 @@ public class Document {
 
 	
 	public void save() {
-		
-
+		if (isSaved) {
+			return;
+		}
+		else {
+			//To Add
+		}
 	}
 
 	
 	public void saveAs() {
 		save();
-
+		
 	}
 
 	
 	public void close() {
 		// TODO Auto-generated method stub
-
+		
 	}
 	
 	public void indent() {
-		
+		if (isIndented) {
+			//To Add
+		}
+		else {
+			return;
+		}
 	}
 	
 	public void changeWrap(boolean wrapParam) {
@@ -56,6 +71,10 @@ public class Document {
 	
 	public boolean getIndent() {
 		return isIndented;
+	}
+	
+	public boolean getSaved() {
+		return isSaved;
 	}
 
 }

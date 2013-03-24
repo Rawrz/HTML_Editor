@@ -16,7 +16,7 @@ public class HTML_Editor {
     }
     
     public void newDocument() {
-    	Document doc = new Document();
+    	Document doc = new Document("newDoc.html");
     	docs.add(doc);
     }
     
@@ -34,4 +34,3 @@ public class HTML_Editor {
     }
 
 }
-
