@@ -1,9 +1,6 @@
 
 package Entities;
 
-import java.util.ArrayList;
-
-
 public class DocumentMenu {
 	private Menu_Option cutCommand,pasteCommand,insertCommand,indentCommand,saveCommand,saveNewCommand;
 	public DocumentMenu(Menu_Option cut, Menu_Option paste, Menu_Option insert, Menu_Option indent, Menu_Option save, Menu_Option saveNew){
