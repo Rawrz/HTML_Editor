@@ -1,5 +1,7 @@
 package Commands;
 
+import javax.swing.text.html.HTML.Tag;
+
 import Entities.Document;
 import Entities.Menu_Option;
 
@@ -12,5 +14,10 @@ public class SaveCommand implements Menu_Option{
 	public void execute() {
 		doc.save();
 	}
+    @Override
+    public void execute(Tag tag) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

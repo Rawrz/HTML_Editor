@@ -1,5 +1,7 @@
 package Commands;
 
+import javax.swing.text.html.HTML.Tag;
+
 import Entities.HTML_Editor;
 import Entities.Menu_Option;
 
@@ -14,5 +16,11 @@ public class OpenCommand implements Menu_Option{
 	public void execute() {
 		htmlEditor.openDocument();
 	}
+
+    @Override
+    public void execute(Tag tag) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

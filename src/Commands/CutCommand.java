@@ -1,5 +1,7 @@
 package Commands;
 
+import javax.swing.text.html.HTML.Tag;
+
 import Entities.Document;
 import Entities.Menu_Option;
 
@@ -14,5 +16,10 @@ public class CutCommand implements Menu_Option{
 	public void execute() {
 		doc.cut();
 	}
+    @Override
+    public void execute(Tag tag) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
