@@ -1,5 +1,9 @@
 package Entities;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 public class HTML_Editor {
@@ -21,8 +25,10 @@ public class HTML_Editor {
     	docs.add(doc);
     }
     
-    public void openDocument() {
-    	
+    public void openDocument(String fileName) {
+    	try{
+    	BufferedReader input = new BufferedReader(new FileReader(new File(fileName)));
+    	}catch(FileNotFoundException e){	}
     }
     
     public void closeDocument(int i) {

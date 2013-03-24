@@ -14,7 +14,8 @@ public class OpenCommand implements Menu_Option{
 	
 	@Override
 	public void execute() {
-		htmlEditor.openDocument();
+		String placeholder = "";
+		htmlEditor.openDocument(placeholder);
 	}
 
     @Override
