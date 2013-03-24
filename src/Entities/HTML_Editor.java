@@ -7,13 +7,14 @@ public class HTML_Editor {
 	private ArrayList<Document> docs;
 	private int currentDoc;
 	
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
-    }
+	public HTML_Editor(){
+		
+	}
+	
+	public static void main(String[] args) {
+		HTML_Editor e = new HTML_Editor();
+		e.launch();
+	}
     
     public void newDocument() {
     	Document doc = new Document("newDoc.html");
@@ -31,6 +32,10 @@ public class HTML_Editor {
     
     public void terminate(){
     	
+    }
+    
+    public void launch() {
+    	new EditorGUI(this);
     }
 
 }
