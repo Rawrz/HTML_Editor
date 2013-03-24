@@ -1,16 +1,61 @@
 package Entities;
 
-public interface Document {
+public class Document {
 	
-	public void cut();
+	private boolean isWrapped = false;
+	private boolean isIndented = false;
 	
-	public void paste();
+	public Document() {
+	}
+
 	
-	public void save();
+	public void cut() {
+		
+		
+	}
+
 	
-	public void saveAs();
+	public void paste() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
-	public void close();
+	public void save() {
+		
+
+	}
+
 	
-	public void indent();
+	public void saveAs() {
+		save();
+
+	}
+
+	
+	public void close() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void indent() {
+		
+	}
+	
+	public void changeWrap(boolean wrapParam) {
+		isWrapped = wrapParam;
+	}
+	
+	public void changeIndent(boolean indentParam) {
+		isIndented = indentParam;
+	}
+	
+	public boolean getWrap() {
+		return isWrapped;
+	}
+	
+	public boolean getIndent() {
+		return isIndented;
+	}
+
 }

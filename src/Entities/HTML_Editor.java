@@ -16,8 +16,8 @@ public class HTML_Editor {
     }
     
     public void newDocument() {
-    	Proxy_Document proxy = new Proxy_Document();
-    	docs.add(proxy);
+    	Document doc = new Document();
+    	docs.add(doc);
     }
     
     public void openDocument() {
