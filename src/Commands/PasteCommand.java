@@ -17,7 +17,7 @@ public class PasteCommand implements Menu_Option{
 		doc.paste();		
 	}
     @Override
-    public void execute(Tag tag) {
+    public void execute(Object obj) {
         // TODO Auto-generated method stub
         
     }
