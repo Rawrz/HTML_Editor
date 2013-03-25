@@ -6,6 +6,7 @@ public class HTML_Editor {
 	
 	private ArrayList<Document> docs;
 	private int currentDoc;
+	private HTMLComposite tree;
 	
     /**
      * @param args
@@ -16,7 +17,7 @@ public class HTML_Editor {
     }
     
     public void newDocument() {
-    	Document doc = new Document("newDoc.html");
+    	Document doc = new Document("untitled.html");
     	docs.add(doc);
     }
     
@@ -32,5 +33,8 @@ public class HTML_Editor {
     public void terminate(){
     	
     }
-
+       
+    public Document getDocument(){
+        return docs.get(currentDoc);
+    }
 }
