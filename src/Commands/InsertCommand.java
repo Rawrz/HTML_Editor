@@ -11,7 +11,7 @@ public class InsertCommand implements Menu_Option{
 		doc = document;
 	}
 	@Override
-	public void execute(HTML.Tag tag) {
+	public void execute(Object obj) {
 		
 	}
 

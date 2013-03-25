@@ -19,7 +19,7 @@ public class NewCommand implements Menu_Option{
 		htmlEditor.newDocument(tempFile);
 	}
     @Override
-    public void execute(Tag tag) {
+    public void execute(Object obj) {
         // TODO Auto-generated method stub
         
     }

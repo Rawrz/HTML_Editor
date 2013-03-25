@@ -21,7 +21,7 @@ public class OpenCommand implements Menu_Option{
 	}
 
     @Override
-    public void execute(Tag tag) {
+    public void execute(Object obj) {
         // TODO Auto-generated method stub
         
     }

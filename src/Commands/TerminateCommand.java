@@ -17,7 +17,7 @@ public class TerminateCommand implements Menu_Option{
 		htmlEditor.terminate();
 	}
     @Override
-    public void execute(Tag tag) {
+    public void execute(Object obj) {
         // TODO Auto-generated method stub     
     }
 }
