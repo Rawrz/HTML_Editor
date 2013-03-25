@@ -23,21 +23,38 @@ public class HTMLComposite extends BlockElement implements HTMLConstruct{
         doc = htmlDocument;
     }
 
-    @Override
     public void add(HTML.Tag tag) {
         HTMLComposite ele = new HTMLComposite(doc,this,null,tag);
         children.add(ele);
     }
     
     public void add(String content){
-        HtmlText ele = new HtmlText(doc,this,null, 0 , 0);
+        HtmlText ele = new HtmlText(doc,this,Tag.CONTENT,null, 0 , 0);
         children.add(ele);
     }
     
-    public static void main(String args[]){
-        
+    public ArrayList<HTMLConstruct> getChildren(){
+        return this.children;
     }
 
+    @Override
+    public Tag getTag(Tag tag) {
+        // TODO Auto-generated method stub
+        return this.tag;
+    }
+
+    @Override
+    public HTMLDocument getDoc() {
+        // TODO Auto-generated method stub
+        return this.doc;
+    }
+    
+    public boolean hasChildren(){
+        if (this.children.size() == 0){
+            return false;
+        }
+            return true;
+    }
 }
 
 
