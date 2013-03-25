@@ -1,5 +1,7 @@
 package Entities;
 
+import java.io.File;
+
 public class EditorMenu {
 	private Menu_Option newCommand,openCommand,closeCommand,terminateCommand;
 	public EditorMenu(Menu_Option newFile, Menu_Option open, Menu_Option close,Menu_Option terminate){
@@ -13,8 +15,8 @@ public class EditorMenu {
 		newCommand.execute();
 	}
 	
-	public void open(){
-		openCommand.execute();
+	public void open(File htmlFile){
+		openCommand.execute(htmlFile);
 	}
 	
 	public void close(){

@@ -16,14 +16,12 @@ public class OpenCommand implements Menu_Option{
 	
 	@Override
 	public void execute() {
-		File placeholder = new File("Placeholder");
-		htmlEditor.openDocument(placeholder);
 	}
 
     @Override
     public void execute(Object obj) {
-        // TODO Auto-generated method stub
-        
+    	File htmlFile = (File)obj;
+    	htmlEditor.openDocument(htmlFile);
     }
 
 }

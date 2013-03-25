@@ -1,12 +1,22 @@
 package Entities;
 
 import javax.swing.*;
+
+import Commands.CutCommand;
+import Commands.IndentCommand;
+import Commands.InsertCommand;
+import Commands.PasteCommand;
+import Commands.SaveAsCommand;
+import Commands.SaveCommand;
+
 import java.awt.*;
 
 
 public class DocumentGUI extends JPanel{
 	
 	private Document thisDoc;
+	private DocumentMenu docMenu;
+	
 	private JPanel menuPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
 	private JPanel statePanel = new JPanel();
@@ -34,6 +44,7 @@ public class DocumentGUI extends JPanel{
 	
 	public DocumentGUI(Document docParam) {
 		thisDoc = docParam;
+		docMenu = createDocumentMenu(thisDoc);
 
 		buttonPanel.setLayout(new GridLayout(2, 5));
 		buttonPanel.add(saveBtn);
@@ -69,6 +80,17 @@ public class DocumentGUI extends JPanel{
 		
 		add(menuPanel);
 		setVisible(true);
+	}
+	
+	private DocumentMenu createDocumentMenu(Document document){
+		CutCommand cut = new CutCommand(document);
+		PasteCommand paste = new PasteCommand(document);
+		InsertCommand insert = new InsertCommand(document);
+		IndentCommand indent = new IndentCommand(document);
+		SaveCommand save = new SaveCommand(document);
+		SaveAsCommand saveAs = new SaveAsCommand(document);
+		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs);
+		return docMenu;
 	}
 	
 	
