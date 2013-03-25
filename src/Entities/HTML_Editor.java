@@ -20,13 +20,13 @@ public class HTML_Editor {
 		e.launch();
 	}
     
-    public void newDocument() {
-    	Document doc = new Document("newDoc.html");
+    public void newDocument(File htmlFile) {
+    	Document doc = new Document(htmlFile);
     	docs.add(doc);
     }
     
-    public void openDocument(String fileName) {
-    	Document openedDoc = new Document(fileName);
+    public void openDocument(File htmlFile) {
+    	Document openedDoc = new Document(htmlFile);
     	docs.add(openedDoc);
     }
     

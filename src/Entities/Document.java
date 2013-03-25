@@ -1,17 +1,40 @@
 package Entities;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Document {
 	
 	private boolean isWrapped;
 	private boolean isIndented;
 	private boolean isSaved;
 	private String name;
+	private File file;
+	private String filepath;
+	private StringBuffer content = new StringBuffer();
 	
-	public Document(String nameParam) {
-		name = nameParam;
+	public Document(File htmlFile) {
+		file = htmlFile;
 		isWrapped = false;
 		isIndented = false;
 		isSaved = true;
+		try{
+			BufferedReader fileReader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = fileReader.readLine()) != null){
+				content.append(line);
+			}
+		}catch(FileNotFoundException e){
+			
+		}catch(IOException e){
+			
+		}
+		
+		
 	}
 
 
