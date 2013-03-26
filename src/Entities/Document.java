@@ -30,7 +30,7 @@ public class Document extends DefaultStyledDocument{
 		isSaved = true;
 		name = htmlFile.getName();
 		filepath = htmlFile.getPath();	
-		
+		/*
 		tree = new HTMLComposite(this,Tag.HTML,null);
         HTMLConstruct bod = new HTMLComposite(this,Tag.BODY,tree);
         HTMLConstruct p = new HTMLComposite(this,Tag.P,bod);
@@ -40,7 +40,7 @@ public class Document extends DefaultStyledDocument{
         bod.add(h1);
         HTMLText text = new HTMLText(this, "Blahblahblah",p);
         p.add(text);
-		
+        */
 		//Testing stream
 		try{
 			BufferedReader fileReader = new BufferedReader(new FileReader(file));

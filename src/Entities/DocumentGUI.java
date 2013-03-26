@@ -110,29 +110,7 @@ public class DocumentGUI extends JPanel{
         add(treePanel);
         
  
-        /*JScrollPane scrollPane = new JScrollPane(tree);
-        add(scrollPane);
-        HTMLConstruct tree = doc.getTree();
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container content = f.getContentPane();
-        JTree t = new JTree(tree);
-        JScrollPane scrollPane = new JScrollPane(t);
-        content.add(scrollPane, BorderLayout.CENTER);
-        f.setSize(300, 200);
-        f.setVisible(true);*/
-
-		
-		/*DefaultTreeModel treeModel = new DefaultTreeModel(thisDoc.getTree());
-		JTree tree = new JTree(treeModel);
-		tree.setEditable(true);
-        tree.getSelectionModel().setSelectionMode
-                (TreeSelectionModel.SINGLE_TREE_SELECTION);
-        tree.setShowsRootHandles(true);
-		JScrollPane scrollPane = new JScrollPane(tree);
-		this.add(scrollPane,BorderLayout.CENTER);  
-        scrollPane.setSize(300, 200);
-		setVisible(true);*/
+        
 	}
 	
 	private DocumentMenu createDocumentMenu(Document document){

@@ -23,7 +23,7 @@ public class HTML_Editor extends Observable{
     public void newDocument(File htmlFile) {
     	Document newDoc = new Document(htmlFile);
     	docs.add(newDoc);
-    	Integer location = new Integer(docs.size() -1);
+    	Integer location = new Integer(docs.size() -1); 
     	setChanged();
     	notifyObservers(location);
     }
