@@ -2,24 +2,20 @@ package Entities;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.text.html.HTMLDocument;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
+
 
 public class Document extends HTMLDocument{
 	
@@ -55,6 +51,7 @@ public class Document extends HTMLDocument{
 		}
 	}
 		
+	//Test Constructor
 	public Document(String newFileName){
 	    tree = new HTMLComposite(this,Tag.HTML,null);
 	    HTMLConstruct bod = new HTMLComposite(this,Tag.BODY,tree);
@@ -137,7 +134,7 @@ public class Document extends HTMLDocument{
 		return file.getName();
 	}
 
-	/*public static void main(String args[]){
+	public static void main(String args[]){
 	    Document doc = new Document("Test");
 	    HTMLConstruct tree = doc.getTree();
 	    JFrame f = new JFrame();
@@ -148,6 +145,13 @@ public class Document extends HTMLDocument{
 	    content.add(scrollPane, BorderLayout.CENTER);
 	    f.setSize(300, 200);
 	    f.setVisible(true);
+	    Enumeration e = tree.breadthFirstEnumeration();
+	      
+	    while (e.hasMoreElements())  
+	    {  
+	        HTMLConstruct element = (HTMLConstruct) e.nextElement();  
+	        System.out.println(element);
+	    }
 	    
-	}*/
+	}
 }
