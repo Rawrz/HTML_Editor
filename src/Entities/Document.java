@@ -31,6 +31,16 @@ public class Document extends DefaultStyledDocument{
 		name = htmlFile.getName();
 		filepath = htmlFile.getPath();	
 		
+		tree = new HTMLComposite(this,Tag.HTML,null);
+        HTMLConstruct bod = new HTMLComposite(this,Tag.BODY,tree);
+        HTMLConstruct p = new HTMLComposite(this,Tag.P,bod);
+        HTMLConstruct h1 = new HTMLComposite(this,Tag.H1,bod);
+        tree.add(bod);
+        bod.add(p);
+        bod.add(h1);
+        HTMLText text = new HTMLText(this, "Blahblahblah",p);
+        p.add(text);
+		
 		//Testing stream
 		try{
 			BufferedReader fileReader = new BufferedReader(new FileReader(file));
@@ -48,15 +58,7 @@ public class Document extends DefaultStyledDocument{
 		
 	//Test Constructor
 	public Document(String newFileName){
-	    tree = new HTMLComposite(this,Tag.HTML,null);
-	    HTMLConstruct bod = new HTMLComposite(this,Tag.BODY,tree);
-	    HTMLConstruct p = new HTMLComposite(this,Tag.P,bod);
-        HTMLConstruct h1 = new HTMLComposite(this,Tag.H1,bod);
-        tree.add(bod);
-        bod.add(p);
-        bod.add(h1);
-        HTMLText text = new HTMLText(this, "Blahblahblah",p);
-        p.add(text);
+	    
 	}
 	
 	public void insert(Tag tag){

@@ -14,6 +14,7 @@ import Commands.SaveCommand;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 
 public class DocumentGUI extends JPanel{
@@ -24,6 +25,7 @@ public class DocumentGUI extends JPanel{
 	private JPanel menuPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
 	private JPanel statePanel = new JPanel();
+	private JPanel treePanel = new JPanel();
 	private JButton saveBtn = new JButton("Save");
 	private JButton saveAsBtn = new JButton("Save As");
 	private JButton copyBtn = new JButton("Copy");
@@ -49,7 +51,7 @@ public class DocumentGUI extends JPanel{
 		docMenu = createDocumentMenu(thisDoc);
 		
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
-		
+		this.setLayout(getLayout());
 		//Add Listeners
 		saveBtn.addActionListener(docMenuListener);
 		saveAsBtn.addActionListener(docMenuListener);
@@ -94,16 +96,43 @@ public class DocumentGUI extends JPanel{
 		menuPanel.add(statePanel);
 		add(menuPanel);
 		
-		DefaultTreeModel treeModel = new DefaultTreeModel(thisDoc.getTree());
+		
+		//Document doc = new Document("Test");
+		HTMLConstruct tree = thisDoc.getTree();
+        DefaultTreeModel treeModel = new DefaultTreeModel(tree);
+        JTree j = new JTree(treeModel);
+        j.setEditable(true);
+        j.getSelectionModel().setSelectionMode
+                (TreeSelectionModel.SINGLE_TREE_SELECTION);
+        j.setShowsRootHandles(true);
+        j.setSize(500,500);
+        treePanel.add(j);
+        add(treePanel);
+        
+ 
+        /*JScrollPane scrollPane = new JScrollPane(tree);
+        add(scrollPane);
+        HTMLConstruct tree = doc.getTree();
+        JFrame f = new JFrame();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container content = f.getContentPane();
+        JTree t = new JTree(tree);
+        JScrollPane scrollPane = new JScrollPane(t);
+        content.add(scrollPane, BorderLayout.CENTER);
+        f.setSize(300, 200);
+        f.setVisible(true);*/
+
+		
+		/*DefaultTreeModel treeModel = new DefaultTreeModel(thisDoc.getTree());
 		JTree tree = new JTree(treeModel);
 		tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode
                 (TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setShowsRootHandles(true);
 		JScrollPane scrollPane = new JScrollPane(tree);
-		add(scrollPane);  
+		this.add(scrollPane,BorderLayout.CENTER);  
         scrollPane.setSize(300, 200);
-		setVisible(true);
+		setVisible(true);*/
 	}
 	
 	private DocumentMenu createDocumentMenu(Document document){

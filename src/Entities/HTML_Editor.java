@@ -56,5 +56,9 @@ public class HTML_Editor extends Observable{
     public ArrayList<Document> getDocs(){
     	return docs;
     }
+    
+    public int getCurDoc(){
+        return currentDoc;
+    }
 
 }
