@@ -133,6 +133,9 @@ public class Document extends HTMLDocument{
 	public boolean getSaved() {
 		return isSaved;
 	}
+	public String getName() {
+		return file.getName();
+	}
 
 	/*public static void main(String args[]){
 	    Document doc = new Document("Test");

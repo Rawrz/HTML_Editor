@@ -14,14 +14,12 @@ public class NewCommand implements Menu_Option{
 		htmlEditor = editor;
 	}
 	@Override
-	public void execute() {
-		File tempFile = new File("newFile");
-		htmlEditor.newDocument(tempFile);
-	}
+	public void execute() {}
+		
     @Override
     public void execute(Object obj) {
-        // TODO Auto-generated method stub
-        
+    	File newFile = (File)obj;
+    	htmlEditor.newDocument(newFile);
     }
 
 }

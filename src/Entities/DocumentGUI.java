@@ -10,6 +10,8 @@ import Commands.SaveAsCommand;
 import Commands.SaveCommand;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class DocumentGUI extends JPanel{
@@ -40,9 +42,22 @@ public class DocumentGUI extends JPanel{
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
 	
 	
-	public DocumentGUI(Document docParam) {
+	public DocumentGUI(Document docParam) {		
 		thisDoc = docParam;
 		docMenu = createDocumentMenu(thisDoc);
+		
+		DocumentMenuListener docMenuListener = new DocumentMenuListener();
+		
+		//Add Listeners
+		saveBtn.addActionListener(docMenuListener);
+		saveAsBtn.addActionListener(docMenuListener);
+		copyBtn.addActionListener(docMenuListener);
+		cutBtn.addActionListener(docMenuListener);
+		pasteBtn.addActionListener(docMenuListener);
+		indentOn.addActionListener(docMenuListener);
+		indentOff.addActionListener(docMenuListener);
+		wordWrapOn.addActionListener(docMenuListener);
+		wordWrapOff.addActionListener(docMenuListener);
 
 		buttonPanel.setLayout(new GridLayout(2, 5));
 		buttonPanel.add(saveBtn);
@@ -89,6 +104,24 @@ public class DocumentGUI extends JPanel{
 		SaveAsCommand saveAs = new SaveAsCommand(document);
 		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs);
 		return docMenu;
+	}
+	
+	private class DocumentMenuListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String action = e.getActionCommand();
+			if(action == "Save"){
+				
+			} else if(action == "SaveAs"){
+				
+			} else if(action == "Copy"){
+				
+			} else if(action == "Cut"){
+				
+			} else if(action == "Paste"){
+				
+			}
+		}		
 	}
 	
 	
