@@ -123,6 +123,9 @@ public class EditorGUI extends JFrame implements Observer {
 					editorMenu.close(index);
 				}
 				
+			} else if(action == "Close Program"){
+				editorMenu.terminate();
+				dispose();
 			}
 		}
 		
