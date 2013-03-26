@@ -1,22 +1,42 @@
 
 package Entities;
 
-import java.util.ArrayList;
 
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
+import java.util.Vector;
+
 import javax.swing.text.Element;
-import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTML.Tag;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.AbstractDocument.AbstractElement;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 
-public interface HTMLConstruct extends Element{
+public abstract class HTMLConstruct extends DefaultMutableTreeNode implements Element  {
+    
+    public HTMLConstruct(javax.swing.text.Document doc, Tag tag,HTMLConstruct parent){
+        super(tag);
+    }
+    
+    public HTMLConstruct(javax.swing.text.Document doc, String text,HTMLConstruct parent){
+        super(text,false);
+    }
+    
+    public Vector<HTMLComposite> getChildren(){
+        return this.children;
+    }
+    /*public void setNewParent(HTMLConstruct newChild){
+        this.theParent = this;
+    }*/
        
-    public Tag getTag(Tag tag);
+    /*public ArrayList<HTMLConstruct> getChildren();
     
-    public HTMLDocument getDoc();    
+    public Tag getTag();
     
+    public HTMLDocument getDoc(); 
+    
+   public boolean hasChildren();
+   
+   public void add(HTML.Tag tag);
+   
+   public void add(String content);
+    */
 }
 
