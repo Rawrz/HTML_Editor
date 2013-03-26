@@ -99,5 +99,8 @@ public class Document {
 	public boolean getSaved() {
 		return isSaved;
 	}
+	public String getName() {
+		return file.getName();
+	}
 
 }

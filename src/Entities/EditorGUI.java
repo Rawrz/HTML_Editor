@@ -4,16 +4,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 import Commands.*;
 
-public class EditorGUI extends JFrame{
+public class EditorGUI extends JFrame implements Observer {
 	
 	private HTML_Editor editor;
 	private EditorMenu editorMenu;
+	private ArrayList<Document> openDocs = new ArrayList<Document>();
+	
+	
 	private JPanel menuPanel = new JPanel(new GridLayout(1, 4));
 	private JTabbedPane docsPanel = new JTabbedPane();
 	private JPanel bottomPanel = new JPanel();
@@ -26,6 +32,7 @@ public class EditorGUI extends JFrame{
 	
 	public EditorGUI(HTML_Editor htmlEditor){
 		editor = htmlEditor;
+		editor.addObserver(this);
 		editorMenu = createEditorMenu();
 		EditorMenuListener editMenuListener = new EditorMenuListener();
 		BorderLayout thisLayout = new BorderLayout();
@@ -39,6 +46,8 @@ public class EditorGUI extends JFrame{
 		//Add Listeners
 		newDocBtn.addActionListener(editMenuListener);
 		openDocBtn.addActionListener(editMenuListener);
+		closeDocBtn.addActionListener(editMenuListener);
+		terminateBtn.addActionListener(editMenuListener);
 		
 		menuPanel.add(newDocBtn);
 		menuPanel.add(openDocBtn);
@@ -66,14 +75,6 @@ public class EditorGUI extends JFrame{
 		TerminateCommand terminate = new TerminateCommand(editor);
 		EditorMenu editorMenu = new EditorMenu(newFile,open,close,terminate);
 		return editorMenu;
-	}
-	
-	private void newDocumentGUI(File fileParam) {
-		Document newDoc = editor.newDocument(fileParam);
-		docsPanel.add(new DocumentGUI(newDoc));
-		revalidate();
-		repaint();
-		pack();
 	}
 	
 	private class EditorMenuListener implements ActionListener{
@@ -114,8 +115,13 @@ public class EditorGUI extends JFrame{
 		        int returnValue = fileChooser.showOpenDialog(null);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
 		          File selectedFile = fileChooser.getSelectedFile();
+		          editorMenu.open(selectedFile);
 		        }
 			} else if(action == "Close Doc"){
+				Integer index = docsPanel.getSelectedIndex();
+				if (index != -1){
+					editorMenu.close(index);
+				}
 				
 			}
 		}
@@ -127,7 +133,8 @@ public class EditorGUI extends JFrame{
 				if (action == "Accept") {
 					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
 						String newDocName = newDocField.getText() + ".html";
-						EditorGUI.this.newDocumentGUI(new File(newDocName));
+						File newFile = new File(newDocName);
+						editorMenu.newFile(newFile);
 						newDocGUI.dispose();
 					}
 				}
@@ -148,8 +155,32 @@ public class EditorGUI extends JFrame{
 
 		@Override
 		public String getDescription() {
-			return ".html limiter";
+			return ".html";
 		}
 		
+	}
+
+	@Override
+	public void update(Observable obs, Object arg1) {
+		updateDocs(editor.getDocs(), (Integer)arg1);		
+	}
+	
+	private void updateDocs(ArrayList<Document> docs, Integer change){
+		Integer arraySize = docs.size();
+		if(arraySize > openDocs.size()){
+			Document newDoc = docs.get(change);
+			openDocs.add(newDoc);
+			DocumentGUI newDocGUI = new DocumentGUI(newDoc);
+			docsPanel.add(newDoc.getName(),newDocGUI);
+			revalidate();
+			repaint();
+			pack();
+		} else if (arraySize < openDocs.size()){
+			openDocs.remove(change);
+			docsPanel.remove(change);
+			revalidate();
+			repaint();
+			pack();
+		}
 	}
 }

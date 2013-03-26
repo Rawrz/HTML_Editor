@@ -11,16 +11,16 @@ public class EditorMenu {
 		terminateCommand = terminate;
 	}
 	
-	public void newFile(){
-		newCommand.execute();
+	public void newFile(File htmlFile){
+		newCommand.execute(htmlFile);
 	}
 	
 	public void open(File htmlFile){
 		openCommand.execute(htmlFile);
 	}
 	
-	public void close(){
-		closeCommand.execute();
+	public void close(Integer closeIndex){
+		closeCommand.execute(closeIndex);
 	}
 	
 	public void terminate(){

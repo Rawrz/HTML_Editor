@@ -12,15 +12,11 @@ public class CloseCommand implements Menu_Option{
 		htmlEditor = editor;
 	}
 	@Override
-	public void execute() {
-		//TODO: Put real document int in here
-		int i = 0;
-		htmlEditor.closeDocument(i);
-	}
+	public void execute() {}
+	
     @Override
     public void execute(Object obj) {
-        // TODO Auto-generated method stub
-        
+        htmlEditor.closeDocument((Integer)obj);
     }
 
 }
