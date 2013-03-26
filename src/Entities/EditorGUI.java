@@ -37,6 +37,7 @@ public class EditorGUI extends JFrame{
 		fileChooser.setFileFilter(htmlFilter);
 		
 		//Add Listeners
+		newDocBtn.addActionListener(editMenuListener);
 		openDocBtn.addActionListener(editMenuListener);
 		
 		menuPanel.add(newDocBtn);
@@ -44,7 +45,6 @@ public class EditorGUI extends JFrame{
 		menuPanel.add(closeDocBtn);
 		menuPanel.add(terminateBtn);
 		add(menuPanel, thisLayout.NORTH);
-		
 		
 		add(docsPanel, thisLayout.CENTER);
 		
@@ -68,11 +68,44 @@ public class EditorGUI extends JFrame{
 		return editorMenu;
 	}
 	
+	private void newDocumentGUI(File fileParam) {
+		Document newDoc = editor.newDocument(fileParam);
+		docsPanel.add(new DocumentGUI(newDoc));
+		revalidate();
+		repaint();
+		pack();
+	}
+	
 	private class EditorMenuListener implements ActionListener{
+		
+		private JFrame newDocGUI;
+		private JTextField newDocField;
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if (action == "New Doc"){
+				newDocGUI = new JFrame("New Document");
+				JLabel newdocLabel = new JLabel("Document Name: ");
+				newDocField = new JTextField();
+				JLabel fileTypeLabel = new JLabel(".html");
+				JButton createNewBtn = new JButton("Accept");
+				JButton cancelBtn = new JButton("Cancel");
+				createNewBtn.addActionListener(new NewDocListener());
+				cancelBtn.addActionListener(new NewDocListener());
+				
+				newDocGUI.setLayout(new GridLayout(2, 3));
+				newDocGUI.add(newdocLabel);
+				newDocGUI.add(newDocField);
+				newDocGUI.add(fileTypeLabel);
+				newDocGUI.add(createNewBtn);
+				newDocGUI.add(new JLabel());
+				newDocGUI.add(cancelBtn);
+				
+				newDocGUI.setResizable(false);
+				newDocGUI.setLocationRelativeTo(null);
+				newDocGUI.pack();
+				newDocGUI.setVisible(true);
 				
 			} else if(action == "Open Doc"){
 				HTMLFileFilter htmlFilter = new HTMLFileFilter();
@@ -84,6 +117,23 @@ public class EditorGUI extends JFrame{
 		        }
 			} else if(action == "Close Doc"){
 				
+			}
+		}
+		
+		private class NewDocListener implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String action = e.getActionCommand();
+				if (action == "Accept") {
+					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
+						String newDocName = newDocField.getText() + ".html";
+						EditorGUI.this.newDocumentGUI(new File(newDocName));
+						newDocGUI.dispose();
+					}
+				}
+				else {
+					newDocGUI.dispose();
+				}
 			}
 		}
 		

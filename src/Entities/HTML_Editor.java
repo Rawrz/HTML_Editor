@@ -12,7 +12,7 @@ public class HTML_Editor {
 	private int currentDoc;
 	
 	public HTML_Editor(){
-		
+		docs = new ArrayList<Document>();
 	}
 	
 	public static void main(String[] args) {
@@ -20,9 +20,10 @@ public class HTML_Editor {
 		e.launch();
 	}
     
-    public void newDocument(File htmlFile) {
+    public Document newDocument(File htmlFile) {
     	Document doc = new Document(htmlFile);
     	docs.add(doc);
+    	return doc;
     }
     
     public void openDocument(File htmlFile) {

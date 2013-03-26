@@ -20,7 +20,6 @@ public class DocumentGUI extends JPanel{
 	private JPanel menuPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
 	private JPanel statePanel = new JPanel();
-	private JPanel docPanel = new JPanel();
 	private JButton saveBtn = new JButton("Save");
 	private JButton saveAsBtn = new JButton("Save As");
 	private JButton copyBtn = new JButton("Copy");
@@ -39,7 +38,6 @@ public class DocumentGUI extends JPanel{
 	private JRadioButton indentOn = new JRadioButton("On", true);
 	private JRadioButton indentOff = new JRadioButton("Off");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
-	private JTextArea docArea = new JTextArea();
 	
 	
 	public DocumentGUI(Document docParam) {
