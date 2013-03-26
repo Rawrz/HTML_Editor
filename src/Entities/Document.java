@@ -134,7 +134,7 @@ public class Document extends HTMLDocument{
 		return file.getName();
 	}
 
-	public static void main(String args[]){
+/*	public static void main(String args[]){
 	    Document doc = new Document("Test");
 	    HTMLConstruct tree = doc.getTree();
 	    JFrame f = new JFrame();
@@ -145,13 +145,17 @@ public class Document extends HTMLDocument{
 	    content.add(scrollPane, BorderLayout.CENTER);
 	    f.setSize(300, 200);
 	    f.setVisible(true);
-	    Enumeration e = tree.breadthFirstEnumeration();
+	    Enumeration e = tree.preorderEnumeration();
 	      
 	    while (e.hasMoreElements())  
 	    {  
 	        HTMLConstruct element = (HTMLConstruct) e.nextElement();  
+	        int lvl = element.getLevel();
+	        for(int i = 0; i < lvl; i++){
+	            System.out.print("  ");
+	        }
 	        System.out.println(element);
 	    }
 	    
-	}
+	}*/
 }
