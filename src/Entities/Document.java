@@ -60,7 +60,7 @@ public class Document extends HTMLDocument{
         tree.add(bod);
         bod.add(p);
         bod.add(h1);
-        HtmlText text = new HtmlText(this, "Blahblahblah",p);
+        HTMLText text = new HTMLText(this, "Blahblahblah",p);
         p.add(text);
 	}
 	

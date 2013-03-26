@@ -5,14 +5,14 @@ import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.html.HTML.Tag;
 
-public class HtmlText extends HTMLConstruct {
+public class HTMLText extends HTMLConstruct {
 
     private Tag tag;
     private Document doc;
     String text;
     HTMLConstruct parent;
     
-    public HtmlText(Document doc, String text, HTMLConstruct parent) {
+    public HTMLText(Document doc, String text, HTMLConstruct parent) {
         super(doc, text, parent);
         this.parent = parent;
         this.text = text;
