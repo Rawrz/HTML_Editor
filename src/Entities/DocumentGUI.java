@@ -1,6 +1,8 @@
 package Entities;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 import Commands.CutCommand;
 import Commands.IndentCommand;
@@ -90,8 +92,17 @@ public class DocumentGUI extends JPanel{
 		menuPanel.setLayout(new GridLayout(2, 1));
 		menuPanel.add(buttonPanel);
 		menuPanel.add(statePanel);
-		
 		add(menuPanel);
+		
+		DefaultTreeModel treeModel = new DefaultTreeModel(thisDoc.getTree());
+		JTree tree = new JTree(treeModel);
+		tree.setEditable(true);
+        tree.getSelectionModel().setSelectionMode
+                (TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.setShowsRootHandles(true);
+		JScrollPane scrollPane = new JScrollPane(tree);
+		add(scrollPane);  
+        scrollPane.setSize(300, 200);
 		setVisible(true);
 	}
 	

@@ -1,23 +1,16 @@
 package Entities;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Enumeration;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.html.HTML.Tag;
-import javax.swing.text.html.HTMLDocument;
 
 
-public class Document extends HTMLDocument{
+public class Document extends DefaultStyledDocument{
 	
 	private boolean isWrapped;
 	private boolean isIndented;
@@ -28,7 +21,9 @@ public class Document extends HTMLDocument{
 	private StringBuffer content = new StringBuffer();
 	private HTMLConstruct tree;
 	
+	
 	public Document(File htmlFile) {
+	    
 		file = htmlFile;
 		isWrapped = false;
 		isIndented = false;
@@ -62,6 +57,10 @@ public class Document extends HTMLDocument{
         bod.add(h1);
         HtmlText text = new HtmlText(this, "Blahblahblah",p);
         p.add(text);
+	}
+	
+	public void insert(Tag tag){
+	    
 	}
 	
 	public HTMLConstruct getTree(){
@@ -132,10 +131,13 @@ public class Document extends HTMLDocument{
 	}
 	public String getName() {
 		return file.getName();
+		
 	}
+	
+	
 
-/*	public static void main(String args[]){
-	    Document doc = new Document("Test");
+	public static void main(String args[]){
+	   /* Document doc = new Document("Test");
 	    HTMLConstruct tree = doc.getTree();
 	    JFrame f = new JFrame();
 	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,5 +159,6 @@ public class Document extends HTMLDocument{
 	        System.out.println(element);
 	    }
 	    
-	}*/
+	*/
+	}
 }

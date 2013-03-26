@@ -7,17 +7,13 @@ import javax.swing.text.html.HTML.Tag;
 
 public class HTMLComposite extends HTMLConstruct{
     //private Vector<HTMLConstruct> theChildren;
-    private Tag tag;
-    private Document doc;
-    HTMLConstruct parent;
+    
     //HTMLComposite theParent;
     
     public HTMLComposite(Document doc, Tag tag, HTMLConstruct parent) {
         super(doc, tag, parent);
         //this.theParent = parent;
-        this.doc = doc;
-        this.tag = tag;
-        this.parent = parent;
+        
         //this.theChildren = new Vector<HTMLConstruct>();
     }
     
@@ -27,11 +23,7 @@ public class HTMLComposite extends HTMLConstruct{
         
         return null;
     }
-    @Override
-    public Document getDocument() {
-        // TODO Auto-generated method stub
-        return this.doc;
-    }
+
     @Override
     public Element getElement(int index) {
         // TODO Auto-generated method stub
@@ -53,11 +45,7 @@ public class HTMLComposite extends HTMLConstruct{
         // TODO Auto-generated method stub
         return 0;
     }
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return tag.toString();
-    }
+    
     @Override
     public Element getParentElement() {
         // TODO Auto-generated method stub

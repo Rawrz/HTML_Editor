@@ -175,13 +175,13 @@ public class EditorGUI extends JFrame implements Observer {
 			openDocs.add(newDoc);
 			DocumentGUI newDocGUI = new DocumentGUI(newDoc);
 			docsPanel.add(newDoc.getName(),newDocGUI);
-			revalidate();
+			validate();
 			repaint();
 			pack();
 		} else if (arraySize < openDocs.size()){
 			openDocs.remove(change);
 			docsPanel.remove(change);
-			revalidate();
+			validate();
 			repaint();
 			pack();
 		}
