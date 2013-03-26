@@ -10,7 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public abstract class HTMLConstruct extends DefaultMutableTreeNode implements Element  {
     protected Document doc;
     protected HTMLConstruct parent;
-    private Tag tag;
+    protected Tag tag;
     
     public HTMLConstruct(javax.swing.text.Document doc, Tag tag,HTMLConstruct parent){
         super(tag);

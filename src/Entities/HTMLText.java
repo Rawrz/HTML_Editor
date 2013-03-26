@@ -7,17 +7,12 @@ import javax.swing.text.html.HTML.Tag;
 
 public class HTMLText extends HTMLConstruct {
 
-    private Tag tag;
-    private Document doc;
     String text;
-    HTMLConstruct parent;
+
     
     public HTMLText(Document doc, String text, HTMLConstruct parent) {
         super(doc, text, parent);
-        this.parent = parent;
         this.text = text;
-        this.doc = doc;
-        this.tag = Tag.CONTENT;
         // TODO Auto-generated constructor stub
     }
 
