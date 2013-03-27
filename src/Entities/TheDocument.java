@@ -1,6 +1,10 @@
 package Entities;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 
@@ -18,17 +22,25 @@ import javax.swing.text.html.HTML.Tag;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 
 public class TheDocument extends DefaultStyledDocument{
@@ -82,16 +94,17 @@ public class TheDocument extends DefaultStyledDocument{
         		    
         		}
     		}
-    		setXml();
-    		/*FileInputStream stream = null;
+    		
+    		FileInputStream stream = null;
     		try {
     		     stream = new FileInputStream(file);
     		  
     		    FileChannel fc = stream.getChannel();
     		    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    /* Instead of using default, pass in a decoder. */
-    		    //setXml(Charset.defaultCharset().decode(bb).toString());
-    		  /*} catch (IOException e) {
+    		    // Instead of using default, pass in a decoder. */
+    		    //System.out.print(Charset.defaultCharset().decode(bb).toString());
+    		    setXml(Charset.defaultCharset().decode(bb).toString(),"2");
+    		  } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -102,7 +115,7 @@ public class TheDocument extends DefaultStyledDocument{
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-    		  }*/
+    		  }
 
 		
 	}
@@ -188,28 +201,41 @@ public class TheDocument extends DefaultStyledDocument{
 	    return this.xml;
 	}
 	
-	public void setXml(){
-        Transformer tf;
-        try {
-            tf = TransformerFactory.newInstance().newTransformer();
-        tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tf.setOutputProperty(OutputKeys.INDENT, "yes");
-        tf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); 
-        Writer out = new StringWriter();
-        tf.transform(new DOMSource(domDoc), new StreamResult(out));
-        System.out.println(out.toString());
-        
-	    this.xml = out.toString();
-        } catch (TransformerConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+	public void setXml(String xml,String indent){
+
+	        System.out.print(xml);
+	        SAXParserFactory factory = SAXParserFactory.newInstance();
+	        factory.setNamespaceAware(false);
+	        factory.setValidating(false);
+	        
+            try {
+                XMLReader reader  = factory.newSAXParser().getXMLReader();
+	        Source xmlInput = new SAXSource(reader, new InputSource(new StringReader(xml)));
+	        StringWriter stringWriter = new StringWriter();
+	        StreamResult xmlPretty = new StreamResult(stringWriter);   
+	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+	        transformer.transform(xmlInput, xmlPretty);
+	        this.xml = xmlPretty.getWriter().toString();
+            } catch (SAXException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (TransformerConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (TransformerFactoryConfigurationError e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (TransformerException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+	    
 	}
 	
 	/*public void createQueue(Node node){
@@ -235,16 +261,8 @@ public class TheDocument extends DefaultStyledDocument{
 	public static void main(String args[]){
 	    TheDocument doc = new TheDocument("src/Entities/crap.txt");
 	    System.out.println(doc.getXml());
-	    //doc.createQueue(node);
-	    /*TreeNode tree =  new DefaultMutableTreeNode(node);
-	    JTree j = new JTree(tree);
-	    JFrame f = new JFrame();
-	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    Container content = f.getContentPane();
-	    JScrollPane scrollPane = new JScrollPane(j);
-	    content.add(scrollPane, BorderLayout.CENTER);
-	    f.setSize(300, 200);
-	    f.setVisible(true);*/
+	    //OutputStream out = n();
+	    
 	    
 
 	    
