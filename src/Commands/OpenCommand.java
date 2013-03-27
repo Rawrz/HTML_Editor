@@ -20,8 +20,8 @@ public class OpenCommand implements Menu_Option{
 
     @Override
     public void execute(Object obj) {
-    	File htmlFile = (File)obj;
-    	htmlEditor.openDocument(htmlFile);
+    	String filePath = (String)obj;
+    	htmlEditor.openDocument(filePath);
     }
 
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -135,10 +136,7 @@ public class EditorGUI extends JFrame implements Observer {
 				String action = e.getActionCommand();
 				if (action == "Accept") {
 					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
-						String newDocName = newDocField.getText() + ".html";
-						File newFile = new File(newDocName);
-						editorMenu.newFile(newFile);
-						newDocGUI.dispose();
+						String newDocName = newDocField.getText();
 					}
 				}
 				else {

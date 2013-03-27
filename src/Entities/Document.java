@@ -22,14 +22,13 @@ public class Document extends DefaultStyledDocument{
 	private HTMLConstruct tree;
 	
 	
-	public Document(File htmlFile) {
+	public Document(String htmlFilePath) {
 	    
-		file = htmlFile;
+		file = new File(htmlFilePath);
 		isWrapped = false;
 		isIndented = false;
 		isSaved = true;
-		name = htmlFile.getName();
-		filepath = htmlFile.getPath();	
+		filepath = htmlFilePath;	
 		/*
 		tree = new HTMLComposite(this,Tag.HTML,null);
         HTMLConstruct bod = new HTMLComposite(this,Tag.BODY,tree);
@@ -56,11 +55,6 @@ public class Document extends DefaultStyledDocument{
 		}
 	}
 		
-	//Test Constructor
-	public Document(String newFileName){
-	    
-	}
-	
 	public void insert(Tag tag){
 	    
 	}
