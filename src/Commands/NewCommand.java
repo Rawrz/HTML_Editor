@@ -1,9 +1,5 @@
 package Commands;
 
-import java.io.File;
-
-import javax.swing.text.html.HTML.Tag;
-
 import Entities.HTML_Editor;
 import Entities.Menu_Option;
 

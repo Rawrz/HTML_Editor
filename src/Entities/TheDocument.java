@@ -24,25 +24,26 @@ public class TheDocument extends DefaultStyledDocument{
 	private String name;
 	private File file;
 	private String filepath;
-	private StringBuffer content = new StringBuffer();
 	private Document domDoc;
 	private Node tree;
     
 	
 	
-	public TheDocument(File htmlFile) {
+	public TheDocument(String htmlFile) {
 	    
-		file = htmlFile;
+		file = new File(htmlFile);
 		isWrapped = false;
 		isIndented = false;
 		isSaved = true;
-		name = htmlFile.getName();
-		filepath = htmlFile.getPath();
+		name = file.getName();
+		filepath = htmlFile;
 		//Testing stream
 		try{
     		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
     		DocumentBuilder builder = fact.newDocumentBuilder();
-    		domDoc = builder.parse(name);
+    		System.out.println(file.exists());
+    		domDoc = builder.parse(file);
+    		//System.out.print("CRAP");
     		tree = domDoc.getDocumentElement();
 		}catch(Exception e){
 		    System.out.println("Crap Something didn't bode well.");
@@ -50,10 +51,6 @@ public class TheDocument extends DefaultStyledDocument{
 		
 	}
 		
-	//Test Constructor
-	public TheDocument(String newFileName){
-	    
-	}
 	
 	public void insert(Tag tag){
 	    
@@ -127,9 +124,14 @@ public class TheDocument extends DefaultStyledDocument{
 		
 	}
 	
+	public Node getNode(){
+	   return this.tree;
+	}
+	
 	
 
 	public static void main(String args[]){
-
+	    //TheDocument doc = new TheDocument("src/Entities/herp.txt");
+	    
 	}
 }

@@ -95,10 +95,7 @@ public class DocumentGUI extends JPanel{
 		menuPanel.add(buttonPanel);
 		menuPanel.add(statePanel);
 		add(menuPanel);
-		
-		
- 
-        
+		   
 	}
 	
 	private DocumentMenu createDocumentMenu(TheDocument theDocument){
