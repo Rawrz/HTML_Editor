@@ -19,23 +19,13 @@ public class HTML_Editor extends Observable{
 		HTML_Editor e = new HTML_Editor();
 		e.launch();
 	}
-    
-
-    public void newDocument(File htmlFile) {
-    	TheDocument newDoc = new TheDocument(htmlFile);
-    }
 
     public void newDocument(String htmlFilePath) {
     	TheDocument newDoc = new TheDocument(htmlFilePath);
-
     	docs.add(newDoc);
     	Integer location = new Integer(docs.size() -1); 
     	setChanged();
     	notifyObservers(location);
-    }
-    
-    public void openDocument(File htmlFile) {
-    	TheDocument openedDoc = new TheDocument(htmlFile);
     }
 
     public void openDocument(String htmlFilePath) {
