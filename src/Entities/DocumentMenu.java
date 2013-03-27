@@ -32,6 +32,12 @@ public class DocumentMenu {
 	public void saveNew(){
 		saveNewCommand.execute();
 	}
+	public void toggleWrap(){
+		toggleWrapCommand.execute();
+	}
+	public void toggleIndent(){
+		toggleIndentCommand.execute();
+	}
 	
 }
 

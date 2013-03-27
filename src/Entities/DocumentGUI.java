@@ -40,8 +40,8 @@ public class DocumentGUI extends JPanel{
 	private JButton insertTableBtn = new JButton("Insert Table");
 	private JPanel wordWrapPanel = new JPanel(new GridLayout(1, 3));
 	private JPanel indentPanel = new JPanel(new GridLayout(1, 3));
-	private JRadioButton wordWrapOn = new JRadioButton("On", true);
-	private JRadioButton wordWrapOff = new JRadioButton("Off");
+	private JRadioButton wordWrapOn = new JRadioButton("On ", true);
+	private JRadioButton wordWrapOff = new JRadioButton("Off ");
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
 	private JRadioButton indentOn = new JRadioButton("On", true);
 	private JRadioButton indentOff = new JRadioButton("Off");
@@ -131,6 +131,14 @@ public class DocumentGUI extends JPanel{
 				docMenu.cut();
 			} else if(action == "Paste"){
 				docMenu.paste();
+			} else if (action == "On "){
+				docMenu.toggleWrap();
+			} else if (action == "Off "){
+				docMenu.toggleWrap();
+			} else if (action == "On"){
+				docMenu.toggleIndent();
+			} else if (action == "Off"){
+				docMenu.toggleIndent();
 			}
 		}		
 	}
