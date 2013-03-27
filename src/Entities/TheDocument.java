@@ -1,8 +1,10 @@
 package Entities;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -72,6 +74,10 @@ public class TheDocument extends DefaultStyledDocument{
     		if(!file.exists()){
                 try {
                     file.createNewFile();
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write("<html> \n </html>");
+                    bw.close();
                     DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = fact.newDocumentBuilder();
                     //System.out.println(file.exists());
@@ -211,22 +217,20 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public void setXml(String xml,String indent){
-	        System.out.print("blah");
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
-	        factory.setValidating(false);
-	        	        
+	        factory.setValidating(false);	        
             try {
                 XMLReader reader  = factory.newSAXParser().getXMLReader();
-	        Source input = new SAXSource(reader, new InputSource(new StringReader(xml)));
-	        StringWriter stringWriter = new StringWriter();
-	        StreamResult format = new StreamResult(stringWriter);   
-	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
-	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-	        transformer.transform(input, format);
-	        this.xml = format.getWriter().toString();
+    	        Source input = new SAXSource(reader, new InputSource(new StringReader(xml)));
+    	        StringWriter stringWriter = new StringWriter();
+    	        StreamResult format = new StreamResult(stringWriter);   
+    	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+    	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
+    	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+    	        transformer.transform(input, format);
+    	        this.xml = format.getWriter().toString();
             } catch (SAXException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
