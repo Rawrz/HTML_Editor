@@ -194,12 +194,14 @@ public class EditorGUI extends JFrame implements Observer {
 			validate();
 			repaint();
 			pack();
+			setLocationRelativeTo(null);
 		} else if (arraySize < openDocs.size()){
 			openDocs.remove(change);
 			docsPanel.remove(change);
 			validate();
 			repaint();
 			pack();
+			setLocationRelativeTo(null);
 		}
 	}
 }

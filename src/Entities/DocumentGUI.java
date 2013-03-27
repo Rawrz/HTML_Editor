@@ -24,22 +24,14 @@ public class DocumentGUI extends JPanel{
 	private TheDocument thisDoc;
 	private DocumentMenu docMenu;
 	
-	private JPanel menuPanel = new JPanel();
-	private JPanel buttonPanel = new JPanel();
-	private JPanel statePanel = new JPanel();
-	private JPanel treePanel = new JPanel();
-	private JButton saveBtn = new JButton("Save");
-	private JButton saveAsBtn = new JButton("Save As");
-	private JButton copyBtn = new JButton("Copy");
-	private JButton cutBtn = new JButton("Cut");
-	private JButton pasteBtn = new JButton("Paste");
+	private JPanel menuPanel,treePanel,insertPanel,docMenuPanel; 
+	private JPanel indentPanel,wordWrapPanel;
+	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn;
 	private JButton insertBoldBtn = new JButton("Insert Bold");
 	private JButton insertItalicsBtn = new JButton("Insert Italics");
 	private JButton insertHeaderBtn = new JButton("Insert Header");
 	private JButton insertListBtn = new JButton("Insert List");
 	private JButton insertTableBtn = new JButton("Insert Table");
-	private JPanel wordWrapPanel = new JPanel(new GridLayout(1, 3));
-	private JPanel indentPanel = new JPanel(new GridLayout(1, 3));
 	private JRadioButton wordWrapOn = new JRadioButton("On ", true);
 	private JRadioButton wordWrapOff = new JRadioButton("Off ");
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
@@ -55,52 +47,81 @@ public class DocumentGUI extends JPanel{
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
 		this.setLayout(new BorderLayout());
 		
+		//Create Panels
+		menuPanel = new JPanel();
+		treePanel = new JPanel();
+		insertPanel = new JPanel(new BorderLayout());
+		indentPanel = new JPanel(new GridLayout(1,3));
+		wordWrapPanel = new JPanel(new GridLayout(1, 3));
+		docMenuPanel = new JPanel(new GridLayout(2,1));
+		
+		
+		//Create Buttons
+		saveBtn = new JButton("Save");
+		saveAsBtn = new JButton("Save As");
+		cutBtn = new JButton("Cut");
+		pasteBtn = new JButton("Paste");
+		
+		
 		//Add Listeners
 		saveBtn.addActionListener(docMenuListener);
 		saveAsBtn.addActionListener(docMenuListener);
-		copyBtn.addActionListener(docMenuListener);
 		cutBtn.addActionListener(docMenuListener);
 		pasteBtn.addActionListener(docMenuListener);
 		indentOn.addActionListener(docMenuListener);
 		indentOff.addActionListener(docMenuListener);
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
-
-		buttonPanel.setLayout(new GridLayout(2, 5));
-		buttonPanel.add(saveBtn);
-		buttonPanel.add(saveAsBtn);
-		buttonPanel.add(copyBtn);
-		buttonPanel.add(cutBtn);
-		buttonPanel.add(pasteBtn);
-		buttonPanel.add(insertBoldBtn);
-		buttonPanel.add(insertItalicsBtn);
-		buttonPanel.add(insertHeaderBtn);
-		buttonPanel.add(insertListBtn);
-		buttonPanel.add(insertTableBtn);
 		
-		ButtonGroup wordWrapGroup = new ButtonGroup();
-		wordWrapGroup.add(wordWrapOn);
-		wordWrapGroup.add(wordWrapOff);
+		//Define WordWrapPanel
+		
 		wordWrapPanel.add(wordWrapLabel);
 		wordWrapPanel.add(wordWrapOn);
 		wordWrapPanel.add(wordWrapOff);
-		statePanel.add(wordWrapPanel);
+		ButtonGroup wordWrapGroup = new ButtonGroup();
+		wordWrapGroup.add(wordWrapOn);
+		wordWrapGroup.add(wordWrapOff);
 		
-		ButtonGroup indentGroup = new ButtonGroup();
-		indentGroup.add(indentOn);
-		indentGroup.add(indentOff);
+		//Define IndentWrapPanel
+		
 		indentPanel.add(indentLabel);
 		indentPanel.add(indentOn);
 		indentPanel.add(indentOff);
-		statePanel.add(indentPanel);
+		ButtonGroup indentGroup = new ButtonGroup();
+		indentGroup.add(indentOn);
+		indentGroup.add(indentOff);
 		
-		menuPanel.setLayout(new GridLayout(2, 1));
-		menuPanel.add(buttonPanel);
-		menuPanel.add(statePanel);
-		add(menuPanel,BorderLayout.NORTH);
+		//Define MenuPanel
+		menuPanel.setLayout(new GridLayout(1,6));
+		menuPanel.add(saveBtn);
+		menuPanel.add(saveAsBtn);
+		menuPanel.add(cutBtn);
+		menuPanel.add(pasteBtn);
+		menuPanel.add(indentPanel);
+		menuPanel.add(wordWrapPanel);
 		
+		//Define Insert Panel
+		JLabel insertLabel = new JLabel("Insert");
+		JPanel insertButtons = new JPanel(new GridLayout(1,5));
+		insertButtons.add(insertBoldBtn);
+		insertButtons.add(insertBoldBtn);
+		insertButtons.add(insertItalicsBtn);
+		insertButtons.add(insertHeaderBtn);
+		insertButtons.add(insertListBtn);
+		insertButtons.add(insertTableBtn);
+		insertPanel.add(insertLabel,BorderLayout.NORTH);
+		insertPanel.add(insertButtons,BorderLayout.SOUTH);		
+		
+		//Define docMenuPanel
+		docMenuPanel.add(menuPanel);
+		docMenuPanel.add(insertPanel);
+		
+		//Setup Main Panel
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setPreferredSize(new Dimension(200,400));
 		JScrollPane textPane = new JScrollPane(textArea);
+		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);		
 		   
 	}
