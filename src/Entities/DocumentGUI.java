@@ -51,7 +51,8 @@ public class DocumentGUI extends JPanel{
 		docMenu = createDocumentMenu(thisDoc);
 		
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
-		this.setLayout(getLayout());
+		this.setLayout(new BorderLayout());
+		
 		//Add Listeners
 		saveBtn.addActionListener(docMenuListener);
 		saveAsBtn.addActionListener(docMenuListener);
@@ -94,7 +95,11 @@ public class DocumentGUI extends JPanel{
 		menuPanel.setLayout(new GridLayout(2, 1));
 		menuPanel.add(buttonPanel);
 		menuPanel.add(statePanel);
-		add(menuPanel);
+		add(menuPanel,BorderLayout.NORTH);
+		
+		JTextArea textArea = new JTextArea();
+		JScrollPane textPane = new JScrollPane(textArea);
+		add(textPane,BorderLayout.CENTER);		
 		   
 	}
 	
@@ -114,15 +119,14 @@ public class DocumentGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if(action == "Save"){
-				
+				docMenu.save();
 			} else if(action == "SaveAs"){
-				
+				docMenu.saveNew();
 			} else if(action == "Copy"){
-				
 			} else if(action == "Cut"){
-				
+				docMenu.cut();
 			} else if(action == "Paste"){
-				
+				docMenu.paste();
 			}
 		}		
 	}

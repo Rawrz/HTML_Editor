@@ -87,6 +87,7 @@ public class EditorGUI extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if (action == "New Doc"){
+				/*
 				newDocGUI = new JFrame("New Document");
 				JLabel newdocLabel = new JLabel("Document Name: ");
 				newDocField = new JTextField();
@@ -108,6 +109,44 @@ public class EditorGUI extends JFrame implements Observer {
 				newDocGUI.setLocationRelativeTo(null);
 				newDocGUI.pack();
 				newDocGUI.setVisible(true);
+				*/
+				fileChooser = new JFileChooser();
+				fileChooser.setApproveButtonText("Create New");
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				fileChooser.setFileFilter(new FileFilter(){
+					@Override
+					public boolean accept(File f) {
+						return f.isDirectory();
+					}
+					@Override
+					public String getDescription() {
+						return "HTML File Location";
+					}
+					
+				});
+		        int returnValue = fileChooser.showDialog(null,"Choose New File Location");
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		          File selectedFile = fileChooser.getSelectedFile();
+		          newDocGUI = new JFrame(selectedFile.getPath());
+		          JLabel newdocLabel = new JLabel("Document Name: ");
+		          JButton createNewBtn = new JButton("Accept");
+		          JButton cancelBtn = new JButton("Cancel");
+		          JLabel fileTypeLabel = new JLabel(".html");
+		          newDocField = new JTextField();
+		          newDocGUI.setLayout(new GridLayout(1,5));
+		          newDocGUI.add(newdocLabel);
+		          newDocGUI.add(newDocField);
+		          newDocGUI.add(fileTypeLabel);
+		          newDocGUI.add(createNewBtn);
+		          newDocGUI.add(cancelBtn);
+		          createNewBtn.addActionListener(new NewDocListener());
+		          cancelBtn.addActionListener(new NewDocListener());
+		          newDocGUI.setResizable(false);
+		          newDocGUI.setLocationRelativeTo(null);
+		          newDocGUI.pack();
+		          newDocGUI.setVisible(true);
+		        }
+		        
 				
 			} else if(action == "Open Doc"){
 				HTMLFileFilter htmlFilter = new HTMLFileFilter();
@@ -136,8 +175,9 @@ public class EditorGUI extends JFrame implements Observer {
 				String action = e.getActionCommand();
 				if (action == "Accept") {
 					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
-						String newDocName = System.getProperty("user.dir") + "\\" + newDocField.getText() +".html";
+						String newDocName = newDocGUI.getTitle() + "\\" + newDocField.getText() +".html";
 						editorMenu.newFile(newDocName);
+						newDocGUI.dispose();
 					}
 				}
 				else {
