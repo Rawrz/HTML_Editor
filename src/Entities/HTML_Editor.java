@@ -8,11 +8,11 @@ import java.util.*;
 
 public class HTML_Editor extends Observable{
 	
-	private ArrayList<Document> docs;
+	private ArrayList<TheDocument> docs;
 	private int currentDoc;
 	
 	public HTML_Editor(){
-		docs = new ArrayList<Document>();
+		docs = new ArrayList<TheDocument>();
 	}
 	
 	public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class HTML_Editor extends Observable{
 	}
     
     public void newDocument(File htmlFile) {
-    	Document newDoc = new Document(htmlFile);
+    	TheDocument newDoc = new TheDocument(htmlFile);
     	docs.add(newDoc);
     	Integer location = new Integer(docs.size() -1); 
     	setChanged();
@@ -29,7 +29,7 @@ public class HTML_Editor extends Observable{
     }
     
     public void openDocument(File htmlFile) {
-    	Document openedDoc = new Document(htmlFile);
+    	TheDocument openedDoc = new TheDocument(htmlFile);
     	docs.add(openedDoc);
     	Integer location = new Integer(docs.size()-1);
     	setChanged();
@@ -53,7 +53,7 @@ public class HTML_Editor extends Observable{
     	new EditorGUI(this);
     }
     
-    public ArrayList<Document> getDocs(){
+    public ArrayList<TheDocument> getDocs(){
     	return docs;
     }
     

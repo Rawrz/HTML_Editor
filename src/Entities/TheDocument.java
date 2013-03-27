@@ -1,0 +1,135 @@
+package Entities;
+
+import java.io.BufferedReader;
+import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.html.HTML.Tag;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+
+public class TheDocument extends DefaultStyledDocument{
+	
+	private boolean isWrapped;
+	private boolean isIndented;
+	private boolean isSaved;
+	private String name;
+	private File file;
+	private String filepath;
+	private StringBuffer content = new StringBuffer();
+	private Document domDoc;
+	private Node tree;
+    
+	
+	
+	public TheDocument(File htmlFile) {
+	    
+		file = htmlFile;
+		isWrapped = false;
+		isIndented = false;
+		isSaved = true;
+		name = htmlFile.getName();
+		filepath = htmlFile.getPath();
+		//Testing stream
+		try{
+    		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+    		DocumentBuilder builder = fact.newDocumentBuilder();
+    		domDoc = builder.parse(name);
+    		tree = domDoc.getDocumentElement();
+		}catch(Exception e){
+		    System.out.println("Crap Something didn't bode well.");
+		}
+		
+	}
+		
+	//Test Constructor
+	public TheDocument(String newFileName){
+	    
+	}
+	
+	public void insert(Tag tag){
+	    
+	}
+	
+
+
+	public void cut() {
+		
+		
+	}
+
+	
+	public void paste() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void save() {
+		if (isSaved) {
+			return;
+		}
+		else {
+			//To Add
+		}
+	}
+
+	
+	public void saveAs() {
+		save();
+		
+	}
+
+	
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void indent() {
+		if (isIndented) {
+			//To Add
+		}
+		else {
+			return;
+		}
+	}
+	
+	public void changeWrap(boolean wrapParam) {
+		isWrapped = wrapParam;
+	}
+	
+	public void changeIndent(boolean indentParam) {
+		isIndented = indentParam;
+	}
+	
+	public boolean getWrap() {
+		return isWrapped;
+	}
+	
+	public boolean getIndent() {
+		return isIndented;
+	}
+	
+	public boolean getSaved() {
+		return isSaved;
+	}
+	public String getName() {
+		return file.getName();
+		
+	}
+	
+	
+
+	public static void main(String args[]){
+
+	}
+}

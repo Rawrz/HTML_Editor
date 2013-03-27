@@ -2,13 +2,13 @@ package Commands;
 
 import javax.swing.text.html.HTML.Tag;
 
-import Entities.Document;
+import Entities.TheDocument;
 import Entities.Menu_Option;
 
 public class SaveAsCommand implements Menu_Option{
-	private Document doc;
-	public SaveAsCommand(Document document){
-		doc = document;
+	private TheDocument doc;
+	public SaveAsCommand(TheDocument theDocument){
+		doc = theDocument;
 	}
 
 	@Override

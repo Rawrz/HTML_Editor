@@ -2,14 +2,14 @@ package Commands;
 
 import javax.swing.text.html.HTML.Tag;
 
-import Entities.Document;
+import Entities.TheDocument;
 import Entities.Menu_Option;
 
 public class IndentCommand implements Menu_Option{
-	private Document doc;
+	private TheDocument doc;
 	
-	public IndentCommand(Document document){
-		doc = document;
+	public IndentCommand(TheDocument theDocument){
+		doc = theDocument;
 	}
 
 	@Override

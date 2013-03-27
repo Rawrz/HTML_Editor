@@ -2,15 +2,15 @@ package Commands;
 
 import javax.swing.text.html.HTML.Tag;
 
-import Entities.Document;
+import Entities.TheDocument;
 import Entities.Menu_Option;
 
 public class PasteCommand implements Menu_Option{
 	
-	private Document doc;
+	private TheDocument doc;
 	
-	public PasteCommand(Document document){
-		doc = document;
+	public PasteCommand(TheDocument theDocument){
+		doc = theDocument;
 	}
 	@Override
 	public void execute() {

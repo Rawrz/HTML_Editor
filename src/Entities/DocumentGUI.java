@@ -19,7 +19,7 @@ import java.util.Enumeration;
 
 public class DocumentGUI extends JPanel{
 	
-	private Document thisDoc;
+	private TheDocument thisDoc;
 	private DocumentMenu docMenu;
 	
 	private JPanel menuPanel = new JPanel();
@@ -46,7 +46,7 @@ public class DocumentGUI extends JPanel{
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
 	
 	
-	public DocumentGUI(Document docParam) {		
+	public DocumentGUI(TheDocument docParam) {		
 		thisDoc = docParam;
 		docMenu = createDocumentMenu(thisDoc);
 		
@@ -97,29 +97,17 @@ public class DocumentGUI extends JPanel{
 		add(menuPanel);
 		
 		
-		//Document doc = new Document("Test");
-		HTMLConstruct tree = thisDoc.getTree();
-        DefaultTreeModel treeModel = new DefaultTreeModel(tree);
-        JTree j = new JTree(treeModel);
-        j.setEditable(true);
-        j.getSelectionModel().setSelectionMode
-                (TreeSelectionModel.SINGLE_TREE_SELECTION);
-        j.setShowsRootHandles(true);
-        j.setSize(500,500);
-        treePanel.add(j);
-        add(treePanel);
-        
  
         
 	}
 	
-	private DocumentMenu createDocumentMenu(Document document){
-		CutCommand cut = new CutCommand(document);
-		PasteCommand paste = new PasteCommand(document);
-		InsertCommand insert = new InsertCommand(document);
-		IndentCommand indent = new IndentCommand(document);
-		SaveCommand save = new SaveCommand(document);
-		SaveAsCommand saveAs = new SaveAsCommand(document);
+	private DocumentMenu createDocumentMenu(TheDocument theDocument){
+		CutCommand cut = new CutCommand(theDocument);
+		PasteCommand paste = new PasteCommand(theDocument);
+		InsertCommand insert = new InsertCommand(theDocument);
+		IndentCommand indent = new IndentCommand(theDocument);
+		SaveCommand save = new SaveCommand(theDocument);
+		SaveAsCommand saveAs = new SaveAsCommand(theDocument);
 		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs);
 		return docMenu;
 	}

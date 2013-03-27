@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,7 +18,7 @@ public class EditorGUI extends JFrame implements Observer {
 	
 	private HTML_Editor editor;
 	private EditorMenu editorMenu;
-	private ArrayList<Document> openDocs = new ArrayList<Document>();
+	private ArrayList<TheDocument> openDocs = new ArrayList<TheDocument>();
 	
 	
 	private JPanel menuPanel = new JPanel(new GridLayout(1, 4));
@@ -135,10 +136,7 @@ public class EditorGUI extends JFrame implements Observer {
 				String action = e.getActionCommand();
 				if (action == "Accept") {
 					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
-						String newDocName = newDocField.getText() + ".html";
-						File newFile = new File(newDocName);
-						editorMenu.newFile(newFile);
-						newDocGUI.dispose();
+						String newDocName = newDocField.getText();
 					}
 				}
 				else {
@@ -168,10 +166,10 @@ public class EditorGUI extends JFrame implements Observer {
 		updateDocs(editor.getDocs(), (Integer)arg1);		
 	}
 	
-	private void updateDocs(ArrayList<Document> docs, Integer change){
+	private void updateDocs(ArrayList<TheDocument> docs, Integer change){
 		Integer arraySize = docs.size();
 		if(arraySize > openDocs.size()){
-			Document newDoc = docs.get(change);
+			TheDocument newDoc = docs.get(change);
 			openDocs.add(newDoc);
 			DocumentGUI newDocGUI = new DocumentGUI(newDoc);
 			docsPanel.add(newDoc.getName(),newDocGUI);
