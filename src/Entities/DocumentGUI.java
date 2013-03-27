@@ -137,7 +137,6 @@ public class DocumentGUI extends JPanel{
 		textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
-		textArea.setPreferredSize(new Dimension(200,400));
 		JScrollPane textPane = new JScrollPane(textArea);
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);	
@@ -211,12 +210,29 @@ public class DocumentGUI extends JPanel{
 			InsertButton inB = (InsertButton)e.getSource();
 			String insertTag = inB.getHtmlTag();
 			String action = e.getActionCommand();
+			int pos = textArea.getCaretPosition();
 			if ((action.equals("<b> Bold </b>")) || (action.equals("<i> Italic </i>")) || (action.equals("<h1> Header </h1>"))) {
 				docMenu.insert();
-				int pos = textArea.getCaretPosition();
 				textArea.insert(inB.getName() + "\n", pos);
 			}
-			
+			else if (action.equals("Insert Table")) {
+				textArea.insert("\n\t</table>\n", pos);
+				for (int i=0;i<3;i++) {
+					textArea.insert("\n\t\t</tr>", pos);
+					for (int j=0;j<3;j++) {
+						textArea.insert("\n\t\t\t<td></td>", pos);
+					}
+					textArea.insert("\n\t\t<tr>", pos);
+				}
+				textArea.insert("\n\t<table>", pos);
+			}
+			else if (action.equals("Insert List")) {
+				textArea.insert("\n\t</ul>\n\n", pos);
+				for (int i=0;i<5;i++) {
+					textArea.insert("\n\t\t<li></li>", pos);
+				}
+				textArea.insert("\n\t<ul>", pos);
+			}
 		}
 		
 	}
