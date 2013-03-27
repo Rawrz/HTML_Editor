@@ -138,8 +138,7 @@ public class TheDocument extends DefaultStyledDocument{
 		return isSaved;
 	}
 	public String getName() {
-		return file.getName();
-		
+		return file.getName();	
 	}
 	
 	public Node getNode(){
