@@ -169,12 +169,20 @@ public class TheDocument extends DefaultStyledDocument{
 		}
 	}
 	
-	public void changeWrap(boolean wrapParam) {
-		isWrapped = wrapParam;
+	public void toggleWrap() {
+		if (isWrapped == true){
+			isWrapped = false;
+		}else{
+			isWrapped = true;
+		}
 	}
 	
-	public void changeIndent(boolean indentParam) {
-		isIndented = indentParam;
+	public void toggleIndent() {
+		if (isIndented == true){
+			isIndented = false;
+		}else{
+			isIndented = true;
+		}
 	}
 	
 	public boolean getWrap() {

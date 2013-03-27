@@ -13,10 +13,10 @@ public class ToggleWrapCommand implements Menu_Option {
 	
 	@Override
 	public void execute() {
+		doc.toggleWrap();
 	}
 
 	@Override
-	public void execute(Object obj) {
-	}
+	public void execute(Object obj) {}
 
 }

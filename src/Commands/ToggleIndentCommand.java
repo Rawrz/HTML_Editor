@@ -11,14 +11,10 @@ public class ToggleIndentCommand implements Menu_Option {
 	}
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		doc.toggleIndent();
 	}
 
 	@Override
-	public void execute(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
+	public void execute(Object obj) {}
 
 }
