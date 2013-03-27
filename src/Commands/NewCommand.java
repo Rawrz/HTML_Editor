@@ -18,8 +18,8 @@ public class NewCommand implements Menu_Option{
 		
     @Override
     public void execute(Object obj) {
-    	File newFile = (File)obj;
-    	htmlEditor.newDocument(newFile);
+    	String filePath = (String)obj;
+    	htmlEditor.newDocument(filePath);
     }
 
 }

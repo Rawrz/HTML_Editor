@@ -20,8 +20,14 @@ public class HTML_Editor extends Observable{
 		e.launch();
 	}
     
+
     public void newDocument(File htmlFile) {
     	TheDocument newDoc = new TheDocument(htmlFile);
+    }
+
+    public void newDocument(String htmlFilePath) {
+    	TheDocument newDoc = new TheDocument(htmlFilePath);
+
     	docs.add(newDoc);
     	Integer location = new Integer(docs.size() -1); 
     	setChanged();
@@ -30,6 +36,10 @@ public class HTML_Editor extends Observable{
     
     public void openDocument(File htmlFile) {
     	TheDocument openedDoc = new TheDocument(htmlFile);
+    }
+
+    public void openDocument(String htmlFilePath) {
+    	TheDocument openedDoc = new TheDocument(htmlFilePath);
     	docs.add(openedDoc);
     	Integer location = new Integer(docs.size()-1);
     	setChanged();
