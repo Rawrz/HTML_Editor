@@ -11,12 +11,12 @@ public class EditorMenu {
 		terminateCommand = terminate;
 	}
 	
-	public void newFile(File htmlFile){
-		newCommand.execute(htmlFile);
+	public void newFile(String htmlFilePath){
+		newCommand.execute(htmlFilePath);
 	}
 	
-	public void open(File htmlFile){
-		openCommand.execute(htmlFile);
+	public void open(String htmlFilePath){
+		openCommand.execute(htmlFilePath);
 	}
 	
 	public void close(Integer closeIndex){

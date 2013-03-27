@@ -116,7 +116,7 @@ public class EditorGUI extends JFrame implements Observer {
 		        int returnValue = fileChooser.showOpenDialog(null);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
 		          File selectedFile = fileChooser.getSelectedFile();
-		          editorMenu.open(selectedFile);
+		          editorMenu.open(selectedFile.getPath());
 		        }
 			} else if(action == "Close Doc"){
 				Integer index = docsPanel.getSelectedIndex();
@@ -136,7 +136,8 @@ public class EditorGUI extends JFrame implements Observer {
 				String action = e.getActionCommand();
 				if (action == "Accept") {
 					if ((newDocField.getText().matches("[a-zA-Z0-9]+")) && (newDocField.getText().length() > 0)) {
-						String newDocName = newDocField.getText();
+						String newDocName = System.getProperty("user.dir") + "\\" + newDocField.getText() +".html";
+						editorMenu.newFile(newDocName);
 					}
 				}
 				else {
