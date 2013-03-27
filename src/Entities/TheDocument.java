@@ -1,36 +1,34 @@
 package Entities;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.logging.XMLFormatter;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Element;
 import javax.swing.text.html.HTML.Tag;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 public class TheDocument extends DefaultStyledDocument{
@@ -69,7 +67,7 @@ public class TheDocument extends DefaultStyledDocument{
                     System.out.println("Cannot create new file.");
                 } catch (ParserConfigurationException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.out.println("Didn't Parse right");
                 }
             }
     		else{
@@ -78,22 +76,22 @@ public class TheDocument extends DefaultStyledDocument{
             		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
             		DocumentBuilder builder = fact.newDocumentBuilder();
             		//System.out.println(file.exists());
-            		domDoc = builder.parse(file);
-            		//System.out.print("CRAP");
+            		domDoc = builder.parse(file);		
             		tree = domDoc.getDocumentElement();
         		}catch(Exception e){
-        		    System.out.println("Crap Something didn't bode well.");
+        		    
         		}
     		}
-    		FileInputStream stream = null;
+    		setXml();
+    		/*FileInputStream stream = null;
     		try {
     		     stream = new FileInputStream(file);
     		  
     		    FileChannel fc = stream.getChannel();
     		    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
     		    /* Instead of using default, pass in a decoder. */
-    		    xml = Charset.defaultCharset().decode(bb).toString();
-    		  } catch (IOException e) {
+    		    //setXml(Charset.defaultCharset().decode(bb).toString());
+    		  /*} catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -104,7 +102,7 @@ public class TheDocument extends DefaultStyledDocument{
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-    		  }
+    		  }*/
 
 		
 	}
@@ -167,18 +165,18 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public boolean getWrap() {
-		return isWrapped;
+		return this.isWrapped;
 	}
 	
 	public boolean getIndent() {
-		return isIndented;
+		return this.isIndented;
 	}
 	
 	public boolean getSaved() {
-		return isSaved;
+		return this.isSaved;
 	}
 	public String getName() {
-		return file.getName();	
+		return this.file.getName();	
 	}
 	
 	public Node getNode(){
@@ -187,7 +185,31 @@ public class TheDocument extends DefaultStyledDocument{
 	
 	
 	public String getXml(){
-	    return xml;
+	    return this.xml;
+	}
+	
+	public void setXml(){
+        Transformer tf;
+        try {
+            tf = TransformerFactory.newInstance().newTransformer();
+        tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        tf.setOutputProperty(OutputKeys.INDENT, "yes");
+        tf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); 
+        Writer out = new StringWriter();
+        tf.transform(new DOMSource(domDoc), new StreamResult(out));
+        System.out.println(out.toString());
+        
+	    this.xml = out.toString();
+        } catch (TransformerConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerFactoryConfigurationError e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 	/*public void createQueue(Node node){
