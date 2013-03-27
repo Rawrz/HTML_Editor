@@ -10,6 +10,8 @@ import Commands.InsertCommand;
 import Commands.PasteCommand;
 import Commands.SaveAsCommand;
 import Commands.SaveCommand;
+import Commands.ToggleIndentCommand;
+import Commands.ToggleWrapCommand;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -110,7 +112,9 @@ public class DocumentGUI extends JPanel{
 		IndentCommand indent = new IndentCommand(theDocument);
 		SaveCommand save = new SaveCommand(theDocument);
 		SaveAsCommand saveAs = new SaveAsCommand(theDocument);
-		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs);
+		ToggleWrapCommand toggleWrap = new ToggleWrapCommand(theDocument);
+		ToggleIndentCommand toggleIndent = new ToggleIndentCommand(theDocument);
+		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs,toggleWrap,toggleIndent);
 		return docMenu;
 	}
 	

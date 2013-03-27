@@ -87,29 +87,6 @@ public class EditorGUI extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if (action == "New Doc"){
-				/*
-				newDocGUI = new JFrame("New Document");
-				JLabel newdocLabel = new JLabel("Document Name: ");
-				newDocField = new JTextField();
-				JLabel fileTypeLabel = new JLabel(".html");
-				JButton createNewBtn = new JButton("Accept");
-				JButton cancelBtn = new JButton("Cancel");
-				createNewBtn.addActionListener(new NewDocListener());
-				cancelBtn.addActionListener(new NewDocListener());
-				
-				newDocGUI.setLayout(new GridLayout(2, 3));
-				newDocGUI.add(newdocLabel);
-				newDocGUI.add(newDocField);
-				newDocGUI.add(fileTypeLabel);
-				newDocGUI.add(createNewBtn);
-				newDocGUI.add(new JLabel());
-				newDocGUI.add(cancelBtn);
-				
-				newDocGUI.setResizable(false);
-				newDocGUI.setLocationRelativeTo(null);
-				newDocGUI.pack();
-				newDocGUI.setVisible(true);
-				*/
 				fileChooser = new JFileChooser();
 				fileChooser.setApproveButtonText("Create New");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
