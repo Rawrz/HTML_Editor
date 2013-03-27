@@ -63,7 +63,7 @@ public class TheDocument extends DefaultStyledDocument{
 	    
 		    file = new File(htmlFile);
     		isWrapped = false;
-    		isIndented = false;
+    		isIndented = true;
     		isSaved = true;
     		name = file.getName();
     		filepath = htmlFile;
@@ -210,23 +210,22 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public void setXml(String xml,String indent){
-
-	        System.out.print(xml);
+	        System.out.print("blah");
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
 	        factory.setValidating(false);
-	        
+	        	        
             try {
                 XMLReader reader  = factory.newSAXParser().getXMLReader();
-	        Source xmlInput = new SAXSource(reader, new InputSource(new StringReader(xml)));
+	        Source input = new SAXSource(reader, new InputSource(new StringReader(xml)));
 	        StringWriter stringWriter = new StringWriter();
-	        StreamResult xmlPretty = new StreamResult(stringWriter);   
+	        StreamResult format = new StreamResult(stringWriter);   
 	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
 	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
 	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-	        transformer.transform(xmlInput, xmlPretty);
-	        this.xml = xmlPretty.getWriter().toString();
+	        transformer.transform(input, format);
+	        this.xml = format.getWriter().toString();
             } catch (SAXException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -267,12 +266,12 @@ public class TheDocument extends DefaultStyledDocument{
 	}*/
 
 	public static void main(String args[]){
-	    TheDocument doc = new TheDocument("src/Entities/crap.txt");
+	    /*TheDocument doc = new TheDocument("src/Entities/crap.txt");
 	    System.out.println(doc.getXml());
 	    //OutputStream out = n();
 	    
 	    
-
+*/
 	    
 	    //System.out.println(doc.getNode().getNodeName());
 	}

@@ -16,6 +16,8 @@ import Commands.ToggleWrapCommand;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Enumeration;
 
 
@@ -130,14 +132,36 @@ public class DocumentGUI extends JPanel{
 		docMenuPanel.add(insertPanel);
 		
 		//Setup Main Panel
-		JTextArea textArea = new JTextArea();
+		final JTextArea textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
 		textArea.setPreferredSize(new Dimension(200,400));
 		JScrollPane textPane = new JScrollPane(textArea);
 		add(docMenuPanel,BorderLayout.NORTH);
-		add(textPane,BorderLayout.CENTER);		
-		   
+		add(textPane,BorderLayout.CENTER);	
+		
+		KeyListener format = new KeyListener() {
+		    public void keyTyped(KeyEvent keyEvent) {
+		    }
+		    
+            @Override
+            public void keyPressed(KeyEvent arg0) {}
+            @Override
+            public void keyReleased(KeyEvent arg0) {
+              //System.out.print("lol");
+                if(thisDoc.getIndent() == false){
+                    
+                }
+                else{
+                    /*String xml = textArea.getText();
+                    thisDoc.setXml(xml, "4");
+                    textArea.setText(thisDoc.getXml());
+                    //textArea.validate();*/
+                }
+            }
+		};   
+		
+		textArea.addKeyListener(format);
 	}
 	
 	private DocumentMenu createDocumentMenu(TheDocument theDocument){
