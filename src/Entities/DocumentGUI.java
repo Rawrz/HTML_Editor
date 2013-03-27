@@ -38,6 +38,7 @@ public class DocumentGUI extends JPanel{
 		docMenu = createDocumentMenu(thisDoc);
 		
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
+		InsertListener insertListener = new InsertListener();
 		this.setLayout(new BorderLayout());
 		
 		//Create Panels
@@ -78,6 +79,12 @@ public class DocumentGUI extends JPanel{
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
 		
+		insertBoldBtn.addActionListener(insertListener);
+		insertItalicsBtn.addActionListener(insertListener);
+		insertHeaderBtn.addActionListener(insertListener);
+		insertListBtn.addActionListener(insertListener);
+		insertTableBtn.addActionListener(insertListener);
+		insertTextBtn.addActionListener(insertListener);
 		//Define WordWrapPanel
 		
 		wordWrapPanel.add(wordWrapLabel);
