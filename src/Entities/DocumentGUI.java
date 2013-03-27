@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Enumeration;
+import java.util.Observable;
+import java.util.Observer;
 
 
 public class DocumentGUI extends JPanel{
@@ -33,6 +35,7 @@ public class DocumentGUI extends JPanel{
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
+	private final JTextArea textArea;
 	
 	
 	public DocumentGUI(TheDocument docParam) {		
@@ -65,11 +68,10 @@ public class DocumentGUI extends JPanel{
 		
 		insertBoldBtn = new InsertButton("<b> Bold </b>","BOLD");
 		insertItalicsBtn = new InsertButton("<i> Italic </i>","ITALIC");
-		insertHeaderBtn = new InsertButton("Insert Header","HEADER");
+		insertHeaderBtn = new InsertButton("<h1> Header </h1>","HEADER");
 		insertListBtn = new InsertButton("Insert List","LIST");
 		insertTableBtn = new InsertButton("Insert Table","TABLE");
 		insertTextBtn = new InsertButton("Text","Tag");
-		
 		
 		//Add Listeners
 		saveBtn.addActionListener(docMenuListener);
@@ -132,7 +134,7 @@ public class DocumentGUI extends JPanel{
 		docMenuPanel.add(insertPanel);
 		
 		//Setup Main Panel
-		final JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
 		textArea.setPreferredSize(new Dimension(200,400));
@@ -208,8 +210,12 @@ public class DocumentGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			InsertButton inB = (InsertButton)e.getSource();
 			String insertTag = inB.getHtmlTag();
-			docMenu.insert();
-			
+			String action = e.getActionCommand();
+			if ((action.equals("<b> Bold </b>")) || (action.equals("<i> Italic </i>")) || (action.equals("<h1> Header </h1>"))) {
+				docMenu.insert();
+				int pos = textArea.getCaretPosition();
+				textArea.insert(inB.getName() + "\n", pos);
+			}
 			
 		}
 		
@@ -217,14 +223,19 @@ public class DocumentGUI extends JPanel{
 	
 	private class InsertButton extends JButton{
 		private String htmlTag;
-		public InsertButton(String name,String tag){
-			super(name);
+		private String name;
+		public InsertButton(String nameParam,String tag){
+			super(nameParam);
+			name = nameParam;
 			htmlTag = tag;
 		}
 		public String getHtmlTag(){
 			return htmlTag;
 		}
+		public String getName() {
+			return name;
+		}
 	}
-	
+
 	
 }

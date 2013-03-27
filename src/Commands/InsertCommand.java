@@ -12,7 +12,7 @@ public class InsertCommand implements Menu_Option{
 	}
 	@Override
 	public void execute(Object obj) {
-		
+		doc.insert((String)obj);
 	}
 
     @Override

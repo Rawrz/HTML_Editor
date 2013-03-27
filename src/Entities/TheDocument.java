@@ -15,6 +15,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
+import java.util.Observable;
 import java.util.Queue;
 import java.util.Stack;
 import javax.swing.text.DefaultStyledDocument;
@@ -121,7 +122,7 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 		
 	
-	public void insert(Tag tag){
+	public void insert(String tagName){
 	    
 	}
 	
@@ -156,7 +157,7 @@ public class TheDocument extends DefaultStyledDocument{
 
 	
 	public void close() {
-		// TODO Auto-generated method stub
+		save();
 		
 	}
 	
@@ -244,6 +245,7 @@ public class TheDocument extends DefaultStyledDocument{
             }
 	    
 	}
+
 	
 	/*public void createQueue(Node node){
 	    if(node.getNodeType() == Node.ELEMENT_NODE){
@@ -265,14 +267,5 @@ public class TheDocument extends DefaultStyledDocument{
 	    
 	}*/
 
-	public static void main(String args[]){
-	    /*TheDocument doc = new TheDocument("src/Entities/crap.txt");
-	    System.out.println(doc.getXml());
-	    //OutputStream out = n();
-	    
-	    
-*/
-	    
-	    //System.out.println(doc.getNode().getNodeName());
-	}
+
 }
