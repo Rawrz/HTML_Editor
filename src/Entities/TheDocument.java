@@ -31,23 +31,41 @@ public class TheDocument extends DefaultStyledDocument{
 	
 	public TheDocument(String htmlFile) {
 	    
-		file = new File(htmlFile);
-		isWrapped = false;
-		isIndented = false;
-		isSaved = true;
-		name = file.getName();
-		filepath = htmlFile;
-		//Testing stream
-		try{
-    		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-    		DocumentBuilder builder = fact.newDocumentBuilder();
-    		System.out.println(file.exists());
-    		domDoc = builder.parse(file);
-    		//System.out.print("CRAP");
-    		tree = domDoc.getDocumentElement();
-		}catch(Exception e){
-		    System.out.println("Crap Something didn't bode well.");
-		}
+		    file = new File(htmlFile);
+    		isWrapped = false;
+    		isIndented = false;
+    		isSaved = true;
+    		name = file.getName();
+    		filepath = htmlFile;
+    		
+    		if(!file.exists()){
+                try {
+                    file.createNewFile();
+                    DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder builder = fact.newDocumentBuilder();
+                    //System.out.println(file.exists());
+                    domDoc = builder.newDocument();
+                } catch (IOException e) {
+                    System.out.println("Cannot create new file.");
+                } catch (ParserConfigurationException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+    		else{
+    		//Testing stream
+        		try{
+            		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+            		DocumentBuilder builder = fact.newDocumentBuilder();
+            		//System.out.println(file.exists());
+            		domDoc = builder.parse(file);
+            		//System.out.print("CRAP");
+            		tree = domDoc.getDocumentElement();
+        		}catch(Exception e){
+        		    System.out.println("Crap Something didn't bode well.");
+        		}
+    		}
+
 		
 	}
 		
@@ -127,11 +145,9 @@ public class TheDocument extends DefaultStyledDocument{
 	public Node getNode(){
 	   return this.tree;
 	}
-	
-	
 
 	public static void main(String args[]){
-	    //TheDocument doc = new TheDocument("src/Entities/herp.txt");
+	    TheDocument doc = new TheDocument("src/Entities/crap.txt");
 	    
 	}
 }
