@@ -58,7 +58,7 @@ public class EditorGUI extends JFrame implements Observer {
 		
 		add(docsPanel, thisLayout.CENTER);
 		
-		bottomPanel.add(new JLabel("Copyright 2013 TKO Productions"));
+		bottomPanel.add(new JLabel(""));
 		add(bottomPanel, thisLayout.SOUTH);
 		
 		//Window Settings
