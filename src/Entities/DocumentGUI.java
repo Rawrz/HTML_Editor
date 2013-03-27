@@ -130,7 +130,7 @@ public class DocumentGUI extends JPanel{
 		docMenuPanel.add(insertPanel);
 		
 		//Setup Main Panel
-		JTextPane textArea = new JTextPane();
+		JTextArea textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
 		textArea.setPreferredSize(new Dimension(200,400));

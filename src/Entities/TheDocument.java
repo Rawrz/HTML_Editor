@@ -224,7 +224,7 @@ public class TheDocument extends DefaultStyledDocument{
 	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
 	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
-	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	        transformer.transform(xmlInput, xmlPretty);
 	        this.xml = xmlPretty.getWriter().toString();
             } catch (SAXException e) {
