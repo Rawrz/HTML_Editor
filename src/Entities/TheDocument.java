@@ -1,14 +1,10 @@
 package Entities;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 
 import java.io.FileInputStream;
 
@@ -17,11 +13,9 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
-import java.util.Observable;
 import java.util.Queue;
 import java.util.Stack;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.html.HTML.Tag;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,11 +27,8 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -217,9 +208,28 @@ public class TheDocument extends DefaultStyledDocument{
 	    return this.xml;
 	}
 	
+	public void parse(String xml){
+	    String newXml = xml.replaceAll("\\s+", " ").trim();
+        //System.out.println(xml);
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setNamespaceAware(false);
+        factory.setValidating(false);           
+        try {
+            XMLReader reader  = factory.newSAXParser().getXMLReader();
+            //reader.setContentHandler(new ParseHandler());
+            InputSource input = new InputSource(new StringReader(newXml));
+            DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = fact.newDocumentBuilder();
+            Document temp = builder.parse(input);        
+            
+        }catch(Exception e){
+            isWellFormed = false;
+        }
+	}
+	
 	public void setXml(String xml,String indent){
 	        String newXml = xml.replaceAll("\\s+", " ").trim();
-	        System.out.println(xml);
+	        //System.out.println(xml);
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
 	        factory.setValidating(false);	        
@@ -236,25 +246,25 @@ public class TheDocument extends DefaultStyledDocument{
     	        this.xml = format.getWriter().toString();
             } catch (SAXException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                     
             } catch (ParserConfigurationException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (TransformerConfigurationException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+               // e.printStackTrace();
             } catch (TransformerFactoryConfigurationError e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+               // e.printStackTrace();
             } catch (TransformerException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                
             }
-	    
+            isWellFormed = true;
 	}
 	
 	public boolean isWellFormed(){
-	    return this.isWellFormed();
+	    return this.isWellFormed;
 	}
 
 	

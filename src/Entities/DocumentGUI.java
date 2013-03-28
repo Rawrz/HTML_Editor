@@ -183,39 +183,38 @@ public class DocumentGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if(action == "Save"){
-			    thisDoc.setXml(textArea.getText(), "4");
-			    textArea.setText(thisDoc.getXml());
+			    thisDoc.parse(textArea.getText());
+			    
 			    if(thisDoc.isWellFormed() == true){
-			        docMenu.save();
+			        thisDoc.save(textArea.getText());
 			    }
 			    else{
-			        final JOptionPane optionPane = new JOptionPane(
-			                "Your document is not well formed! Save anyways?",
-			                JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION);
-			        int value = ((Integer)optionPane.getValue()).intValue();
-			        if (value == JOptionPane.YES_OPTION){
-			            docMenu.save();
+			        int dialogButton = JOptionPane.YES_NO_OPTION;
+	                int result = JOptionPane.showConfirmDialog (null, "This document is not well formed. To save anyway, click YES. For auto-fix, click NO.","Warning",dialogButton);
+
+			        if (result == JOptionPane.YES_OPTION){
+			            thisDoc.save(textArea.getText());
 			        }
 			        else{
-			            
+			            thisDoc.setXml(textArea.getText(),"4");
+			            textArea.setText(thisDoc.getXml());
 			        }
 			    }
 			} else if(action == "SaveAs"){
-			    thisDoc.setXml(textArea.getText(), "4");
-                textArea.setText(thisDoc.getXml());
+			    thisDoc.parse(textArea.getText());
                 if(thisDoc.isWellFormed() == true){
-                    docMenu.saveNew();
+                    thisDoc.save(textArea.getText());
                 }
                 else{
-                    final JOptionPane optionPane = new JOptionPane(
-                            "Your document is not well formed! Save anyways?",
-                            JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION);
-                    int value = ((Integer)optionPane.getValue()).intValue();
-                    if (value == JOptionPane.YES_OPTION){
-                        docMenu.saveNew();
+                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                    int result = JOptionPane.showConfirmDialog (null, "This document is not well formed. To save anyway, click YES. For auto-fix, click NO.","Warning",dialogButton);
+
+                    if (result == JOptionPane.YES_OPTION){
+                        thisDoc.save(textArea.getText());
                     }
                     else{
-                        
+                        thisDoc.setXml(textArea.getText(),"4");
+                        textArea.setText(thisDoc.getXml());
                     }
                 }
 			} else if(action == "Copy"){
