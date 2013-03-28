@@ -14,6 +14,11 @@ import javax.swing.filechooser.FileFilter;
 
 import Commands.*;
 
+/**
+ * GUI for the Editor
+ * @author Chris Timmons
+ *
+ */
 public class EditorGUI extends JFrame implements Observer {
 	
 	private HTML_Editor editor;
@@ -30,7 +35,10 @@ public class EditorGUI extends JFrame implements Observer {
 	private JButton terminateBtn = new JButton("Close Program");
 	private JFileChooser fileChooser;
 	
-	
+	/**
+	 * creates the GUI for the given editor
+	 * @param htmlEditor
+	 */
 	public EditorGUI(HTML_Editor htmlEditor){
 		editor = htmlEditor;
 		editor.addObserver(this);
@@ -68,7 +76,11 @@ public class EditorGUI extends JFrame implements Observer {
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-
+	
+	/**
+	 * creates a menu of editor commands
+	 * @return editorMenu
+	 */
 	private EditorMenu createEditorMenu(){
 		NewCommand newFile = new NewCommand(editor);
 		OpenCommand open = new OpenCommand(editor);
@@ -78,6 +90,11 @@ public class EditorGUI extends JFrame implements Observer {
 		return editorMenu;
 	}
 	
+	/**
+	 * class for the editor's menu buttons
+	 * @author Chris Timmons
+	 *
+	 */
 	private class EditorMenuListener implements ActionListener{
 		
 		private JFrame newDocGUI;
@@ -146,6 +163,11 @@ public class EditorGUI extends JFrame implements Observer {
 			}
 		}
 		
+		/**
+		 * listener for the newDocGUI
+		 * @author Chris Timmons
+		 *
+		 */
 		private class NewDocListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -165,6 +187,11 @@ public class EditorGUI extends JFrame implements Observer {
 		
 	}
 	
+	/**
+	 * file filter for html files
+	 * @author Chris Timmons
+	 *
+	 */
 	private class HTMLFileFilter extends FileFilter{
 
 		@Override
@@ -180,10 +207,18 @@ public class EditorGUI extends JFrame implements Observer {
 	}
 
 	@Override
+	/**
+	 * Observable update method
+	 */
 	public void update(Observable obs, Object arg1) {
 		updateDocs(editor.getDocs(), (Integer)arg1);		
 	}
 	
+	/**
+	 * updates the gUI to show the current state of the docs
+	 * @param docs
+	 * @param change
+	 */
 	private void updateDocs(ArrayList<TheDocument> docs, Integer change){
 		Integer arraySize = docs.size();
 		if(arraySize > openDocs.size()){
