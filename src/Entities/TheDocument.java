@@ -51,6 +51,7 @@ public class TheDocument extends DefaultStyledDocument{
 	private boolean isWrapped;
 	private boolean isIndented;
 	private boolean isSaved;
+	private boolean isWellFormed = true;
 	private String name;
 	private File file;
 	private String filepath;
@@ -76,7 +77,7 @@ public class TheDocument extends DefaultStyledDocument{
                     file.createNewFile();
                     FileWriter fw = new FileWriter(file.getAbsoluteFile());
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write("<html> \n </html>");
+                    bw.write("<html><body> </body></html>");
                     bw.close();
                     DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = fact.newDocumentBuilder();
@@ -86,6 +87,7 @@ public class TheDocument extends DefaultStyledDocument{
                     System.out.println("Cannot create new file.");
                 } catch (ParserConfigurationException e) {
                     // TODO Auto-generated catch block
+                    isWellFormed = false;
                     System.out.println("Didn't Parse right");
                 }
             }
@@ -217,6 +219,7 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public void setXml(String xml,String indent){
+	        xml.trim();
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
 	        factory.setValidating(false);	        
