@@ -12,7 +12,7 @@ public class SaveCommand implements Menu_Option{
 	}
 	@Override
 	public void execute() {
-		doc.save();
+		//doc.save();
 	}
     @Override
     public void execute(Object obj) {
