@@ -36,7 +36,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-
+/**
+ * document for editing and saving
+ * @author Roseline Okpara
+ */
 public class TheDocument extends DefaultStyledDocument{
 	
 	private boolean isWrapped;
@@ -53,7 +56,10 @@ public class TheDocument extends DefaultStyledDocument{
 	private String xml;
     
 	
-	
+	/**
+	 * creates the document for the given string
+	 * @param htmlFile
+	 */
 	public TheDocument(String htmlFile) {
 	    
 		    file = new File(htmlFile);
@@ -101,7 +107,7 @@ public class TheDocument extends DefaultStyledDocument{
     		  
     		    FileChannel fc = stream.getChannel();
     		    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    // Instead of using default, pass in a decoder. */
+    		    // Instead of using default, pass in a decoder.
     		    //System.out.print(Charset.defaultCharset().decode(bb).toString());
     		    setXml(Charset.defaultCharset().decode(bb).toString(),"2");
     		  } catch (IOException e) {
@@ -119,8 +125,7 @@ public class TheDocument extends DefaultStyledDocument{
 
 		
 	}
-		
-	
+
 	public void insert(String tagName){
 	    
 	}
@@ -138,7 +143,10 @@ public class TheDocument extends DefaultStyledDocument{
 		
 	}
 
-	
+	/**
+	 * saves the given text to the file
+	 * @param writeText
+	 */
 	public void save(String writeText) {
 		try {
 			FileWriter fileWrite = new FileWriter(file);
@@ -149,7 +157,10 @@ public class TheDocument extends DefaultStyledDocument{
 			System.out.println("File is in use somewhere else");		}
 	}
 
-	
+	/**
+	 * saves the text
+	 * @param writeText
+	 */
 	public void saveAs(String writeText) {
 		save(writeText);
 	}
@@ -168,6 +179,9 @@ public class TheDocument extends DefaultStyledDocument{
 		}
 	}
 	
+	/**
+	 * changes the word wrap for the document
+	 */
 	public void toggleWrap() {
 		if (isWrapped == true){
 			isWrapped = false;
@@ -176,6 +190,9 @@ public class TheDocument extends DefaultStyledDocument{
 		}
 	}
 	
+	/**
+	 * changes the indent for the document
+	 */
 	public void toggleIndent() {
 		if (isIndented == true){
 			isIndented = false;
@@ -208,6 +225,10 @@ public class TheDocument extends DefaultStyledDocument{
 	    return this.xml;
 	}
 	
+	/**
+	 * parses the string as xml
+	 * @param xml
+	 */
 	public void parse(String xml){
 	    String newXml = xml.replaceAll("\\s+", " ").trim();
         //System.out.println(xml);
@@ -227,6 +248,11 @@ public class TheDocument extends DefaultStyledDocument{
         }
 	}
 	
+	/**
+	 * checks the document for well formed html
+	 * @param xml
+	 * @param indent
+	 */
 	public void setXml(String xml,String indent){
 	        String newXml = xml.replaceAll("\\s+", " ").trim();
 	        //System.out.println(xml);
@@ -263,6 +289,10 @@ public class TheDocument extends DefaultStyledDocument{
             isWellFormed = true;
 	}
 	
+	/**
+	 * 
+	 * @return boolean of well formed
+	 */
 	public boolean isWellFormed(){
 	    return this.isWellFormed;
 	}

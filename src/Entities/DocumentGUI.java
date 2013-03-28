@@ -22,7 +22,11 @@ import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
 
-
+/**
+ * GUI for each document
+ * @author Chris Timmons
+ *
+ */
 public class DocumentGUI extends JPanel{
 	
 	private TheDocument thisDoc;
@@ -37,7 +41,10 @@ public class DocumentGUI extends JPanel{
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
 	private final JTextArea textArea;
 	
-	
+	/**
+	 * creates a new GUI for the given document
+	 * @param docParam
+	 */
 	public DocumentGUI(TheDocument docParam) {		
 		thisDoc = docParam;
 		docMenu = createDocumentMenu(thisDoc);
@@ -165,6 +172,11 @@ public class DocumentGUI extends JPanel{
 		//textArea.addKeyListener(format);
 	}
 	
+	/**
+	 * creates a doc menu for the document
+	 * @param theDocument
+	 * @return
+	 */
 	private DocumentMenu createDocumentMenu(TheDocument theDocument){
 		CutCommand cut = new CutCommand(theDocument);
 		PasteCommand paste = new PasteCommand(theDocument);
@@ -178,6 +190,11 @@ public class DocumentGUI extends JPanel{
 		return docMenu;
 	}
 	
+	/**
+	 * listener for each of the document buttons
+	 * @author Chris Timmons
+	 *
+	 */
 	private class DocumentMenuListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -234,6 +251,11 @@ public class DocumentGUI extends JPanel{
 		}		
 	}
 	
+	/**
+	 * listener for each of the inserts
+	 * @author Chris Timmons
+	 *
+	 */
 	private class InsertListener implements ActionListener{
 
 		@Override
@@ -268,17 +290,37 @@ public class DocumentGUI extends JPanel{
 		
 	}
 	
+	/**
+	 * extends JButtons to have names and html tags
+	 * @author Chris Timmons
+	 *
+	 */
 	private class InsertButton extends JButton{
 		private String htmlTag;
 		private String name;
+		
+		/**
+		 * creates the button based on the parameters
+		 * @param nameParam
+		 * @param tag
+		 */
 		public InsertButton(String nameParam,String tag){
 			super(nameParam);
 			name = nameParam;
 			htmlTag = tag;
 		}
+		
+		/**
+		 * 
+		 * @return htmlTag
+		 */
 		public String getHtmlTag(){
 			return htmlTag;
 		}
+		
+		/**
+		 * @return name
+		 */
 		public String getName() {
 			return name;
 		}
