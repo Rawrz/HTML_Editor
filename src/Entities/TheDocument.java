@@ -218,13 +218,14 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public void setXml(String xml,String indent){
-	        xml.replaceAll(" ", "");
+	        String newXml = xml.replaceAll("\\s+", " ").trim();
+	        System.out.println(xml);
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
 	        factory.setValidating(false);	        
             try {
                 XMLReader reader  = factory.newSAXParser().getXMLReader();
-    	        Source input = new SAXSource(reader, new InputSource(new StringReader(xml)));
+    	        Source input = new SAXSource(reader, new InputSource(new StringReader(newXml)));
     	        StringWriter stringWriter = new StringWriter();
     	        StreamResult format = new StreamResult(stringWriter);   
     	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
