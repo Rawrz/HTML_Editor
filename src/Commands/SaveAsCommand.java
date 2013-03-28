@@ -13,7 +13,7 @@ public class SaveAsCommand implements Menu_Option{
 
 	@Override
 	public void execute() {
-		doc.saveAs();
+		//doc.saveAs();
 	}
 
     @Override

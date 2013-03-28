@@ -148,24 +148,23 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 
 	
-	public void save() {
-		if (isSaved) {
-			return;
-		}
-		else {
-			//To Add
-		}
+	public void save(String writeText) {
+		try {
+			FileWriter fileWrite = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fileWrite);
+			out.write(writeText);
+			out.close();
+		} catch (IOException e) {
+			System.out.println("File is in use somewhere else");		}
 	}
 
 	
-	public void saveAs() {
-		save();
-		
+	public void saveAs(String writeText) {
+		save(writeText);
 	}
 
 	
 	public void close() {
-		save();
 		
 	}
 	
