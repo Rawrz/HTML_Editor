@@ -183,6 +183,7 @@ public class DocumentGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if(action == "Save"){
+			    thisDoc.setXml(textArea.getText(), "4");
 			    textArea.setText(thisDoc.getXml());
 			    if(thisDoc.isWellFormed() == true){
 			        docMenu.save();
@@ -200,7 +201,23 @@ public class DocumentGUI extends JPanel{
 			        }
 			    }
 			} else if(action == "SaveAs"){
-				docMenu.saveNew();
+			    thisDoc.setXml(textArea.getText(), "4");
+                textArea.setText(thisDoc.getXml());
+                if(thisDoc.isWellFormed() == true){
+                    docMenu.saveNew();
+                }
+                else{
+                    final JOptionPane optionPane = new JOptionPane(
+                            "Your document is not well formed! Save anyways?",
+                            JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION);
+                    int value = ((Integer)optionPane.getValue()).intValue();
+                    if (value == JOptionPane.YES_OPTION){
+                        docMenu.saveNew();
+                    }
+                    else{
+                        
+                    }
+                }
 			} else if(action == "Copy"){
 			} else if(action == "Cut"){
 				docMenu.cut();
