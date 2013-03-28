@@ -218,7 +218,7 @@ public class TheDocument extends DefaultStyledDocument{
 	}
 	
 	public void setXml(String xml,String indent){
-	        xml.trim();
+	        xml.replaceAll(" ", "");
 	        SAXParserFactory factory = SAXParserFactory.newInstance();
 	        factory.setNamespaceAware(false);
 	        factory.setValidating(false);	        
