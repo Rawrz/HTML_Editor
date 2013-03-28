@@ -252,6 +252,10 @@ public class TheDocument extends DefaultStyledDocument{
             }
 	    
 	}
+	
+	public boolean isWellFormed(){
+	    return this.isWellFormed();
+	}
 
 	
 	/*public void createQueue(Node node){

@@ -141,7 +141,7 @@ public class DocumentGUI extends JPanel{
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);	
 		
-		KeyListener format = new KeyListener() {
+		/*KeyListener format = new KeyListener() {
 		    public void keyTyped(KeyEvent keyEvent) {
 		    }
 		    
@@ -153,16 +153,16 @@ public class DocumentGUI extends JPanel{
                 if(thisDoc.getIndent() == false){
                     
                 }
-                else{
+                else{*/
                     /*String xml = textArea.getText();
                     thisDoc.setXml(xml, "4");
                     textArea.setText(thisDoc.getXml());
                     //textArea.validate();*/
-                }
+              /*  }
             }
 		};   
-		
-		textArea.addKeyListener(format);
+		*/
+		//textArea.addKeyListener(format);
 	}
 	
 	private DocumentMenu createDocumentMenu(TheDocument theDocument){
@@ -183,7 +183,22 @@ public class DocumentGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if(action == "Save"){
-				docMenu.save();
+			    textArea.setText(thisDoc.getXml());
+			    if(thisDoc.isWellFormed() == true){
+			        docMenu.save();
+			    }
+			    else{
+			        final JOptionPane optionPane = new JOptionPane(
+			                "Your document is not well formed! Save anyways?",
+			                JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION);
+			        int value = ((Integer)optionPane.getValue()).intValue();
+			        if (value == JOptionPane.YES_OPTION){
+			            docMenu.save();
+			        }
+			        else{
+			            
+			        }
+			    }
 			} else if(action == "SaveAs"){
 				docMenu.saveNew();
 			} else if(action == "Copy"){
