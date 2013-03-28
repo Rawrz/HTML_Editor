@@ -1,9 +1,6 @@
 package Entities;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
-
 import Commands.CutCommand;
 import Commands.IndentCommand;
 import Commands.InsertCommand;
@@ -16,23 +13,19 @@ import Commands.ToggleWrapCommand;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Enumeration;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * GUI for each document
  * @author Chris Timmons
  *
  */
+@SuppressWarnings("serial")
 public class DocumentGUI extends JPanel{
 	
 	private TheDocument thisDoc;
 	private DocumentMenu docMenu;
 	
-	private JPanel menuPanel,treePanel,insertPanel,docMenuPanel; 
+	private JPanel menuPanel,insertPanel,docMenuPanel; 
 	private JPanel indentPanel,wordWrapPanel;
 	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn;
 	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
@@ -55,7 +48,7 @@ public class DocumentGUI extends JPanel{
 		
 		//Create Panels
 		menuPanel = new JPanel();
-		treePanel = new JPanel();
+		//treePanel = new JPanel();
 		insertPanel = new JPanel(new BorderLayout());
 		indentPanel = new JPanel(new GridLayout(1,3));
 		wordWrapPanel = new JPanel(new GridLayout(1, 3));
@@ -261,7 +254,7 @@ public class DocumentGUI extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			InsertButton inB = (InsertButton)e.getSource();
-			String insertTag = inB.getHtmlTag();
+			//String insertTag = inB.getHtmlTag();
 			String action = e.getActionCommand();
 			int pos = textArea.getCaretPosition();
 			if ((action.equals("<b> Bold </b>")) || (action.equals("<i> Italic </i>")) || (action.equals("<h1> Header </h1>"))) {
@@ -295,7 +288,7 @@ public class DocumentGUI extends JPanel{
 	 * @author Chris Timmons
 	 *
 	 */
-	private class InsertButton extends JButton{
+    private class InsertButton extends JButton{
 		private String htmlTag;
 		private String name;
 		
@@ -314,14 +307,16 @@ public class DocumentGUI extends JPanel{
 		 * 
 		 * @return htmlTag
 		 */
-		public String getHtmlTag(){
+		@SuppressWarnings("unused")
+        public String getHtmlTag(){
 			return htmlTag;
 		}
 		
 		/**
 		 * @return name
 		 */
-		public String getName() {
+		@Override
+        public String getName() {
 			return name;
 		}
 	}

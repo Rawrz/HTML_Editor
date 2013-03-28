@@ -1,7 +1,5 @@
 package Commands;
 
-import javax.swing.text.html.HTML;
-
 import Entities.TheDocument;
 import Entities.Menu_Option;
 

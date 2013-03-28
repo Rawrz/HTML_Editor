@@ -1,7 +1,5 @@
 package Entities;
 
-import java.io.File;
-
 /**
  * Menu of editor commands
  * @author Ben Kantor

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,6 +18,7 @@ import Commands.*;
  * @author Chris Timmons
  *
  */
+@SuppressWarnings("serial")
 public class EditorGUI extends JFrame implements Observer {
 	
 	private HTML_Editor editor;
@@ -62,12 +62,12 @@ public class EditorGUI extends JFrame implements Observer {
 		menuPanel.add(openDocBtn);
 		menuPanel.add(closeDocBtn);
 		menuPanel.add(terminateBtn);
-		add(menuPanel, thisLayout.NORTH);
+		add(menuPanel, BorderLayout.NORTH);
 		
-		add(docsPanel, thisLayout.CENTER);
+		add(docsPanel, BorderLayout.CENTER);
 		
 		bottomPanel.add(new JLabel(""));
-		add(bottomPanel, thisLayout.SOUTH);
+		add(bottomPanel, BorderLayout.SOUTH);
 		
 		//Window Settings
 		setTitle("HTML Editor");

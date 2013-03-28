@@ -12,9 +12,6 @@ import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 import javax.swing.text.DefaultStyledDocument;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,19 +37,19 @@ import org.xml.sax.XMLReader;
  * document for editing and saving
  * @author Roseline Okpara
  */
+@SuppressWarnings("serial")
 public class TheDocument extends DefaultStyledDocument{
 	
 	private boolean isWrapped;
 	private boolean isIndented;
 	private boolean isSaved;
 	private boolean isWellFormed = true;
-	private String name;
 	private File file;
 	private String filepath;
 	private Document domDoc;
 	private Node tree;
-	private Queue<String> queue = new LinkedList<String>();
-	private Stack<String> stack = new Stack<String>();
+	//private Queue<String> queue = new LinkedList<String>();
+	//private Stack<String> stack = new Stack<String>();
 	private String xml;
     
 	
@@ -66,8 +63,8 @@ public class TheDocument extends DefaultStyledDocument{
     		isWrapped = false;
     		isIndented = true;
     		isSaved = true;
-    		name = file.getName();
-    		filepath = htmlFile;
+    		setName(file.getName());
+    		setFilepath(htmlFile);
     		
     		if(!file.exists()){
                 try {
@@ -236,12 +233,12 @@ public class TheDocument extends DefaultStyledDocument{
         factory.setNamespaceAware(false);
         factory.setValidating(false);           
         try {
-            XMLReader reader  = factory.newSAXParser().getXMLReader();
+            factory.newSAXParser().getXMLReader();
             //reader.setContentHandler(new ParseHandler());
             InputSource input = new InputSource(new StringReader(newXml));
             DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = fact.newDocumentBuilder();
-            Document temp = builder.parse(input);        
+            builder.parse(input);        
             
         }catch(Exception e){
             isWellFormed = false;
@@ -296,6 +293,17 @@ public class TheDocument extends DefaultStyledDocument{
 	public boolean isWellFormed(){
 	    return this.isWellFormed;
 	}
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setName(String name) {
+    }
 
 	
 	/*public void createQueue(Node node){

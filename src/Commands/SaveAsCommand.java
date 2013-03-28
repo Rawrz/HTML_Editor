@@ -1,7 +1,5 @@
 package Commands;
 
-import javax.swing.text.html.HTML.Tag;
-
 import Entities.TheDocument;
 import Entities.Menu_Option;
 
@@ -19,7 +17,7 @@ public class SaveAsCommand implements Menu_Option{
 	 * @param theDocument
 	 */
 	public SaveAsCommand(TheDocument theDocument){
-		doc = theDocument;
+		setDoc(theDocument);
 	}
 
 	@Override
@@ -30,6 +28,14 @@ public class SaveAsCommand implements Menu_Option{
     public void execute(Object obj) {
         // TODO Auto-generated method stub
         
+    }
+
+    public void setDoc(TheDocument doc) {
+        this.doc = doc;
+    }
+
+    public TheDocument getDoc() {
+        return doc;
     }
 
 }

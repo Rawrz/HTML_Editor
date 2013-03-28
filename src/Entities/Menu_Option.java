@@ -1,8 +1,6 @@
 
 package Entities;
 
-import javax.swing.text.html.HTML;
-
 /**
  * interface for each command
  * @author Ben Kantor
