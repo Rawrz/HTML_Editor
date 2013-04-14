@@ -38,7 +38,7 @@ import org.xml.sax.XMLReader;
  * @author Roseline Okpara
  */
 @SuppressWarnings("serial")
-public class TheDocument extends DefaultStyledDocument{
+public class TheDocument {
 	
 	private boolean isWrapped;
 	private boolean isIndented;
@@ -48,8 +48,6 @@ public class TheDocument extends DefaultStyledDocument{
 	private String filepath;
 	private Document domDoc;
 	private Node tree;
-	//private Queue<String> queue = new LinkedList<String>();
-	//private Stack<String> stack = new Stack<String>();
 	private String xml;
     
 	
@@ -73,6 +71,8 @@ public class TheDocument extends DefaultStyledDocument{
                     BufferedWriter bw = new BufferedWriter(fw);
                     bw.write("<html><body> </body></html>");
                     bw.close();
+                    
+                    
                     DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = fact.newDocumentBuilder();
                     //System.out.println(file.exists());
@@ -100,13 +100,11 @@ public class TheDocument extends DefaultStyledDocument{
     		
     		FileInputStream stream = null;
     		try {
-    		     stream = new FileInputStream(file);
-    		  
+    		    stream = new FileInputStream(file);
     		    FileChannel fc = stream.getChannel();
     		    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    // Instead of using default, pass in a decoder.
-    		    //System.out.print(Charset.defaultCharset().decode(bb).toString());
     		    setXml(Charset.defaultCharset().decode(bb).toString(),"2");
+    		    
     		  } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
