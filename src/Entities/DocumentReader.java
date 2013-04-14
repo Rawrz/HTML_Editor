@@ -2,6 +2,7 @@
 package Entities;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -31,16 +32,11 @@ public class DocumentReader {
            
        }
        
-       public Node buildTree(File file){
-           Node tree = null;
-           try{
-               DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-               DocumentBuilder builder = fact.newDocumentBuilder();
-               Document domDoc = builder.parse(file);       
-               tree = domDoc.getDocumentElement();
-           }catch(Exception e){
-               
-           }
+       public Node buildTree(File file) throws ParserConfigurationException, SAXException, IOException{
+           DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+           DocumentBuilder builder = fact.newDocumentBuilder();
+           Document domDoc = builder.parse(file);       
+           Node tree = domDoc.getDocumentElement();
            return tree;
        }
        

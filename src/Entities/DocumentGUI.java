@@ -192,10 +192,8 @@ public class DocumentGUI extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
-			if(action == "Save"){
-			    thisDoc.parse(textArea.getText());
-			    
-			    if(thisDoc.isWellFormed() == true){
+			if(action == "Save"){		    
+			    if(thisDoc.getReader().quickParse((textArea.getText()))){
 			        thisDoc.save(textArea.getText());
 			    }
 			    else{
@@ -206,13 +204,12 @@ public class DocumentGUI extends JPanel{
 			            thisDoc.save(textArea.getText());
 			        }
 			        else{
-			            thisDoc.setXml(textArea.getText(),"4");
+			            thisDoc.getReader().parseAndPretty(textArea.getText(),"4");
 			            textArea.setText(thisDoc.getXml());
 			        }
 			    }
 			} else if(action == "SaveAs"){
-			    thisDoc.parse(textArea.getText());
-                if(thisDoc.isWellFormed() == true){
+                if(thisDoc.getReader().quickParse((textArea.getText()))){
                     thisDoc.save(textArea.getText());
                 }
                 else{
@@ -223,7 +220,7 @@ public class DocumentGUI extends JPanel{
                         thisDoc.save(textArea.getText());
                     }
                     else{
-                        thisDoc.setXml(textArea.getText(),"4");
+                        thisDoc.getReader().parseAndPretty(textArea.getText(),"4");
                         textArea.setText(thisDoc.getXml());
                     }
                 }
