@@ -1,6 +1,7 @@
 package Entities;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -44,17 +45,24 @@ public class LinkView extends JFrame {
 		linkArea.setEditable(false);
 		pos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				displayLinks("pos");
+				curView = "pos";
+				displayLinksPosition();
 			}
 		});
 		abc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				displayLinks("abc");
+				curView = "abc";
+				displayLinksAlphabet();
 			}
 		});
 		rfrsh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				displayLinks(curView);
+				if (curView == "abc") {
+					displayLinksAlphabet();
+				}
+				else {
+					displayLinksPosition();
+				}
 			}
 		});
 		
@@ -69,30 +77,42 @@ public class LinkView extends JFrame {
 		
 		//Set Window Behavior
 		setTitle(titleParam);
+		setPreferredSize(new Dimension(500, 500));
+		setResizable(false);
 		pack();
 		curView = "pos";
-		displayLinks(curView);
+		displayLinksPosition();
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
 	/**
-	 * Takes in the Document string and displays the links according to the current strategy
-	 * @param view, the Document shown on the Doc GUI
+	 * Sorts the links alphabetically
 	 */
-	public void displayLinks(String view) {
-		curView = view;
+	private void displayLinksAlphabet() {
 		LinkViewStrategy strategy;
 		ArrayList<String> links = new ArrayList<String>();
-		if (view == "pos") {
-			strategy = new LinkViewPosition();
-			links = strategy.getURLs(doc.getText());
-		}
-		else if (view == "abc") {
-			strategy = new LinkViewAlphabet();
-			links = strategy.getURLs(doc.getText());
-		}
-		
+		strategy = new LinkViewAlphabet();
+		links = strategy.getSortedURLs(doc.getText());
+		printLinks(links);
+	}
+	
+	/**
+	 * Sorts the links by position
+	 */
+	private void displayLinksPosition() {
+		LinkViewStrategy strategy;
+		ArrayList<String> links = new ArrayList<String>();
+		strategy = new LinkViewPosition();
+		links = strategy.getSortedURLs(doc.getText());
+		printLinks(links);
+	}
+	
+	/**
+	 * Prints the links on the link view
+	 * @param links, the list of URLs
+	 */
+	private void printLinks(ArrayList<String> links) {
 		linkArea.setText("");
 		for (int i=0; i<links.size(); i++) {
 			linkArea.setText(linkArea.getText() + links.get(i) + "\n");
@@ -101,9 +121,9 @@ public class LinkView extends JFrame {
 	}
 	
 	/**
-	 * refreshes the view
+	 * Refreshes the view
 	 */
-	public void refresh() {
+	private void refresh() {
 		validate();
 		repaint();
 		pack();
