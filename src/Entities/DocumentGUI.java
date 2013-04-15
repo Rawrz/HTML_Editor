@@ -1,6 +1,10 @@
 package Entities;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import Commands.CutCommand;
 import Commands.IndentCommand;
 import Commands.InsertCommand;
@@ -13,6 +17,7 @@ import Commands.ToggleWrapCommand;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * GUI for each document
@@ -192,8 +197,14 @@ public class DocumentGUI extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
-			if(action == "Save"){		    
-			    if(thisDoc.getReader().quickParse((textArea.getText()))){
+			if(action == "Save"){
+			    try {
+                    thisDoc.getReader().quickParse(textArea.getText());
+                } catch (Exception ex){
+                    thisDoc.setWellFormed(false);
+                }
+			    
+			    if(thisDoc.isWellFormed() == true){
 			        thisDoc.save(textArea.getText());
 			    }
 			    else{
@@ -204,12 +215,18 @@ public class DocumentGUI extends JPanel{
 			            thisDoc.save(textArea.getText());
 			        }
 			        else{
-			            thisDoc.getReader().parseAndPretty(textArea.getText(),"4");
+			            thisDoc.setXml(textArea.getText(),"2");
 			            textArea.setText(thisDoc.getXml());
+			            thisDoc.setWellFormed(true);
 			        }
 			    }
 			} else if(action == "SaveAs"){
-                if(thisDoc.getReader().quickParse((textArea.getText()))){
+			    try {
+                    thisDoc.getReader().quickParse(textArea.getText());
+                } catch (Exception ex){
+                    thisDoc.setWellFormed(false);
+                }
+                if(thisDoc.isWellFormed() == true){
                     thisDoc.save(textArea.getText());
                 }
                 else{
@@ -220,8 +237,9 @@ public class DocumentGUI extends JPanel{
                         thisDoc.save(textArea.getText());
                     }
                     else{
-                        thisDoc.getReader().parseAndPretty(textArea.getText(),"4");
+                        thisDoc.setXml(textArea.getText(),"2");
                         textArea.setText(thisDoc.getXml());
+                        thisDoc.setWellFormed(true);
                     }
                 }
 			} else if(action == "Copy"){

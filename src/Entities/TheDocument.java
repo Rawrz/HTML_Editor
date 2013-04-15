@@ -28,6 +28,7 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -47,10 +48,9 @@ public class TheDocument {
 	private File file;
 	private String filepath;
 	private Document domDoc;
-	private DocumentReader reader;
-	private Node tree;
+	private Element tree;
 	private String xml;
-    
+    private DocumentReader reader;
 	
 	/**
 	 * creates the document for the given string
@@ -67,44 +67,52 @@ public class TheDocument {
     		
     		if(!file.exists()){
                 try {
-                    //Create a new file
-                    file.createNewFile();
-                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write("<html><body> </body></html>");
-                    bw.close();
-                }
-                catch (IOException e) {
+                    domDoc = reader.newDocument(file);
+                } catch (IOException e) {
                     System.out.println("Cannot create new file.");
+                } catch (ParserConfigurationException e) {
+                    // TODO Auto-generated catch block
+                    isWellFormed = false;
+                    System.out.println("Didn't Parse right");
                 }
-            }	
-    		//Create the document tree
-    		try {
-                tree = reader.buildTree(file);
-            } catch (Exception e){
-                System.err.println("Could not create tree");
             }
+    		else{
+    		//Testing stream
+        		try{
+            		domDoc = reader.buildDocument(file);
+            		tree = reader.buildTree(domDoc);
+        		}catch(Exception e){
+        		    this.isWellFormed = false;
+        		}
+    		}
     		
     		FileInputStream stream = null;
+    		MappedByteBuffer bb = null;
     		try {
-    		    //Make html nice and pretty
-    		    stream = new FileInputStream(file);
+    		     stream = new FileInputStream(file);
+    		  
     		    FileChannel fc = stream.getChannel();
-    		    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    xml = reader.parseAndPretty(Charset.defaultCharset().decode(bb).toString(), "2");	    
-    		} 
-    		catch (IOException e) {
+    		    bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+    		    setXml(Charset.defaultCharset().decode(bb).toString(),"2");
+    		    // Instead of using default, pass in a decoder.
+    		    //System.out.print(Charset.defaultCharset().decode(bb).toString());
+    		    
+    		  } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-    		finally {
+    		  finally {
     		    try {
                     stream.close();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-    		}	
+    		  }		
+	}
+	
+	public void setWellFormed(boolean bool) {
+	    this.isWellFormed = bool;
 	}
 	
 	public DocumentReader getReader(){
@@ -150,6 +158,7 @@ public class TheDocument {
 		save(writeText);
 	}
 
+	
 	public void close() {
 		
 	}
@@ -207,7 +216,50 @@ public class TheDocument {
 	
 	public String getXml(){
 	    return this.xml;
-	}	
+	}
+
+	
+	/**
+	 * checks the document for well formed html
+	 * @param xml
+	 * @param indent
+	 */
+	public void setXml(String xml,String indent){
+	        String newXml = xml.replaceAll("\\s+", " ").trim();
+	        //System.out.println(xml);
+	        SAXParserFactory factory = SAXParserFactory.newInstance();
+	        factory.setNamespaceAware(false);
+	        factory.setValidating(false);	        
+            try {
+                XMLReader reader  = factory.newSAXParser().getXMLReader();
+    	        Source input = new SAXSource(reader, new InputSource(new StringReader(newXml)));
+    	        StringWriter stringWriter = new StringWriter();
+    	        StreamResult format = new StreamResult(stringWriter);   
+    	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+    	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
+    	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+    	        transformer.transform(input, format);
+    	        this.xml = format.getWriter().toString();
+            } catch (SAXException e) {
+                // TODO Auto-generated catch block
+                     
+            } catch (ParserConfigurationException e) {
+                // TODO Auto-generated catch block
+                //e.printStackTrace();
+            } catch (TransformerConfigurationException e) {
+                // TODO Auto-generated catch block
+               // e.printStackTrace();
+            } catch (TransformerFactoryConfigurationError e) {
+                // TODO Auto-generated catch block
+               // e.printStackTrace();
+            } catch (TransformerException e) {
+                // TODO Auto-generated catch block
+                
+            }
+            isWellFormed = true;
+	}
+	
 	/**
 	 * 
 	 * @return boolean of well formed

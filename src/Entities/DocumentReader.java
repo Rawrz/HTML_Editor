@@ -1,7 +1,9 @@
 
 package Entities;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -21,6 +23,7 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -32,44 +35,41 @@ public class DocumentReader {
            
        }
        
-       public Node buildTree(File file) throws ParserConfigurationException, SAXException, IOException{
-           DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-           DocumentBuilder builder = fact.newDocumentBuilder();
-           Document domDoc = builder.parse(file);       
-           Node tree = domDoc.getDocumentElement();
+       public Element buildTree(Document domDoc) throws ParserConfigurationException{
+           Element tree = domDoc.getDocumentElement();
            return tree;
        }
        
-       public Document newDocument(){
-               DocumentBuilder builder = null;
-            try {
-               DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-               builder = fact.newDocumentBuilder();
-            } catch (ParserConfigurationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-               return builder.newDocument();
+       public Document buildDocument(File file) throws ParserConfigurationException, SAXException, IOException{
+           DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+           DocumentBuilder builder = fact.newDocumentBuilder();
+           Document domDoc = builder.parse(file); 
+           return domDoc;
        }
        
-       public boolean quickParse(String xml){
+       public Document newDocument(File file) throws IOException, ParserConfigurationException{
+           file.createNewFile();
+           FileWriter fw = new FileWriter(file.getAbsoluteFile());
+           BufferedWriter bw = new BufferedWriter(fw);
+           bw.write("<html><body> </body></html>");
+           bw.close();
+           DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+           DocumentBuilder builder = fact.newDocumentBuilder();
+           //System.out.println(file.exists());
+           return builder.newDocument();
+       }
+       
+       public void quickParse(String xml) throws SAXException, IOException, ParserConfigurationException{
            String newXml = xml.replaceAll("\\s+", " ").trim();
-           //System.out.println(xml);
            SAXParserFactory factory = SAXParserFactory.newInstance();
            factory.setNamespaceAware(false);
            factory.setValidating(false);           
-           try {
                factory.newSAXParser().getXMLReader();
                //reader.setContentHandler(new ParseHandler());
                InputSource input = new InputSource(new StringReader(newXml));
                DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
                DocumentBuilder builder = fact.newDocumentBuilder();
-               builder.parse(input);        
-               
-           }catch(Exception e){
-               return false;
-           }          
-           return true;
+               builder.parse(input);                 
        }
        
        public String parseAndPretty(String xml,String indent){
