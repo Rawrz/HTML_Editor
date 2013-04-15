@@ -68,6 +68,7 @@ public class TheDocument {
     		isSaved = true;
     		setName(file.getName());
     		setFilepath(htmlFile);
+    		reader = new DocumentReader();
     		
     		if(!file.exists()){
                 try {
@@ -77,7 +78,7 @@ public class TheDocument {
                 } catch (ParserConfigurationException e) {
                     // TODO Auto-generated catch block
                     isWellFormed = false;
-                    System.out.println("Didn't Parse right");
+                    e.printStackTrace();
                 }
             }
     		else{
@@ -87,7 +88,7 @@ public class TheDocument {
             		tree = reader.buildTree(domDoc);
         		}catch(Exception e){
         		    this.isWellFormed = false;
-        		    System.out.println("Didn't Parse right");
+        		    e.printStackTrace();
         		}
     		}
     		
