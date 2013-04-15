@@ -1,8 +1,10 @@
 package Entities;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import Commands.CutCommand;
@@ -30,10 +32,11 @@ public class DocumentGUI extends JPanel{
 	private TheDocument thisDoc;
 	private DocumentMenu docMenu;
 	private LinkView linkView;
+	private TreeView treeView;
 	
 	private JPanel menuPanel,insertPanel,docMenuPanel; 
 	private JPanel indentPanel,wordWrapPanel;
-	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn, linkViewBtn;
+	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn, linkViewBtn, treeViewBtn;
 	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
@@ -67,6 +70,7 @@ public class DocumentGUI extends JPanel{
 		cutBtn = new JButton("Cut");
 		pasteBtn = new JButton("Paste");
 		linkViewBtn = new JButton("Create Link View");
+		treeViewBtn = new JButton ("Create Tree View");
 		
 		wordWrapOn = new JRadioButton("On ", true);
 		wordWrapOff = new JRadioButton("Off ");
@@ -106,6 +110,41 @@ public class DocumentGUI extends JPanel{
 				}
 			}
 		});
+		
+		treeViewBtn.addActionListener(new ActionListener(){
+		    
+		    public void actionPerformed(ActionEvent e){
+		        
+    		    if ((treeView == null) || (!treeView.isShowing())) {
+    		        DefaultMutableTreeNode tree = null;
+                    
+                        try {
+                            tree = thisDoc.buildTree(textArea.getText());
+                        } catch (ParserConfigurationException e1) {
+                            System.out.print("RAR");
+                            // TODO Auto-generated catch block
+          
+                        } catch (SAXException e1) {
+                            System.out.print("WAR");
+                            // TODO Auto-generated catch block
+                           
+                        } catch (IOException e1) {
+                            System.out.print("CAR");
+                            // TODO Auto-generated catch block
+                        }
+                   
+                    if(thisDoc.isWellFormed() == true){
+                        treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(), tree );
+                    }
+                    else{
+                         
+                        JFrame frame = new JFrame("Cannot Create Tree.");
+                        JOptionPane.showMessageDialog(frame, "Document is not well-formed. Cannot create Tree.","Inane error",JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }
+		    }
+		});
 
 		//Define WordWrapPanel		
 		wordWrapPanel.add(wordWrapLabel);
@@ -144,6 +183,7 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(insertListBtn);
 		insertButtons.add(insertTableBtn);
 		insertButtons.add(linkViewBtn);
+		insertButtons.add(treeViewBtn);
 		insertPanel.add(insertLabel,BorderLayout.NORTH);
 		insertPanel.add(insertButtons,BorderLayout.SOUTH);		
 		

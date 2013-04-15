@@ -5,9 +5,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,15 +37,23 @@ public class DocumentReader {
            
        }
        
-       public Element buildTree(Document domDoc) throws ParserConfigurationException{
-           Element tree = domDoc.getDocumentElement();
-           return tree;
+       public DefaultMutableTreeNode buildTree(Document domDoc) throws ParserConfigurationException{
+           HtmlTree t = new HtmlTree(domDoc);
+           return t.createTree();
        }
        
        public Document buildDocument(File file) throws ParserConfigurationException, SAXException, IOException{
            DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+           fact.setIgnoringElementContentWhitespace(true);
            DocumentBuilder builder = fact.newDocumentBuilder();
            Document domDoc = builder.parse(file); 
+           return domDoc;
+       }
+       
+       public Document buildDocument(InputStream is) throws ParserConfigurationException, SAXException, IOException{
+           DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+           DocumentBuilder builder = fact.newDocumentBuilder();
+           Document domDoc = builder.parse(is); 
            return domDoc;
        }
        

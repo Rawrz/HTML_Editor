@@ -1,10 +1,13 @@
 package Entities;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 
 import java.io.FileInputStream;
 
@@ -13,6 +16,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -48,7 +52,7 @@ public class TheDocument {
 	private File file;
 	private String filepath;
 	private Document domDoc;
-	private Element tree;
+	private DefaultMutableTreeNode tree;
 	private String xml;
     private DocumentReader reader;
 	
@@ -83,6 +87,7 @@ public class TheDocument {
             		tree = reader.buildTree(domDoc);
         		}catch(Exception e){
         		    this.isWellFormed = false;
+        		    System.out.println("Didn't Parse right");
         		}
     		}
     		
@@ -109,6 +114,13 @@ public class TheDocument {
                     e.printStackTrace();
                 }
     		  }		
+	}
+	
+
+	public DefaultMutableTreeNode buildTree(String html) throws ParserConfigurationException, SAXException, IOException{
+	    InputStream stream = new ByteArrayInputStream(html.getBytes("UTF-8"));
+	    HtmlTree tree = new HtmlTree(reader.buildDocument(stream));
+	    return tree.createTree();
 	}
 	
 	public void setWellFormed(boolean bool) {
@@ -209,7 +221,7 @@ public class TheDocument {
 		return this.file.getName();	
 	}
 	
-	public Node getNode(){
+	public DefaultMutableTreeNode getNode(){
 	   return this.tree;
 	}
 	
