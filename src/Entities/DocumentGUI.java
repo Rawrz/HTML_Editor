@@ -29,10 +29,11 @@ public class DocumentGUI extends JPanel{
 	
 	private TheDocument thisDoc;
 	private DocumentMenu docMenu;
+	private LinkView linkView;
 	
 	private JPanel menuPanel,insertPanel,docMenuPanel; 
 	private JPanel indentPanel,wordWrapPanel;
-	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn;
+	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn, linkViewBtn;
 	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
@@ -65,6 +66,7 @@ public class DocumentGUI extends JPanel{
 		saveAsBtn = new JButton("Save As");
 		cutBtn = new JButton("Cut");
 		pasteBtn = new JButton("Paste");
+		linkViewBtn = new JButton("Create Link View");
 		
 		wordWrapOn = new JRadioButton("On ", true);
 		wordWrapOff = new JRadioButton("Off ");
@@ -94,8 +96,18 @@ public class DocumentGUI extends JPanel{
 		insertListBtn.addActionListener(insertListener);
 		insertTableBtn.addActionListener(insertListener);
 		insertTextBtn.addActionListener(insertListener);
-		//Define WordWrapPanel
-		
+		linkViewBtn.addActionListener(new ActionListener() {
+			/**
+			 * Checks if the LinkView for the Current Doc has been created yet. If not, the LinkView is created
+			 */
+			public void actionPerformed(ActionEvent e) {
+				if ((linkView == null) || (!linkView.isShowing())) {
+					linkView = new LinkView(DocumentGUI.this, "Link View: " + thisDoc.getName());
+				}
+			}
+		});
+
+		//Define WordWrapPanel		
 		wordWrapPanel.add(wordWrapLabel);
 		wordWrapPanel.add(wordWrapOn);
 		wordWrapPanel.add(wordWrapOff);
@@ -131,6 +143,7 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(insertHeaderBtn);
 		insertButtons.add(insertListBtn);
 		insertButtons.add(insertTableBtn);
+		insertButtons.add(linkViewBtn);
 		insertPanel.add(insertLabel,BorderLayout.NORTH);
 		insertPanel.add(insertButtons,BorderLayout.SOUTH);		
 		
@@ -146,28 +159,6 @@ public class DocumentGUI extends JPanel{
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);	
 		
-		/*KeyListener format = new KeyListener() {
-		    public void keyTyped(KeyEvent keyEvent) {
-		    }
-		    
-            @Override
-            public void keyPressed(KeyEvent arg0) {}
-            @Override
-            public void keyReleased(KeyEvent arg0) {
-              //System.out.print("lol");
-                if(thisDoc.getIndent() == false){
-                    
-                }
-                else{*/
-                    /*String xml = textArea.getText();
-                    thisDoc.setXml(xml, "4");
-                    textArea.setText(thisDoc.getXml());
-                    //textArea.validate();*/
-              /*  }
-            }
-		};   
-		*/
-		//textArea.addKeyListener(format);
 	}
 	
 	/**
@@ -186,6 +177,15 @@ public class DocumentGUI extends JPanel{
 		ToggleIndentCommand toggleIndent = new ToggleIndentCommand(theDocument);
 		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs,toggleWrap,toggleIndent);
 		return docMenu;
+	}
+	
+
+	/**
+	 * Gets the text in the JTextArea
+	 * @return the text
+	 */
+	public String getText() {
+		return textArea.getText();
 	}
 	
 	/**
