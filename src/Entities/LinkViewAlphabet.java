@@ -7,39 +7,32 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Strategy that sorts the URLs alphabetically
  * @author Chris Timmons
  *
  */
-public class LinkViewAlphabet implements LinkViewStrategy {
+public class LinkViewAlphabet extends LinkViewStrategy {
 	
 	/**
-	 * Finds the URLs and sorts them alphabetically, keeping track of how many times a URL shows up
-	 * @param input, the document string to look through
-	 * @return the sorted list of URLs
+	 * Finds the URLs and sorts them alphabetically
+	 * @param matcher, the matcher for the URL regular expression
+	 * @return the list of alphabetically sorted links
 	 */
-	@Override
-	public ArrayList<String> getURLs(String input) {
-		
-		ArrayList<String> result = new ArrayList<String>();
+	@Override public ArrayList<String> sortURLs(Matcher matcher) {
+		Hashtable<String, Integer> linkHash = createLinkHash(matcher);
+		ArrayList<String> result = getUnsortedLinks(linkHash);
+		return compareAndSortURLs(result);
+	}
+	
+	/**
+	 * Creates a Hashtable for the links and increments their values every time they show up
+	 * @param matcher, the matcher for the URL regular expression
+	 * @return the created Hashtable
+	 */
+	private Hashtable<String, Integer> createLinkHash(Matcher matcher) {
 		Hashtable<String, Integer> linkHash = new Hashtable<String, Integer>();
-		
-		Pattern pattern = Pattern.compile(
-		"\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
-		"(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|edu|net|gov" + 
-		"|mil|biz|info|mobi|name|aero|jobs|museum" + 
-		"|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
-		"(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
-		"((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-		"([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 
-		"(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-		"([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" + 
-		"(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
-				
-		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			if (!linkHash.containsKey(matcher.group())) {
 				linkHash.put(matcher.group(), 1);
@@ -49,14 +42,31 @@ public class LinkViewAlphabet implements LinkViewStrategy {
 				linkHash.put(matcher.group(), value);
 			}
 		}
-		
+		return linkHash;
+	}
+	
+	/**
+	 * Creates an unsorted list of the links with their number counts
+	 * @param linkHash, the Hashtable of the links
+	 * @return the unsorted link list
+	 */
+	private ArrayList<String> getUnsortedLinks(Hashtable<String, Integer> linkHash) {
+		ArrayList<String> result = new ArrayList<String>();
 		Iterator<Map.Entry<String, Integer>> iter = linkHash.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<String, Integer> entry = iter.next();
 			result.add("(" + entry.getValue() + ") " + entry.getKey());
 		}
-		
-		Collections.sort(result, new Comparator<String>() {
+		return result;
+	}
+	
+	/**
+	 * Sorts the link list using an anonymous comparator
+	 * @param links, the unsorted list of links
+	 * @return the sorted list of links
+	 */
+	private ArrayList<String> compareAndSortURLs(ArrayList<String> links) {
+		Collections.sort(links, new Comparator<String>() {
 			/**
 			 * Sorts the URLs by index 3 and beyond, skipping the number count
 			 * @param a, the first URL
@@ -79,8 +89,6 @@ public class LinkViewAlphabet implements LinkViewStrategy {
 		    	return 0;
 		    }
 		});
-		
-		return result;
+		return links;
 	}
-
 }
