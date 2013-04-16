@@ -15,10 +15,12 @@ import Commands.SaveAsCommand;
 import Commands.SaveCommand;
 import Commands.ToggleIndentCommand;
 import Commands.ToggleWrapCommand;
+import GUI.AutoIndentAction;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 /**
@@ -100,6 +102,7 @@ public class DocumentGUI extends JPanel{
 		insertListBtn.addActionListener(insertListener);
 		insertTableBtn.addActionListener(insertListener);
 		insertTextBtn.addActionListener(insertListener);
+		
 		linkViewBtn.addActionListener(new ActionListener() {
 			/**
 			 * Checks if the LinkView for the Current Doc has been created yet. If not, the LinkView is created
@@ -120,17 +123,8 @@ public class DocumentGUI extends JPanel{
                     
                         try {
                             tree = thisDoc.buildTree(textArea.getText());
-                        } catch (ParserConfigurationException e1) {
-                            System.out.print("RAR");
-                            // TODO Auto-generated catch block
-          
-                        } catch (SAXException e1) {
-                            System.out.print("WAR");
-                            // TODO Auto-generated catch block
-                           
-                        } catch (IOException e1) {
-                            System.out.print("CAR");
-                            // TODO Auto-generated catch block
+                        } catch (Exception ex){
+                            System.err.print("Parsing failed");
                         }
                    
                     if(thisDoc.isWellFormed() == true){
@@ -198,6 +192,8 @@ public class DocumentGUI extends JPanel{
 		JScrollPane textPane = new JScrollPane(textArea);
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);	
+		
+	//	textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
 	}
 	
@@ -292,9 +288,9 @@ public class DocumentGUI extends JPanel{
 			} else if (action == "Off "){
 				docMenu.toggleWrap();
 			} else if (action == "On"){
-				docMenu.toggleIndent();
+			    textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 			} else if (action == "Off"){
-				docMenu.toggleIndent();
+			    textArea.registerKeyboardAction(new AutoIndentAction(false), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 			}
 		}		
 	}

@@ -16,7 +16,6 @@ public class TreeView extends JFrame {
         this.add(tree);
         this.setSize(500, 500);
         this.setVisible(true);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
 }
