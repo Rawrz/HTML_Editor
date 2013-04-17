@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  */
 @SuppressWarnings("serial")
-public class LinkView extends JFrame {
+public class LinkView extends JPanel {
 	
 	private DocumentGUI doc;
 	private JPanel buttons;
@@ -32,6 +32,7 @@ public class LinkView extends JFrame {
 		doc = docParam;
 		
 		//Create Components
+		setLayout(new BorderLayout());
 		buttons = new JPanel();
 		abc = new JRadioButton("Sort by Alphabet");
 		pos = new JRadioButton("Sort by Position", true);
@@ -71,19 +72,19 @@ public class LinkView extends JFrame {
 		buttons.add(rfrsh);
 		buttons.add(abc);
 		buttons.add(pos);
-		setLayout(new FlowLayout());
-		add(buttons);
-		add(linkArea);
+		
+		add(buttons,BorderLayout.NORTH);
+		add(linkArea,BorderLayout.CENTER);
 		
 		//Set Window Behavior
-		setTitle(titleParam);
-		setPreferredSize(new Dimension(500, 500));
-		setResizable(false);
-		pack();
+		//setTitle(titleParam);
+		//setPreferredSize(new Dimension(500, 500));
+		//setResizable(false);
+		//pack();
 		curView = "pos";
 		displayLinksPosition();
 		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
 	/**
@@ -126,7 +127,6 @@ public class LinkView extends JFrame {
 	private void refresh() {
 		validate();
 		repaint();
-		pack();
 	}
 
 }

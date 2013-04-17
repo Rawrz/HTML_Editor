@@ -51,6 +51,7 @@ public class DocumentGUI extends JPanel{
 	
 	private int indentSize = 5;
 	private JSpinner indentChanger;
+	private boolean linkViewOn = false;
 	
 	/**
 	 * Constructor for the document GUI
@@ -98,7 +99,7 @@ public class DocumentGUI extends JPanel{
 		
 		
 		//Create Buttons
-		linkViewBtn = new JButton("Create Link View");
+		linkViewBtn = new JButton("Toggle Link View");
 		treeViewBtn = new JButton ("Create Tree View");
 		
 		wordWrapOn = new JRadioButton("On ", true);
@@ -140,6 +141,13 @@ public class DocumentGUI extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if ((linkView == null) || (!linkView.isShowing())) {
 					linkView = new LinkView(DocumentGUI.this, "Link View: " + thisDoc.getName());
+					add(linkView, BorderLayout.EAST);
+					revalidate();
+					repaint();
+				} else{
+					remove(linkView);
+					revalidate();
+					repaint();
 				}
 			}
 		});
