@@ -23,25 +23,19 @@ public class EditorGUI extends JFrame implements Observer {
 	
 	private HTML_Editor editor;
 	private EditorMenu editorMenu;
-	private ArrayList<TheDocument> openDocs = new ArrayList<TheDocument>();
-	
-	
-	private JPanel menuPanel = new JPanel(new GridLayout(1, 4));
+	private ArrayList<TheDocument> openDocs = new ArrayList<TheDocument>();	
 	private JTabbedPane docsPanel = new JTabbedPane();
-	private JPanel bottomPanel = new JPanel();
-	private JButton newDocBtn = new JButton("New Doc");
-	private JButton openDocBtn = new JButton("Open Doc");
-	private JButton closeDocBtn = new JButton("Close Doc");
-	private JButton terminateBtn = new JButton("Close Program");
 	private JFileChooser fileChooser;
 	private JMenuBar menuBar;
 	private JMenu editMenu;
 	private JMenuItem newDoc,openDoc,closeDoc,terminate;
+	
 	/**
 	 * Constructor for the GUI
 	 * @param htmlEditor HTML_Editor that the GUI is representing
 	 */
 	public EditorGUI(HTML_Editor htmlEditor){
+		//Setup Editor Frame
 		editor = htmlEditor;
 		editor.addObserver(this);
 		editorMenu = createEditorMenu();
@@ -49,41 +43,31 @@ public class EditorGUI extends JFrame implements Observer {
 		BorderLayout thisLayout = new BorderLayout();
 		this.setLayout(thisLayout);
 		
-		//MenuBar
+		//MenuBar & EditorMenu
 		menuBar = new JMenuBar();
 		editMenu = new JMenu("Editor");
 		newDoc = new JMenuItem("New");
 		openDoc = new JMenuItem("Open");
 		closeDoc = new JMenuItem("Close Document");
 		terminate = new JMenuItem("Exit Editor");
+		newDoc.addActionListener(editMenuListener);
+		openDoc.addActionListener(editMenuListener);
+		closeDoc.addActionListener(editMenuListener);
+		terminate.addActionListener(editMenuListener);
 		editMenu.add(newDoc);
 		editMenu.add(openDoc);
 		editMenu.add(closeDoc);
 		editMenu.add(terminate);
-		menuBar.add(editMenu);
-		
+		menuBar.add(editMenu);		
 		
 		//File Chooser
 		fileChooser = new JFileChooser();
 		HTMLFileFilter htmlFilter = new HTMLFileFilter();
 		fileChooser.setFileFilter(htmlFilter);
 		
-		//Add Listeners
-		newDoc.addActionListener(editMenuListener);
-		openDoc.addActionListener(editMenuListener);
-		closeDoc.addActionListener(editMenuListener);
-		terminate.addActionListener(editMenuListener);
-		
-		menuPanel.add(newDocBtn);
-		menuPanel.add(openDocBtn);
-		menuPanel.add(closeDocBtn);
-		menuPanel.add(terminateBtn);
-		add(menuBar, BorderLayout.NORTH);
-		
+		//Add Components to Frame		
+		add(menuBar, BorderLayout.NORTH);		
 		add(docsPanel, BorderLayout.CENTER);
-		
-		bottomPanel.add(new JLabel(""));
-		add(bottomPanel, BorderLayout.SOUTH);
 		
 		//Window Settings
 		setPreferredSize(new Dimension(1000,800));
