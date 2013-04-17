@@ -9,6 +9,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import Commands.*;
@@ -24,11 +26,12 @@ public class EditorGUI extends JFrame implements Observer {
 	private HTML_Editor editor;
 	private EditorMenu editorMenu;
 	private ArrayList<TheDocument> openDocs = new ArrayList<TheDocument>();	
-	private JTabbedPane docsPanel = new JTabbedPane();
+	private JTabbedPane docsPanel;
 	private JFileChooser fileChooser;
 	private JMenuBar menuBar;
-	private JMenu editMenu;
+	private JMenu editMenu, documentMenu;
 	private JMenuItem newDoc,openDoc,closeDoc,terminate;
+	
 	
 	/**
 	 * Constructor for the GUI
@@ -42,6 +45,11 @@ public class EditorGUI extends JFrame implements Observer {
 		EditorMenuListener editMenuListener = new EditorMenuListener();
 		BorderLayout thisLayout = new BorderLayout();
 		this.setLayout(thisLayout);
+		
+		//TabbedPane
+		docsPanel = new JTabbedPane();
+		DocPaneListener paneListener = new DocPaneListener();
+		docsPanel.addChangeListener(paneListener);
 		
 		//MenuBar & EditorMenu
 		menuBar = new JMenuBar();
@@ -58,7 +66,12 @@ public class EditorGUI extends JFrame implements Observer {
 		editMenu.add(openDoc);
 		editMenu.add(closeDoc);
 		editMenu.add(terminate);
-		menuBar.add(editMenu);		
+		menuBar.add(editMenu);	
+		
+		//Default DocumentMenu
+		documentMenu = new JMenu("Document");
+		documentMenu.setEnabled(false);
+		menuBar.add(documentMenu);
 		
 		//File Chooser
 		fileChooser = new JFileChooser();
@@ -239,5 +252,23 @@ public class EditorGUI extends JFrame implements Observer {
 			pack();
 			setLocationRelativeTo(null);
 		}
+	}
+	
+	private class DocPaneListener implements ChangeListener{
+
+
+		@Override
+		public void stateChanged(ChangeEvent arg0) {							
+			DocumentGUI docGUI = (DocumentGUI)docsPanel.getSelectedComponent();
+			menuBar.remove(documentMenu);
+			documentMenu = docGUI.getDocMenu();
+			documentMenu.setEnabled(true);
+			menuBar.add(documentMenu);
+			validate();
+			repaint();
+			pack();
+			setLocationRelativeTo(null);			
+		}
+		
 	}
 }

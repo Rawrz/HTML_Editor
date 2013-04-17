@@ -38,12 +38,15 @@ public class DocumentGUI extends JPanel{
 	
 	private JPanel menuPanel,insertPanel,docMenuPanel; 
 	private JPanel indentPanel,wordWrapPanel;
-	private JButton saveBtn,saveAsBtn,cutBtn,pasteBtn, linkViewBtn, treeViewBtn;
+	private JButton linkViewBtn, treeViewBtn;
 	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
 	private final JTextArea textArea;
+	
+	private JMenu documentMenu;
+	private JMenuItem save,saveAs,cut,paste,undo;
 	
 	/**
 	 * Constructor for the document GUI
@@ -57,6 +60,20 @@ public class DocumentGUI extends JPanel{
 		InsertListener insertListener = new InsertListener();
 		this.setLayout(new BorderLayout());
 		
+		//JMenu
+		documentMenu = new JMenu("Document");
+		save = new JMenuItem("Save");
+		saveAs = new JMenuItem("Save As");
+		cut = new JMenuItem("Cut");
+		paste = new JMenuItem("Paste");
+		undo = new JMenuItem("Undo");
+		documentMenu.add(documentMenu);
+		documentMenu.add(save);
+		documentMenu.add(saveAs);
+		documentMenu.add(cut);
+		documentMenu.add(paste);
+		documentMenu.add(undo);
+		
 		//Create Panels
 		menuPanel = new JPanel();
 		//treePanel = new JPanel();
@@ -67,10 +84,6 @@ public class DocumentGUI extends JPanel{
 		
 		
 		//Create Buttons
-		saveBtn = new JButton("Save");
-		saveAsBtn = new JButton("Save As");
-		cutBtn = new JButton("Cut");
-		pasteBtn = new JButton("Paste");
 		linkViewBtn = new JButton("Create Link View");
 		treeViewBtn = new JButton ("Create Tree View");
 		
@@ -87,10 +100,10 @@ public class DocumentGUI extends JPanel{
 		insertTextBtn = new InsertButton("Text","Tag");
 		
 		//Add Listeners
-		saveBtn.addActionListener(docMenuListener);
-		saveAsBtn.addActionListener(docMenuListener);
-		cutBtn.addActionListener(docMenuListener);
-		pasteBtn.addActionListener(docMenuListener);
+		save.addActionListener(docMenuListener);
+		saveAs.addActionListener(docMenuListener);
+		cut.addActionListener(docMenuListener);
+		paste.addActionListener(docMenuListener);
 		indentOn.addActionListener(docMenuListener);
 		indentOff.addActionListener(docMenuListener);
 		wordWrapOn.addActionListener(docMenuListener);
@@ -158,11 +171,7 @@ public class DocumentGUI extends JPanel{
 		indentGroup.add(indentOff);
 		
 		//Define MenuPanel
-		menuPanel.setLayout(new GridLayout(3,6));
-		menuPanel.add(saveBtn);
-		menuPanel.add(saveAsBtn);
-		menuPanel.add(cutBtn);
-		menuPanel.add(pasteBtn);
+		menuPanel.setLayout(new GridLayout(1,2));
 		menuPanel.add(indentPanel);
 		menuPanel.add(wordWrapPanel);
 		
@@ -197,6 +206,10 @@ public class DocumentGUI extends JPanel{
 		
 	//	textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
+	}
+	
+	public JMenu getDocMenu(){
+		return documentMenu;
 	}
 	
 	/**
