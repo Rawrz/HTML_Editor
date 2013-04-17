@@ -258,7 +258,8 @@ public class EditorGUI extends JFrame implements Observer {
 
 
 		@Override
-		public void stateChanged(ChangeEvent arg0) {							
+		public void stateChanged(ChangeEvent arg0) {	
+			if(docsPanel.getTabCount() != 0){
 			DocumentGUI docGUI = (DocumentGUI)docsPanel.getSelectedComponent();
 			menuBar.remove(documentMenu);
 			documentMenu = docGUI.getDocMenu();
@@ -267,7 +268,8 @@ public class EditorGUI extends JFrame implements Observer {
 			validate();
 			repaint();
 			pack();
-			setLocationRelativeTo(null);			
+			setLocationRelativeTo(null);
+			}
 		}
 		
 	}
