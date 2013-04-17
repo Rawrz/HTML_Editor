@@ -17,11 +17,9 @@ public class AutoIndentAction  extends AbstractAction {
     }
     @Override
     public void actionPerformed(ActionEvent e) { 
-        JTextArea textArea = null;
-        Document curDocument = null;
-        if(toggle = true){
-            textArea = (JTextArea)e.getSource(); 
-            curDocument = textArea.getDocument();  
+        JTextArea textArea = (JTextArea)e.getSource(); 
+        Document curDocument = textArea.getDocument(); 
+        if(toggle == true){
             try { 
                 int curLine = textArea.getLineOfOffset(textArea.getCaretPosition()); 
                 int start = textArea.getLineStartOffset(curLine); 

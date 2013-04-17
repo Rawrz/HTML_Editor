@@ -239,6 +239,7 @@ public class DocumentGUI extends JPanel{
 		textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
+		textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		JScrollPane textPane = new JScrollPane(textArea);
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);	
