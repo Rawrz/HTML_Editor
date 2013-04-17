@@ -89,6 +89,7 @@ public class EditorGUI extends JFrame implements Observer {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setResizable(false);
 	}
 	
 	/**

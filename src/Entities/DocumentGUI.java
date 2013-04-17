@@ -100,7 +100,7 @@ public class DocumentGUI extends JPanel{
 		
 		//Create Buttons
 		linkViewBtn = new JButton("Toggle Link View");
-		treeViewBtn = new JButton ("Create Tree View");
+		treeViewBtn = new JButton ("Toggle Tree View");
 		
 		wordWrapOn = new JRadioButton("On ", true);
 		wordWrapOff = new JRadioButton("Off ");
@@ -167,6 +167,9 @@ public class DocumentGUI extends JPanel{
                    
                     if(thisDoc.isWellFormed() == true){
                         treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(), tree );
+                        add(treeView,BorderLayout.WEST);
+                        revalidate();
+                        repaint();
                     }
                     else{
                          
@@ -174,6 +177,10 @@ public class DocumentGUI extends JPanel{
                         JOptionPane.showMessageDialog(frame, "Document is not well-formed. Cannot create Tree.","Inane error",JOptionPane.ERROR_MESSAGE);
                     }
                     
+                } else{
+                	remove(treeView);
+                	revalidate();
+                	repaint();
                 }
 		    }
 		});
