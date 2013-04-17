@@ -100,7 +100,7 @@ public class DocumentGUI extends JPanel{
 		
 		//Create Buttons
 		linkViewBtn = new JButton("Toggle Link View");
-		treeViewBtn = new JButton ("Toggle Tree View");
+		treeViewBtn = new JButton ("Toggle Outline Mode");
 		
 		wordWrapOn = new JRadioButton("On ", true);
 		wordWrapOff = new JRadioButton("Off ");
