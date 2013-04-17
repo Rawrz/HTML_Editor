@@ -5,6 +5,8 @@ import java.util.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import GUI.EditorGUI;
+
 /**
  * Main class, runs program and creates GUI
  * @author Rosaline Okpara

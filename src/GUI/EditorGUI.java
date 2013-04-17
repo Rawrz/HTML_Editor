@@ -1,4 +1,4 @@
-package Entities;
+package GUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import Commands.*;
+import Entities.EditorMenu;
+import Entities.HTML_Editor;
+import Entities.TheDocument;
 
 /**
  * GUI for the text editor. 
