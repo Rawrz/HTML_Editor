@@ -1,4 +1,4 @@
-package Entities;
+package GUI;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -15,7 +15,8 @@ import Commands.SaveAsCommand;
 import Commands.SaveCommand;
 import Commands.ToggleIndentCommand;
 import Commands.ToggleWrapCommand;
-import GUI.AutoIndentAction;
+import Entities.DocumentMenu;
+import Entities.TheDocument;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

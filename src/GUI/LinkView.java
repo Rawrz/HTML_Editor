@@ -1,6 +1,10 @@
-package Entities;
+package GUI;
 
 import javax.swing.*;
+
+import Entities.LinkViewAlphabet;
+import Entities.LinkViewPosition;
+import Entities.LinkViewStrategy;
 
 import java.awt.*;
 import java.awt.event.*;

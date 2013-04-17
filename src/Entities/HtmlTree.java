@@ -17,10 +17,11 @@ public class HtmlTree extends JFrame{
     }
     
     public DefaultMutableTreeNode createTree(){
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode();
+        Element rootNode = (Element) dom.getFirstChild();
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(rootNode.getTagName());
         Element elm = dom.getDocumentElement();
         if(elm.hasChildNodes()){
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode(elm.getTagName());
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode("<" + elm.getTagName() + ">");
             NodeList children = elm.getChildNodes();
             for(int i=0;i<children.getLength();i++){
                 Node child = children.item(i);
@@ -34,7 +35,7 @@ public class HtmlTree extends JFrame{
         int type = child.getNodeType();
         if(type == Node.ELEMENT_NODE){
             Element elm = (Element)child;
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(elm.getTagName());
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode("<" + elm.getTagName() + ">");
             parent.add(node);
             if(elm.hasChildNodes()){
                 NodeList list = elm.getChildNodes();
