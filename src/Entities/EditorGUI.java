@@ -14,9 +14,9 @@ import javax.swing.filechooser.FileFilter;
 import Commands.*;
 
 /**
- * GUI for the Editor
+ * GUI for the text editor. 
  * @author Chris Timmons
- *
+ * @author Ben Kantor (bdk3079@rit.edu) *
  */
 @SuppressWarnings("serial")
 public class EditorGUI extends JFrame implements Observer {
@@ -34,10 +34,12 @@ public class EditorGUI extends JFrame implements Observer {
 	private JButton closeDocBtn = new JButton("Close Doc");
 	private JButton terminateBtn = new JButton("Close Program");
 	private JFileChooser fileChooser;
-	
+	private JMenuBar menuBar;
+	private JMenu editMenu;
+	private JMenuItem newDoc,openDoc,closeDoc,terminate;
 	/**
-	 * creates the GUI for the given editor
-	 * @param htmlEditor
+	 * Constructor for the GUI
+	 * @param htmlEditor HTML_Editor that the GUI is representing
 	 */
 	public EditorGUI(HTML_Editor htmlEditor){
 		editor = htmlEditor;
@@ -47,22 +49,36 @@ public class EditorGUI extends JFrame implements Observer {
 		BorderLayout thisLayout = new BorderLayout();
 		this.setLayout(thisLayout);
 		
+		//MenuBar
+		menuBar = new JMenuBar();
+		editMenu = new JMenu("Editor");
+		newDoc = new JMenuItem("New");
+		openDoc = new JMenuItem("Open");
+		closeDoc = new JMenuItem("Close Document");
+		terminate = new JMenuItem("Exit Editor");
+		editMenu.add(newDoc);
+		editMenu.add(openDoc);
+		editMenu.add(closeDoc);
+		editMenu.add(terminate);
+		menuBar.add(editMenu);
+		
+		
 		//File Chooser
 		fileChooser = new JFileChooser();
 		HTMLFileFilter htmlFilter = new HTMLFileFilter();
 		fileChooser.setFileFilter(htmlFilter);
 		
 		//Add Listeners
-		newDocBtn.addActionListener(editMenuListener);
-		openDocBtn.addActionListener(editMenuListener);
-		closeDocBtn.addActionListener(editMenuListener);
-		terminateBtn.addActionListener(editMenuListener);
+		newDoc.addActionListener(editMenuListener);
+		openDoc.addActionListener(editMenuListener);
+		closeDoc.addActionListener(editMenuListener);
+		terminate.addActionListener(editMenuListener);
 		
 		menuPanel.add(newDocBtn);
 		menuPanel.add(openDocBtn);
 		menuPanel.add(closeDocBtn);
 		menuPanel.add(terminateBtn);
-		add(menuPanel, BorderLayout.NORTH);
+		add(menuBar, BorderLayout.NORTH);
 		
 		add(docsPanel, BorderLayout.CENTER);
 		
@@ -70,6 +86,7 @@ public class EditorGUI extends JFrame implements Observer {
 		add(bottomPanel, BorderLayout.SOUTH);
 		
 		//Window Settings
+		setPreferredSize(new Dimension(1000,800));
 		setTitle("HTML Editor");
 		pack();
 		setLocationRelativeTo(null);
@@ -103,7 +120,7 @@ public class EditorGUI extends JFrame implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
-			if (action == "New Doc"){
+			if (action == "New"){
 				fileChooser = new JFileChooser();
 				fileChooser.setApproveButtonText("Create New");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -142,7 +159,7 @@ public class EditorGUI extends JFrame implements Observer {
 		        }
 		        
 				
-			} else if(action == "Open Doc"){
+			} else if(action == "Open"){
 				HTMLFileFilter htmlFilter = new HTMLFileFilter();
 				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(htmlFilter);
@@ -151,13 +168,13 @@ public class EditorGUI extends JFrame implements Observer {
 		          File selectedFile = fileChooser.getSelectedFile();
 		          editorMenu.open(selectedFile.getPath());
 		        }
-			} else if(action == "Close Doc"){
+			} else if(action == "Close Document"){
 				Integer index = docsPanel.getSelectedIndex();
 				if (index != -1){
 					editorMenu.close(index);
 				}
 				
-			} else if(action == "Close Program"){
+			} else if(action == "Exit Editor"){
 				editorMenu.terminate();
 				dispose();
 			}

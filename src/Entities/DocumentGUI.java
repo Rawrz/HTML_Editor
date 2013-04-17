@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * GUI for each document
  * @author Chris Timmons
- *
+ * @author Ben Kantor (bdk3079@rit.edu)
  */
 @SuppressWarnings("serial")
 public class DocumentGUI extends JPanel{
@@ -46,8 +46,8 @@ public class DocumentGUI extends JPanel{
 	private final JTextArea textArea;
 	
 	/**
-	 * creates a new GUI for the given document
-	 * @param docParam
+	 * Constructor for the document GUI
+	 * @param docParam TheDocument that is being visually represented
 	 */
 	public DocumentGUI(TheDocument docParam) {		
 		thisDoc = docParam;
@@ -158,7 +158,7 @@ public class DocumentGUI extends JPanel{
 		indentGroup.add(indentOff);
 		
 		//Define MenuPanel
-		menuPanel.setLayout(new GridLayout(1,6));
+		menuPanel.setLayout(new GridLayout(3,6));
 		menuPanel.add(saveBtn);
 		menuPanel.add(saveAsBtn);
 		menuPanel.add(cutBtn);
@@ -178,8 +178,10 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(insertTableBtn);
 		insertButtons.add(linkViewBtn);
 		insertButtons.add(treeViewBtn);
+		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
+		buttonScrollPane.setPreferredSize(new Dimension(50,100));
 		insertPanel.add(insertLabel,BorderLayout.NORTH);
-		insertPanel.add(insertButtons,BorderLayout.SOUTH);		
+		insertPanel.add(buttonScrollPane,BorderLayout.SOUTH);		
 		
 		//Define docMenuPanel
 		docMenuPanel.add(menuPanel);
