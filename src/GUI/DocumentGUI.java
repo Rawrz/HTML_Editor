@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -73,7 +75,6 @@ public class DocumentGUI extends JPanel{
 		indentChanger.setValue(indentSize);
 		tabSizePanel.add(tabSizeLabel,BorderLayout.WEST);
 		tabSizePanel.add(indentChanger,BorderLayout.CENTER);
-		
 		
 		//JMenu
 		documentMenu = new JMenu("Document");
@@ -239,6 +240,7 @@ public class DocumentGUI extends JPanel{
 		textArea = new JTextArea();
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
+		textArea.setTabSize(5);
 		textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		JScrollPane textPane = new JScrollPane(textArea);
 		add(docMenuPanel,BorderLayout.NORTH);
@@ -246,6 +248,16 @@ public class DocumentGUI extends JPanel{
 		
 	//	textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
+		indentChanger.addChangeListener(new ChangeListener(){
+
+            @Override
+            public void stateChanged(ChangeEvent arg0) {
+                int tab = (Integer) indentChanger.getValue();
+                textArea.setTabSize(tab);
+                
+            }
+            
+        });
 	}
 	
 	public JMenu getDocMenu(){
