@@ -86,13 +86,13 @@ public class EditorGUI extends JFrame implements Observer {
 		add(docsPanel, BorderLayout.CENTER);
 		
 		//Window Settings
-		setPreferredSize(new Dimension(1000,800));
+		setPreferredSize(new Dimension(800,600));
 		setTitle("HTML Editor");
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setResizable(false);
+		
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class EditorGUI extends JFrame implements Observer {
 		          cancelBtn.addActionListener(new NewDocListener());
 		          newDocGUI.setResizable(false);
 		          newDocGUI.setLocationRelativeTo(null);
-		          newDocGUI.pack();
+		          
 		          newDocGUI.setVisible(true);
 		        }
 		        
@@ -246,14 +246,14 @@ public class EditorGUI extends JFrame implements Observer {
 			docsPanel.add(newDoc.getName(),newDocGUI);
 			validate();
 			repaint();
-			pack();
+			
 			setLocationRelativeTo(null);
 		} else if (arraySize < openDocs.size()){
 			openDocs.remove(change);
 			docsPanel.remove(change);
 			validate();
 			repaint();
-			pack();
+			
 			setLocationRelativeTo(null);
 		}
 	}
@@ -271,7 +271,7 @@ public class EditorGUI extends JFrame implements Observer {
 			menuBar.add(documentMenu);
 			validate();
 			repaint();
-			pack();
+			
 			setLocationRelativeTo(null);
 			}
 		}
