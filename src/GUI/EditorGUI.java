@@ -86,7 +86,8 @@ public class EditorGUI extends JFrame implements Observer {
 		add(docsPanel, BorderLayout.CENTER);
 		
 		//Window Settings
-		setPreferredSize(new Dimension(800,600));
+		setPreferredSize(new Dimension(900,600));
+		setMinimumSize(new Dimension(900,600));
 		setTitle("HTML Editor");
 		pack();
 		setLocationRelativeTo(null);

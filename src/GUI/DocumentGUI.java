@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.html.HTML.Tag;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -40,14 +41,14 @@ public class DocumentGUI extends JPanel{
 	private TreeView treeView;
 	
 	private JPanel menuPanel,insertPanel,docMenuPanel,settingsPanel; 
-	private JPanel indentPanel,wordWrapPanel;
+	private JPanel indentPanel,wordWrapPanel,linkViewPanel;
 	private JButton linkViewBtn, treeViewBtn;
 	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
 	private InsertButton insertHRefBtn, insertImgTag, insertSrcTag;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
-	private final JTextArea textArea;
+	private final JTextArea textArea = new JTextArea();
 	
 	private JMenu documentMenu;
 	private JMenuItem save,saveAs,cut,paste,undo;
@@ -67,6 +68,7 @@ public class DocumentGUI extends JPanel{
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
 		InsertListener insertListener = new InsertListener();
 		this.setLayout(new BorderLayout());
+		
 		
 		//Tab-Size Changer
 		JPanel tabSizePanel = new JPanel();
@@ -90,14 +92,17 @@ public class DocumentGUI extends JPanel{
 		documentMenu.add(paste);
 		documentMenu.add(undo);
 		
+		
 		//Create Panels
 		menuPanel = new JPanel();
-		//treePanel = new JPanel();
 		insertPanel = new JPanel(new BorderLayout());
 		indentPanel = new JPanel(new GridLayout(1,3));
 		wordWrapPanel = new JPanel(new GridLayout(1, 3));
-		docMenuPanel = new JPanel(new BorderLayout());
-		settingsPanel = new JPanel(new GridLayout(3,1));
+		GridLayout ribbon = new GridLayout(1,2);
+		docMenuPanel = new JPanel(new GridLayout(1,2));
+		docMenuPanel.setMaximumSize(new Dimension(150,75));
+		settingsPanel = new JPanel(new GridLayout(4,1));
+		linkViewPanel = new JPanel (new GridLayout(1,2));
 		
 		
 		//Create Buttons
@@ -109,15 +114,25 @@ public class DocumentGUI extends JPanel{
 		indentOn = new JRadioButton("On", true);
 		indentOff = new JRadioButton("Off");
 		
-		insertBoldBtn = new InsertButton("<b> Bold </b>","BOLD");
-		insertItalicsBtn = new InsertButton("<i> Italic </i>","ITALIC");
-		insertHeaderBtn = new InsertButton("<h1> Header </h1>","HEADER");
-		insertListBtn = new InsertButton("Insert List","LIST");
-		insertTableBtn = new InsertButton("Insert Table","TABLE");
-		insertTextBtn = new InsertButton("Text","Tag");
+		//Insert Panel
+		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblRowBtn,tblDataBtn,tblHeadBtn;
+		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P);
+		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B);
+		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I);
+		listItemBtn = new SimpleTagButton(textArea,"Paragraph",Tag.LI);
+		tblRowBtn = new SimpleTagButton(textArea,"Table Row",Tag.TR);
+		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD);
+		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
+		
+		/*
+		insertBoldBtn = new InsertButton("<b> Bold","BOLD");
+		insertItalicsBtn = new InsertButton("<i> Italic","ITALIC");
+		insertHeaderBtn = new InsertButton("Header","HEADER");
+		insertListBtn = new InsertButton("List","LIST");
+		insertTableBtn = new InsertButton("Table","TABLE");
 		insertHRefBtn = new InsertButton("Link", "HREF");
 		insertImgTag = new InsertButton("IMG","IMG");
-		insertSrcTag = new InsertButton("SRC","SRC");
+		insertSrcTag = new InsertButton("SRC","SRC");*/
 		
 		//Add Listeners
 		save.addActionListener(docMenuListener);
@@ -129,12 +144,12 @@ public class DocumentGUI extends JPanel{
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
 		
-		insertBoldBtn.addActionListener(insertListener);
-		insertItalicsBtn.addActionListener(insertListener);
-		insertHeaderBtn.addActionListener(insertListener);
-		insertListBtn.addActionListener(insertListener);
-		insertTableBtn.addActionListener(insertListener);
-		insertTextBtn.addActionListener(insertListener);
+		//insertBoldBtn.addActionListener(insertListener);
+		//insertItalicsBtn.addActionListener(insertListener);
+		//insertHeaderBtn.addActionListener(insertListener);
+		//insertListBtn.addActionListener(insertListener);
+		//insertTableBtn.addActionListener(insertListener);
+		//insertTextBtn.addActionListener(insertListener);
 		
 		linkViewBtn.addActionListener(new ActionListener() {
 			/**
@@ -195,8 +210,7 @@ public class DocumentGUI extends JPanel{
 		wordWrapGroup.add(wordWrapOn);
 		wordWrapGroup.add(wordWrapOff);
 		
-		//Define IndentWrapPanel
-		
+		//Define IndentWrapPanel		
 		indentPanel.add(indentLabel);
 		indentPanel.add(indentOn);
 		indentPanel.add(indentOff);
@@ -204,17 +218,23 @@ public class DocumentGUI extends JPanel{
 		indentGroup.add(indentOn);
 		indentGroup.add(indentOff);
 		
+		//Define LinkViewPanel
+		linkViewPanel.add(linkViewBtn);
+		linkViewPanel.add(treeViewBtn);
+		
 		//Define MenuPanel
 		menuPanel.setLayout(new GridLayout(1,2));
 		settingsPanel.add(indentPanel);
 		settingsPanel.add(wordWrapPanel);
 		settingsPanel.add(tabSizePanel);
+		settingsPanel.add(linkViewPanel);
 		menuPanel.add(settingsPanel);
 		
 		//Define Insert Panel
 		JLabel insertLabel = new JLabel("Insert");
 		JPanel insertButtons = new JPanel(new GridLayout(3,6));
-		insertButtons.add(insertTextBtn);
+		//insertButtons.add(insertTextBtn);
+		/*
 		insertButtons.add(insertBoldBtn);
 		insertButtons.add(insertBoldBtn);
 		insertButtons.add(insertItalicsBtn);
@@ -223,28 +243,37 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(insertTableBtn);
 		insertButtons.add(insertImgTag);
 		insertButtons.add(insertSrcTag);
-		insertButtons.add(linkViewBtn);
-		insertButtons.add(treeViewBtn);
+		*/
+		
+		insertButtons.add(paraBtn);
+		insertButtons.add(italBtn);
+		insertButtons.add(boldBtn);
+		insertButtons.add(listItemBtn);
+		insertButtons.add(tblRowBtn);
+		insertButtons.add(tblDataBtn);
+		insertButtons.add(tblHeadBtn);
 		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
 		buttonScrollPane.setPreferredSize(new Dimension(50,100));
-		insertPanel.add(insertLabel,BorderLayout.NORTH);
-		insertPanel.add(buttonScrollPane,BorderLayout.SOUTH);
-		insertPanel.setPreferredSize(new Dimension(600,100));
+		//insertPanel.add(insertLabel,BorderLayout.NORTH);
+		insertPanel.add(buttonScrollPane,BorderLayout.NORTH);
+		insertPanel.setPreferredSize(new Dimension(150,100));
 		
 		//Define docMenuPanel
-		docMenuPanel.add(insertPanel,BorderLayout.CENTER);
-		docMenuPanel.add(menuPanel,BorderLayout.WEST);
+		docMenuPanel.add(menuPanel);
+		docMenuPanel.add(insertPanel);
+		
 		
 		
 		//Setup Main Panel
-		textArea = new JTextArea();
+		
 		textArea.setEditable(true);
 		textArea.setText(thisDoc.getXml());
 		textArea.setTabSize(5);
 		textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		JScrollPane textPane = new JScrollPane(textArea);
+		
 		add(docMenuPanel,BorderLayout.NORTH);
-		add(textPane,BorderLayout.CENTER);	
+		add(textPane,BorderLayout.CENTER);
 		
 	//	textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
@@ -419,6 +448,7 @@ public class DocumentGUI extends JPanel{
 			super(nameParam);
 			name = nameParam;
 			htmlTag = tag;
+			this.setPreferredSize(new Dimension(15,15));
 		}
 		
 		/**
