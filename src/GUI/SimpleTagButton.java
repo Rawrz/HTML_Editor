@@ -5,10 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.text.html.HTML.Tag;
 
 /**
@@ -47,12 +44,19 @@ public class SimpleTagButton extends JButton{
 		}
 	}
 	
-	private void launchDialog(Tag tag){
-		GeneralTagDialog ghj = new GeneralTagDialog(null,tag,textArea);
-		ghj.setLocationRelativeTo(null);
-		ghj.pack();
-		ghj.setVisible(true);
+	private void launchGenDialog(Tag tag){
+		GeneralTagDialog dialog = new GeneralTagDialog(null,tag,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
 		
+	}
+	
+	private void launchTableDialog(){
+		TableTagDialog dialog = new TableTagDialog(null,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
 	}
 	
 	/**
@@ -63,22 +67,7 @@ public class SimpleTagButton extends JButton{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			launchDialog(tag);
-		}
-		
-	}
-	
-	/**
-	 * Action Listener for block HTML tags
-	 * @author Ben Kantor (bdk3079@rit.edu)
-	 */
-	private class BlockListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int pos = textArea.getCaretPosition();
-			String insertString = "\n\t<"+tag.toString()+">\n\n\t</"+tag.toString()+">";
-			textArea.insert(insertString, pos);
+			launchGenDialog(tag);
 		}
 		
 	}
@@ -87,10 +76,7 @@ public class SimpleTagButton extends JButton{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			int pos = textArea.getCaretPosition();
-			String insertString = "\n\t<"+tag.toString()+">\n\n\t</"+tag.toString()+">";
-			textArea.insert(insertString, pos);
+			launchTableDialog();
 		}
 		
 	}
@@ -111,16 +97,7 @@ public class SimpleTagButton extends JButton{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Object[] choices = {"H1","H2","H3","H4","H5","H6"};
-			JOptionPane selector= new JOptionPane(choices);
-			int choice = JOptionPane.showOptionDialog(null,null,
-													"Header",
-													JOptionPane.DEFAULT_OPTION,
-													JOptionPane.QUESTION_MESSAGE,													
-													null,choices,JOptionPane.UNINITIALIZED_VALUE);
-			int pos = textArea.getCaretPosition();
-			String insertString = "\n\t<"+tag.toString()+">\n\n\t</"+tag.toString()+">";
-			textArea.insert(insertString, pos);
+
 		}
 		
 	}

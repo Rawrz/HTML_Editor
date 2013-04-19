@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,9 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -23,12 +20,10 @@ import javax.swing.text.html.HTML.Tag;
 @SuppressWarnings("serial")
 public class GeneralTagDialog extends JDialog{
 	
-	private String typedText = null;
 	private JPanel jPanel;
 	private JButton createButton,cancelButton;
 	private Tag tag;
 	private JTextField textField;
-	private JOptionPane optionPane;
 	private JTextArea theTextArea;
 	private GenDialogListener dialogListener = new GenDialogListener();
 	
@@ -65,7 +60,7 @@ public class GeneralTagDialog extends JDialog{
 	
 	/**
 	 * Action Listener for the Dialog
-	 * @author Ben Kantor (bdk3079@rit.edu)	 *
+	 * @author Ben Kantor (bdk3079@rit.edu)
 	 */
 	private class GenDialogListener implements ActionListener{
 		

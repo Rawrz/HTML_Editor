@@ -5,10 +5,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import Commands.CutCommand;
 import Commands.IndentCommand;
@@ -25,7 +22,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+
 
 /**
  * GUI for each document
@@ -43,8 +40,6 @@ public class DocumentGUI extends JPanel{
 	private JPanel menuPanel,insertPanel,docMenuPanel,settingsPanel; 
 	private JPanel indentPanel,wordWrapPanel,linkViewPanel;
 	private JButton linkViewBtn, treeViewBtn;
-	private InsertButton insertBoldBtn,insertItalicsBtn,insertHeaderBtn,insertListBtn,insertTableBtn,insertTextBtn;
-	private InsertButton insertHRefBtn, insertImgTag, insertSrcTag;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
 	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
 	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
@@ -55,7 +50,6 @@ public class DocumentGUI extends JPanel{
 	
 	private int indentSize = 5;
 	private JSpinner indentChanger;
-	private boolean linkViewOn = false;
 	
 	/**
 	 * Constructor for the document GUI
@@ -66,7 +60,6 @@ public class DocumentGUI extends JPanel{
 		docMenu = createDocumentMenu(thisDoc);
 		
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
-		InsertListener insertListener = new InsertListener();
 		this.setLayout(new BorderLayout());
 		
 		
@@ -98,7 +91,7 @@ public class DocumentGUI extends JPanel{
 		insertPanel = new JPanel(new BorderLayout());
 		indentPanel = new JPanel(new GridLayout(1,3));
 		wordWrapPanel = new JPanel(new GridLayout(1, 3));
-		GridLayout ribbon = new GridLayout(1,2);
+		//GridLayout ribbon = new GridLayout(1,2);
 		docMenuPanel = new JPanel(new GridLayout(1,2));
 		docMenuPanel.setMaximumSize(new Dimension(150,75));
 		settingsPanel = new JPanel(new GridLayout(4,1));
@@ -124,7 +117,7 @@ public class DocumentGUI extends JPanel{
 		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD);
 		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
 		headerBtn = new SimpleTagButton(textArea,"Header",Tag.H1);
-		tblBtn = new SimpleTagButton(textArea,"",Tag.TABLE);
+		tblBtn = new SimpleTagButton(textArea,"Table",Tag.TABLE);
 		
 		
 		//Add Listeners
@@ -218,7 +211,7 @@ public class DocumentGUI extends JPanel{
 		menuPanel.add(settingsPanel);
 		
 		//Define Insert Panel
-		JLabel insertLabel = new JLabel("Insert");
+		//JLabel insertLabel = new JLabel("Insert");
 		JPanel insertButtons = new JPanel(new GridLayout(3,6));
 		
 		insertButtons.add(paraBtn);
@@ -229,6 +222,7 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(tblDataBtn);
 		insertButtons.add(tblHeadBtn);
 		insertButtons.add(headerBtn);
+		insertButtons.add(tblBtn);
 		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
 		buttonScrollPane.setPreferredSize(new Dimension(50,100));
 		//insertPanel.add(insertLabel,BorderLayout.NORTH);
@@ -367,84 +361,5 @@ public class DocumentGUI extends JPanel{
 			}
 		}		
 	}
-	
-	/**
-	 * listener for each of the inserts
-	 * @author Chris Timmons
-	 *
-	 */
-	private class InsertListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			InsertButton inB = (InsertButton)e.getSource();
-			//String insertTag = inB.getHtmlTag();
-			String action = e.getActionCommand();
-			int pos = textArea.getCaretPosition();
-			if ((action.equals("<b> Bold </b>")) || (action.equals("<i> Italic </i>")) || (action.equals("<h1> Header </h1>"))) {
-				docMenu.insert();
-				textArea.insert(inB.getName() + "\n", pos);
-			}
-			else if (action.equals("Insert Table")) {
-				textArea.insert("\n\t</table>\n", pos);
-				for (int i=0;i<3;i++) {
-					textArea.insert("\n\t\t</tr>", pos);
-					for (int j=0;j<3;j++) {
-						textArea.insert("\n\t\t\t<td></td>", pos);
-					}
-					textArea.insert("\n\t\t<tr>", pos);
-				}
-				textArea.insert("\n\t<table>", pos);
-			}
-			else if (action.equals("Insert List")) {
-				textArea.insert("\n\t</ul>\n\n", pos);
-				for (int i=0;i<5;i++) {
-					textArea.insert("\n\t\t<li></li>", pos);
-				}
-				textArea.insert("\n\t<ul>", pos);
-			}
-		}
 		
-	}
-	
-	/**
-	 * extends JButtons to have names and html tags
-	 * @author Chris Timmons
-	 *
-	 */
-    private class InsertButton extends JButton{
-		private String htmlTag;
-		private String name;
-		
-		/**
-		 * creates the button based on the parameters
-		 * @param nameParam
-		 * @param tag
-		 */
-		public InsertButton(String nameParam,String tag){
-			super(nameParam);
-			name = nameParam;
-			htmlTag = tag;
-			this.setPreferredSize(new Dimension(15,15));
-		}
-		
-		/**
-		 * 
-		 * @return htmlTag
-		 */
-		@SuppressWarnings("unused")
-        public String getHtmlTag(){
-			return htmlTag;
-		}
-		
-		/**
-		 * @return name
-		 */
-		@Override
-        public String getName() {
-			return name;
-		}
-	}
-
-	
 }

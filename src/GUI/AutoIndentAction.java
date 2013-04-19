@@ -8,6 +8,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 
+@SuppressWarnings("serial")
 public class AutoIndentAction  extends AbstractAction {
    
     private boolean toggle;
