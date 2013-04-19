@@ -9,7 +9,7 @@ import GUI.EditorGUI;
 
 /**
  * Main class, runs program and creates GUI
- * @author Rosaline Okpara
+ * @author Roseline Okpara
  *
  */
 public class HTML_Editor extends Observable{

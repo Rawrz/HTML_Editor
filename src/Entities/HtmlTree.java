@@ -1,16 +1,9 @@
 
 package Entities;
-
-
-import javax.xml.parsers.*;
 import org.w3c.dom.*;
-import org.xml.sax.*;
-import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import java.io.*;
-
-public class HtmlTree extends JFrame{
+public class HtmlTree{
     Document dom;
     public HtmlTree(Document dom){
         this.dom = dom;          
@@ -18,17 +11,16 @@ public class HtmlTree extends JFrame{
     
     public DefaultMutableTreeNode createTree(){
         Element rootNode = (Element) dom.getFirstChild();
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(rootNode.getTagName());
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootNode.getTagName());
         Element elm = dom.getDocumentElement();
         if(elm.hasChildNodes()){
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode("<" + elm.getTagName() + ">");
             NodeList children = elm.getChildNodes();
             for(int i=0;i<children.getLength();i++){
                 Node child = children.item(i);
-                traverse(child,node);
+                traverse(child,root);
             }
         }  
-        return node;
+        return root;
     }
 
     public void traverse(Node child,DefaultMutableTreeNode parent){
