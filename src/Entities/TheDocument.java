@@ -5,8 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 
 import java.io.FileInputStream;
 
@@ -16,21 +14,10 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
+
 
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 /**
  * document for editing and saving
@@ -92,14 +79,13 @@ public class TheDocument {
     		  
     		    FileChannel fc = stream.getChannel();
     		    bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    setXml(Charset.defaultCharset().decode(bb).toString(),"2");
-    		    // Instead of using default, pass in a decoder.
-    		    //System.out.print(Charset.defaultCharset().decode(bb).toString());
-    		    
+    		    xml = reader.parseAndPretty(Charset.defaultCharset().decode(bb).toString(),"2");
     		  } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
+    		  } 
+    		  catch (Exception e){
+                isWellFormed = false;
+    		  }
     		  finally {
     		    try {
                     stream.close();
@@ -135,6 +121,7 @@ public class TheDocument {
 		
 		
 	}
+
 
 	
 	public void paste() {
@@ -223,48 +210,6 @@ public class TheDocument {
 	public String getXml(){
 	    return this.xml;
 	}
-
-	
-	/**
-	 * checks the document for well formed html
-	 * @param xml
-	 * @param indent
-	 */
-	public void setXml(String xml,String indent){
-	        String newXml = xml.replaceAll("\\s+", " ").trim();
-	        //System.out.println(xml);
-	        SAXParserFactory factory = SAXParserFactory.newInstance();
-	        factory.setNamespaceAware(false);
-	        factory.setValidating(false);	        
-            try {
-                XMLReader reader  = factory.newSAXParser().getXMLReader();
-    	        Source input = new SAXSource(reader, new InputSource(new StringReader(newXml)));
-    	        StringWriter stringWriter = new StringWriter();
-    	        StreamResult format = new StreamResult(stringWriter);   
-    	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-    	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
-    	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-    	        transformer.transform(input, format);
-    	        this.xml = format.getWriter().toString();
-            } catch (SAXException e) {
-                // TODO Auto-generated catch block
-                     
-            } catch (ParserConfigurationException e) {
-                // TODO Auto-generated catch block
-                //e.printStackTrace();
-            } catch (TransformerConfigurationException e) {
-                // TODO Auto-generated catch block
-               // e.printStackTrace();
-            } catch (TransformerFactoryConfigurationError e) {
-                // TODO Auto-generated catch block
-               // e.printStackTrace();
-            } catch (TransformerException e) {
-                // TODO Auto-generated catch block
-                
-            }
-            isWellFormed = true;
-	}
 	
 	/**
 	 * 
@@ -284,27 +229,5 @@ public class TheDocument {
 
     public void setName(String name) {
     }
-
-	
-	/*public void createQueue(Node node){
-	    if(node.getNodeType() == Node.ELEMENT_NODE){
-    	    queue.add("<"+node.getNodeName()+">");
-    	    System.out.println("<"+node.getNodeName()+">");
-    	    if(!node.getNodeName().equals("br")){
-    	        stack.push("</"+node.getNodeName()+">");
-    	    }
-	    }
-	    else{
-	        queue.add(node.getTextContent());
-	    }
-	    NodeList nl = node.getChildNodes();
-	    for (int i = 0; i < nl.getLength(); i++) {
-	        Node x = nl.item(i);
-	        createQueue(x);
-	    }
-	    
-	    
-	}*/
-
 
 }

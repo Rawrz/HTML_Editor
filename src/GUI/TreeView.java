@@ -11,6 +11,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  * JPanel for Displaying Outline Mode 
+ * @author Roseline Okpara
  */
 @SuppressWarnings("serial")
 public class TreeView extends JPanel {

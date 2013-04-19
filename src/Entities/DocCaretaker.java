@@ -8,20 +8,21 @@ import java.util.Stack;
  *
  */
 public class DocCaretaker {	
-	private Stack<String> docStates = new Stack<String>();
+    
+	private Stack<DocMomento> docStates = new Stack<DocMomento>();
 	
 	/**
 	 * Method: Stores a new document state to the caretaker
 	 * @param node Root node of the HTML document tree
 	 */
-	public void storeState(String text){
+	public void storeState(DocMomento text){
 		docStates.push(text);
 	}
 	
 	/**
 	 * Method: Returns the most recent saved state of the document
 	 */
-	public String returnLastState(){
+	public DocMomento returnLastState(){
 		if (docStates.size() == 0){
 			return null;
 		} else {

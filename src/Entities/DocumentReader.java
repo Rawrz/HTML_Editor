@@ -17,7 +17,6 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -29,6 +28,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+/**
+ * 
+ * @author Roseline Okpara
+ *
+ */
 public class DocumentReader {
 
        public DocumentReader(){
@@ -80,7 +84,7 @@ public class DocumentReader {
                builder.parse(input);                 
        }
        
-       public String parseAndPretty(String xml,String indent){
+       public String parseAndPretty(String xml,String indent) throws SAXException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
            
            String newXml = xml.replaceAll("\\s+", " ").trim();
            //System.out.println(xml);
@@ -88,7 +92,6 @@ public class DocumentReader {
            factory.setNamespaceAware(false);
            factory.setValidating(false);   
            StreamResult format = null;
-           try {
                XMLReader reader  = factory.newSAXParser().getXMLReader();
                Source input = new SAXSource(reader, new InputSource(new StringReader(newXml)));
                StringWriter stringWriter = new StringWriter();
@@ -98,22 +101,6 @@ public class DocumentReader {
                transformer.setOutputProperty(OutputKeys.METHOD, "html");
                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", indent);
                transformer.transform(input, format);
-           } catch (SAXException e) {
-               // TODO Auto-generated catch block
-                    
-           } catch (ParserConfigurationException e) {
-               // TODO Auto-generated catch block
-               //e.printStackTrace();
-           } catch (TransformerConfigurationException e) {
-               // TODO Auto-generated catch block
-              // e.printStackTrace();
-           } catch (TransformerFactoryConfigurationError e) {
-               // TODO Auto-generated catch block
-              // e.printStackTrace();
-           } catch (TransformerException e) {
-               // TODO Auto-generated catch block
-               
-           }
            return format.getWriter().toString();
        }
        

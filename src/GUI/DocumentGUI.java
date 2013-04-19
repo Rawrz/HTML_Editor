@@ -6,7 +6,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
 import Commands.CutCommand;
 import Commands.IndentCommand;
 import Commands.InsertCommand;
@@ -323,7 +322,9 @@ public class DocumentGUI extends JPanel{
 			            thisDoc.save(textArea.getText());
 			        }
 			        else{
-			            thisDoc.setXml(textArea.getText(),"2");
+			            try {
+                            thisDoc.getReader().parseAndPretty(textArea.getText(),"2");
+                        } catch (Exception e1){}
 			            textArea.setText(thisDoc.getXml());
 			            thisDoc.setWellFormed(true);
 			        }
@@ -345,7 +346,9 @@ public class DocumentGUI extends JPanel{
                         thisDoc.save(textArea.getText());
                     }
                     else{
-                        thisDoc.setXml(textArea.getText(),"2");
+                        try {
+                            thisDoc.getReader().parseAndPretty(textArea.getText(),"2");
+                        } catch (Exception e1){}
                         textArea.setText(thisDoc.getXml());
                         thisDoc.setWellFormed(true);
                     }

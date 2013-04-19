@@ -3,6 +3,11 @@ package Entities;
 import org.w3c.dom.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+/**
+ * 
+ * @author Roseline Okpara
+ *
+ */
 public class HtmlTree{
     Document dom;
     public HtmlTree(Document dom){

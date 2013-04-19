@@ -8,6 +8,11 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 
+/**
+ * 
+ * @author Roseline Okpara
+ *
+ */
 @SuppressWarnings("serial")
 public class AutoIndentAction  extends AbstractAction {
    
