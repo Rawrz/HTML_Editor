@@ -9,6 +9,8 @@ import java.util.Stack;
  */
 public class DocCaretaker {	
     
+    public DocCaretaker(){}
+    
 	private Stack<DocMomento> docStates = new Stack<DocMomento>();
 	
 	/**
@@ -23,8 +25,8 @@ public class DocCaretaker {
 	 * Method: Returns the most recent saved state of the document
 	 */
 	public DocMomento returnLastState(){
-		if (docStates.size() == 0){
-			return null;
+		if (docStates.size() == 1){
+			return docStates.peek();
 		} else {
 			return docStates.pop();
 		}

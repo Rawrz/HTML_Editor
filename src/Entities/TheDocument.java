@@ -35,6 +35,8 @@ public class TheDocument {
 	private DefaultMutableTreeNode tree;
 	private String xml;
     private DocumentReader reader;
+    private DocMomento momento;
+    private DocCaretaker care;
 	
 	/**
 	 * creates the document for the given string
@@ -46,9 +48,10 @@ public class TheDocument {
     		isWrapped = false;
     		isIndented = true;
     		isSaved = true;
-    		setName(file.getName());
     		setFilepath(htmlFile);
     		reader = new DocumentReader();
+    		care = new DocCaretaker();
+    		
     		
     		if(!file.exists()){
                 try {
@@ -94,6 +97,8 @@ public class TheDocument {
                     e.printStackTrace();
                 }
     		  }		
+    		  
+    		  this.createMomento();
 	}
 	
 
@@ -206,11 +211,13 @@ public class TheDocument {
 	   return this.tree;
 	}
 	
-	
 	public String getXml(){
 	    return this.xml;
 	}
 	
+	public void setXml(String xml){
+	    this.xml = xml;
+	}
 	/**
 	 * 
 	 * @return boolean of well formed
@@ -226,8 +233,23 @@ public class TheDocument {
     public String getFilepath() {
         return filepath;
     }
-
-    public void setName(String name) {
+    
+    public DocCaretaker getCareTaker(){
+        return care;
     }
-
+    
+    public DocMomento createMomento(){
+        momento = new DocMomento();
+        momento.setState(this.xml);
+        care.storeState(momento);
+        return momento;
+    }
+    
+    public void setMomento(){
+        momento.setState(xml);
+    }
+    
+    public DocMomento getMomento(){
+        return momento;
+    }
 }

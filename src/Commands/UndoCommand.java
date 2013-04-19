@@ -12,11 +12,15 @@ public class UndoCommand implements Menu_Option{
 	
 	private TheDocument doc;
 	
+	public UndoCommand(TheDocument theDocument){
+        doc = theDocument;
+    }
 	/**
 	 * Executes the command object
 	 */
 	public void execute() {
-		
+	    System.out.println(doc.getCareTaker().returnLastState().getState());
+	    doc.setXml(doc.getCareTaker().returnLastState().getState());
 	}
 
 	/**

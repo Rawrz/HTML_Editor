@@ -14,6 +14,7 @@ import Commands.SaveAsCommand;
 import Commands.SaveCommand;
 import Commands.ToggleIndentCommand;
 import Commands.ToggleWrapCommand;
+import Commands.UndoCommand;
 import Entities.DocumentMenu;
 import Entities.TheDocument;
 
@@ -21,6 +22,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
 /**
@@ -60,7 +62,6 @@ public class DocumentGUI extends JPanel{
 		
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
 		this.setLayout(new BorderLayout());
-		
 		
 		//Tab-Size Changer
 		JPanel tabSizePanel = new JPanel();
@@ -130,6 +131,7 @@ public class DocumentGUI extends JPanel{
 		indentOff.addActionListener(docMenuListener);
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
+		undo.addActionListener(docMenuListener);
 		
 		linkViewBtn.addActionListener(new LinkViewListener());
 		treeViewBtn.addActionListener(new TreeViewListener());
@@ -196,6 +198,7 @@ public class DocumentGUI extends JPanel{
 		textArea.setTabSize(5);
 		textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		JScrollPane textPane = new JScrollPane(textArea);
+		textArea.addKeyListener(new mementoListener());
 		
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);
@@ -230,7 +233,8 @@ public class DocumentGUI extends JPanel{
 		SaveAsCommand saveAs = new SaveAsCommand(theDocument);
 		ToggleWrapCommand toggleWrap = new ToggleWrapCommand(theDocument);
 		ToggleIndentCommand toggleIndent = new ToggleIndentCommand(theDocument);
-		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs,toggleWrap,toggleIndent);
+		UndoCommand undo = new UndoCommand(theDocument);
+		DocumentMenu docMenu = new DocumentMenu(cut,paste,insert,indent,save,saveAs,toggleWrap,toggleIndent,undo);
 		return docMenu;
 	}
 	
@@ -301,7 +305,10 @@ public class DocumentGUI extends JPanel{
                         thisDoc.setWellFormed(true);
                     }
                 }
-			} else if(action == "Copy"){
+			}else if(action == "Undo"){
+			    docMenu.undo();
+			    textArea.setText(thisDoc.getXml());
+			} else if(action == "Copy"){	    
 			} else if(action == "Cut"){
 				docMenu.cut();
 			} else if(action == "Paste"){
@@ -367,6 +374,34 @@ public class DocumentGUI extends JPanel{
 			
 		}
 		
+	}
+	
+	private class mementoListener implements KeyListener{
+
+	    int count = 0;
+        @Override
+        public void keyPressed(KeyEvent arg0) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent arg0) {
+           count++;
+           if(count == 5){
+               count = 0;
+               thisDoc.setXml(textArea.getText());
+               thisDoc.createMomento();
+               thisDoc.getCareTaker().storeState(thisDoc.getMomento());
+           }  
+        }
+
+        @Override
+        public void keyTyped(KeyEvent arg0) {
+            // TODO Auto-generated method stub
+            
+        }
+
+  
+	    
 	}
 		
 }
