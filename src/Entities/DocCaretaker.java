@@ -9,20 +9,20 @@ import org.w3c.dom.Node;
  *
  */
 public class DocCaretaker {	
-	private Stack<Node> docStates = new Stack<Node>();
+	private Stack<String> docStates = new Stack<String>();
 	
 	/**
 	 * Method: Stores a new document state to the caretaker
 	 * @param node Root node of the HTML document tree
 	 */
-	public void storeState(Node root){
-		docStates.push(root);
+	public void storeState(String text){
+		docStates.push(text);
 	}
 	
 	/**
 	 * Method: Returns the most recent saved state of the document
 	 */
-	public Node returnLastState(){
+	public String returnLastState(){
 		if (docStates.size() == 0){
 			return null;
 		} else {
