@@ -19,7 +19,6 @@ public class UndoCommand implements Menu_Option{
 	 * Executes the command object
 	 */
 	public void execute() {
-	    System.out.println(doc.getCareTaker().returnLastState().getState());
 	    doc.setXml(doc.getCareTaker().returnLastState().getState());
 	}
 

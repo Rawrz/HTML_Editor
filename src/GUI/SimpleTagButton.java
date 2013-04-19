@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.text.html.HTML.Tag;
 
+import Entities.TheDocument;
+
 /**
  * Custom JButton class for tag insertions
  * @author Ben Kantor (bdk3079@rit.edu) *
@@ -18,6 +20,7 @@ public class SimpleTagButton extends JButton{
 	
 	private Tag tag;
 	private JTextArea textArea;
+	private TheDocument thisDoc;
 	
 	/**
 	 * Constructor for a SimpleTagButton
@@ -25,10 +28,11 @@ public class SimpleTagButton extends JButton{
 	 * @param buttonName - String representing the button's label
 	 * @param htmlTag - Specific HTML tag for the button
 	 */
-	public SimpleTagButton(JTextArea jTextArea,String buttonName,Tag htmlTag){
+	public SimpleTagButton(JTextArea jTextArea,String buttonName,Tag htmlTag, TheDocument doc){
 		super(buttonName);
 		textArea = jTextArea;
 		tag = htmlTag;		
+		thisDoc = doc;
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(25,25));
 		if(tag.equals(Tag.TABLE)){
@@ -50,6 +54,7 @@ public class SimpleTagButton extends JButton{
 			SimpleListener buttonListener = new SimpleListener();
 			addActionListener(buttonListener);
 		}
+		this.addActionListener(new InsertTagListener());
 	}
 	
 	private void launchGenDialog(Tag tag){
@@ -152,6 +157,18 @@ public class SimpleTagButton extends JButton{
 			launchImgDialog();
 		}
 		
+	}
+	
+	private class InsertTagListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            thisDoc.setXml(textArea.getText());
+            thisDoc.createMomento();
+            thisDoc.getCareTaker().storeState(thisDoc.getMomento());
+            
+        }
+	    
 	}
 	
 }

@@ -109,17 +109,17 @@ public class DocumentGUI extends JPanel{
 		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblBtn,
 						tblRowBtn,tblDataBtn,tblHeadBtn,headerBtn,
 						linkBtn,imgBtn;
-		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P);
-		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B);
-		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I);
-		listItemBtn = new SimpleTagButton(textArea,"List",Tag.OL);
-		tblRowBtn = new SimpleTagButton(textArea,"Table Row",Tag.TR);
-		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD);
-		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
-		headerBtn = new SimpleTagButton(textArea,"Header",Tag.H1);
-		tblBtn = new SimpleTagButton(textArea,"Table",Tag.TABLE);
-		linkBtn = new SimpleTagButton(textArea,"Link",Tag.A);
-		imgBtn = new SimpleTagButton(textArea,"Image",Tag.IMG);
+		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P,thisDoc);
+		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B,thisDoc);
+		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I,thisDoc);
+		listItemBtn = new SimpleTagButton(textArea,"List",Tag.OL,thisDoc);
+		tblRowBtn = new SimpleTagButton(textArea,"Table Row",Tag.TR,thisDoc);
+		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD,thisDoc);
+		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH,thisDoc);
+		headerBtn = new SimpleTagButton(textArea,"Header",Tag.H1,thisDoc);
+		tblBtn = new SimpleTagButton(textArea,"Table",Tag.TABLE,thisDoc);
+		linkBtn = new SimpleTagButton(textArea,"Link",Tag.A,thisDoc);
+		imgBtn = new SimpleTagButton(textArea,"Image",Tag.IMG,thisDoc);
 		
 		
 		//Add Listeners
