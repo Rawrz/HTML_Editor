@@ -108,7 +108,7 @@ public class DocumentGUI extends JPanel{
 		indentOff = new JRadioButton("Off");
 		
 		//Insert Panel
-		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblBtn,tblRowBtn,tblDataBtn,tblHeadBtn,headerBtn;
+		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblBtn,tblRowBtn,tblDataBtn,tblHeadBtn,headerBtn,linkBtn;
 		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P);
 		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B);
 		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I);
@@ -118,6 +118,7 @@ public class DocumentGUI extends JPanel{
 		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
 		headerBtn = new SimpleTagButton(textArea,"Header",Tag.H1);
 		tblBtn = new SimpleTagButton(textArea,"Table",Tag.TABLE);
+		linkBtn = new SimpleTagButton(textArea,"Link",Tag.A);
 		
 		
 		//Add Listeners
@@ -223,6 +224,7 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(tblHeadBtn);
 		insertButtons.add(headerBtn);
 		insertButtons.add(tblBtn);
+		insertButtons.add(linkBtn);
 		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
 		buttonScrollPane.setPreferredSize(new Dimension(50,100));
 		//insertPanel.add(insertLabel,BorderLayout.NORTH);

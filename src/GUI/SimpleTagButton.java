@@ -38,6 +38,9 @@ public class SimpleTagButton extends JButton{
 		} else if (tag.equals(Tag.H1)){
 			HeaderTagListener headerListener = new HeaderTagListener();
 			addActionListener(headerListener);
+		} else if(tag.equals(Tag.A)){
+			LinkTagListener linkListener = new LinkTagListener();
+			addActionListener(linkListener);
 		} else{		
 			SimpleListener buttonListener = new SimpleListener();
 			addActionListener(buttonListener);
@@ -61,6 +64,13 @@ public class SimpleTagButton extends JButton{
 	
 	private void launchHeaderDialog(){
 		HeaderTagDialog dialog = new HeaderTagDialog(null,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+	
+	private void launchLinkDialog(){
+		LinkTagDialog dialog = new LinkTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
 		dialog.pack();
 		dialog.setVisible(true);
@@ -105,6 +115,15 @@ public class SimpleTagButton extends JButton{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			launchHeaderDialog();
+		}
+		
+	}
+	
+	private class LinkTagListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			launchLinkDialog();
 		}
 		
 	}
