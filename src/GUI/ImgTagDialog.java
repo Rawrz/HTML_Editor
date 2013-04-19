@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-
+/**
+ * Custom Dialog for inputing image tags
+ * @author Ben Kantor
+ */
+@SuppressWarnings("serial")
 public class ImgTagDialog extends JDialog{
 	private JPanel myPanel;
 	private JButton createButton, cancelButton;

@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,8 @@ public class SimpleTagButton extends JButton{
 	public SimpleTagButton(JTextArea jTextArea,String buttonName,Tag htmlTag){
 		super(buttonName);
 		textArea = jTextArea;
-		tag = htmlTag;
+		tag = htmlTag;		
+		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(25,25));
 		if(tag.equals(Tag.TABLE)){
 			TableTagListener tableListener = new TableTagListener();

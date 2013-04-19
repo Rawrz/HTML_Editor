@@ -231,7 +231,6 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(imgBtn);
 		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
 		buttonScrollPane.setPreferredSize(new Dimension(50,100));
-		//insertPanel.add(insertLabel,BorderLayout.NORTH);
 		insertPanel.add(buttonScrollPane,BorderLayout.NORTH);
 		insertPanel.setPreferredSize(new Dimension(150,100));
 		
