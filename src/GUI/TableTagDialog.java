@@ -45,6 +45,7 @@ public class TableTagDialog extends JDialog{
 		JPanel buttonPanel = new JPanel(new GridLayout(1,2));
 		buttonPanel.add(createButton);
 		buttonPanel.add(cancelButton);
+		
 		myPanel.add(spinnerPanel);
 		myPanel.add(buttonPanel);
 		getContentPane().add(myPanel);

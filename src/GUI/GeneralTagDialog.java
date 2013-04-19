@@ -44,7 +44,7 @@ public class GeneralTagDialog extends JDialog{
 		createButton.addActionListener(dialogListener);
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(dialogListener);
-		textField = new JTextField(50);
+		textField = new JTextField(40);
 		jPanel.add(new JLabel("Set tag text"));
 		JPanel buttonPanel = new JPanel(new GridLayout(1,2));
 		buttonPanel.add(createButton);

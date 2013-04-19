@@ -59,6 +59,13 @@ public class SimpleTagButton extends JButton{
 		dialog.setVisible(true);
 	}
 	
+	private void launchHeaderDialog(){
+		HeaderTagDialog dialog = new HeaderTagDialog(null,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+	
 	/**
 	 * Action Listener for one line HTML tags
 	 * @author Ben Kantor(bdk3079@rit.edu)
@@ -97,7 +104,7 @@ public class SimpleTagButton extends JButton{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			launchHeaderDialog();
 		}
 		
 	}
