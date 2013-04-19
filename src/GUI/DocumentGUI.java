@@ -115,24 +115,17 @@ public class DocumentGUI extends JPanel{
 		indentOff = new JRadioButton("Off");
 		
 		//Insert Panel
-		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblRowBtn,tblDataBtn,tblHeadBtn;
+		SimpleTagButton paraBtn,boldBtn,italBtn,listItemBtn,tblBtn,tblRowBtn,tblDataBtn,tblHeadBtn,headerBtn;
 		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P);
 		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B);
 		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I);
-		listItemBtn = new SimpleTagButton(textArea,"Paragraph",Tag.LI);
+		listItemBtn = new SimpleTagButton(textArea,"List Item",Tag.LI);
 		tblRowBtn = new SimpleTagButton(textArea,"Table Row",Tag.TR);
 		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD);
 		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
+		headerBtn = new SimpleTagButton(textArea,"Header",Tag.H1);
+		tblBtn = new SimpleTagButton(textArea,"",Tag.TABLE);
 		
-		/*
-		insertBoldBtn = new InsertButton("<b> Bold","BOLD");
-		insertItalicsBtn = new InsertButton("<i> Italic","ITALIC");
-		insertHeaderBtn = new InsertButton("Header","HEADER");
-		insertListBtn = new InsertButton("List","LIST");
-		insertTableBtn = new InsertButton("Table","TABLE");
-		insertHRefBtn = new InsertButton("Link", "HREF");
-		insertImgTag = new InsertButton("IMG","IMG");
-		insertSrcTag = new InsertButton("SRC","SRC");*/
 		
 		//Add Listeners
 		save.addActionListener(docMenuListener);
@@ -144,12 +137,6 @@ public class DocumentGUI extends JPanel{
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
 		
-		//insertBoldBtn.addActionListener(insertListener);
-		//insertItalicsBtn.addActionListener(insertListener);
-		//insertHeaderBtn.addActionListener(insertListener);
-		//insertListBtn.addActionListener(insertListener);
-		//insertTableBtn.addActionListener(insertListener);
-		//insertTextBtn.addActionListener(insertListener);
 		
 		linkViewBtn.addActionListener(new ActionListener() {
 			/**
@@ -233,17 +220,6 @@ public class DocumentGUI extends JPanel{
 		//Define Insert Panel
 		JLabel insertLabel = new JLabel("Insert");
 		JPanel insertButtons = new JPanel(new GridLayout(3,6));
-		//insertButtons.add(insertTextBtn);
-		/*
-		insertButtons.add(insertBoldBtn);
-		insertButtons.add(insertBoldBtn);
-		insertButtons.add(insertItalicsBtn);
-		insertButtons.add(insertHeaderBtn);
-		insertButtons.add(insertListBtn);
-		insertButtons.add(insertTableBtn);
-		insertButtons.add(insertImgTag);
-		insertButtons.add(insertSrcTag);
-		*/
 		
 		insertButtons.add(paraBtn);
 		insertButtons.add(italBtn);
@@ -252,6 +228,7 @@ public class DocumentGUI extends JPanel{
 		insertButtons.add(tblRowBtn);
 		insertButtons.add(tblDataBtn);
 		insertButtons.add(tblHeadBtn);
+		insertButtons.add(headerBtn);
 		JScrollPane buttonScrollPane = new JScrollPane(insertButtons);
 		buttonScrollPane.setPreferredSize(new Dimension(50,100));
 		//insertPanel.add(insertLabel,BorderLayout.NORTH);
