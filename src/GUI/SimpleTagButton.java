@@ -41,6 +41,9 @@ public class SimpleTagButton extends JButton{
 		} else if(tag.equals(Tag.A)){
 			LinkTagListener linkListener = new LinkTagListener();
 			addActionListener(linkListener);
+		} else if(tag.equals(Tag.IMG)){
+			ImgTagListener imgListener = new ImgTagListener();
+			addActionListener(imgListener);
 		} else{		
 			SimpleListener buttonListener = new SimpleListener();
 			addActionListener(buttonListener);
@@ -71,6 +74,13 @@ public class SimpleTagButton extends JButton{
 	
 	private void launchLinkDialog(){
 		LinkTagDialog dialog = new LinkTagDialog(null,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+	
+	private void launchImgDialog(){
+		ImgTagDialog dialog = new ImgTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
 		dialog.pack();
 		dialog.setVisible(true);
@@ -129,6 +139,15 @@ public class SimpleTagButton extends JButton{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			launchLinkDialog();
+		}
+		
+	}
+	
+	private class ImgTagListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			launchImgDialog();
 		}
 		
 	}
