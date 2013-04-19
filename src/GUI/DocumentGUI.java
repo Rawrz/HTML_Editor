@@ -41,8 +41,8 @@ public class DocumentGUI extends JPanel{
 	private JPanel indentPanel,wordWrapPanel,linkViewPanel;
 	private JButton linkViewBtn, treeViewBtn;
 	private JRadioButton wordWrapOn,wordWrapOff,indentOn,indentOff;
-	private JLabel wordWrapLabel = new JLabel("Word-Wrap:      ");
-	private JLabel indentLabel = new JLabel("Auto-Indent:      ");
+	private JLabel wordWrapLabel = new JLabel("Word-Wrap:");
+	private JLabel indentLabel = new JLabel("Auto-Indent:");
 	private final JTextArea textArea = new JTextArea();
 	
 	private JMenu documentMenu;
@@ -91,7 +91,6 @@ public class DocumentGUI extends JPanel{
 		insertPanel = new JPanel(new BorderLayout());
 		indentPanel = new JPanel(new GridLayout(1,3));
 		wordWrapPanel = new JPanel(new GridLayout(1, 3));
-		//GridLayout ribbon = new GridLayout(1,2);
 		docMenuPanel = new JPanel(new GridLayout(1,2));
 		docMenuPanel.setMaximumSize(new Dimension(150,75));
 		settingsPanel = new JPanel(new GridLayout(4,1));
@@ -100,8 +99,7 @@ public class DocumentGUI extends JPanel{
 		
 		//Create Buttons
 		linkViewBtn = new JButton("Toggle Link View");
-		treeViewBtn = new JButton ("Toggle Outline Mode");
-		
+		treeViewBtn = new JButton ("Toggle Outline Mode");		
 		wordWrapOn = new JRadioButton("On ", true);
 		wordWrapOff = new JRadioButton("Off ");
 		indentOn = new JRadioButton("On", true);
@@ -134,57 +132,9 @@ public class DocumentGUI extends JPanel{
 		wordWrapOn.addActionListener(docMenuListener);
 		wordWrapOff.addActionListener(docMenuListener);
 		
+		linkViewBtn.addActionListener(new LinkViewListener());
+		treeViewBtn.addActionListener(new TreeViewListener());
 		
-		linkViewBtn.addActionListener(new ActionListener() {
-			/**
-			 * Checks if the LinkView for the Current Doc has been created yet. If not, the LinkView is created
-			 */
-			public void actionPerformed(ActionEvent e) {
-				if ((linkView == null) || (!linkView.isShowing())) {
-					linkView = new LinkView(DocumentGUI.this, "Link View: " + thisDoc.getName());
-					add(linkView, BorderLayout.EAST);
-					revalidate();
-					repaint();
-				} else{
-					remove(linkView);
-					revalidate();
-					repaint();
-				}
-			}
-		});
-		
-		treeViewBtn.addActionListener(new ActionListener(){
-		    
-		    public void actionPerformed(ActionEvent e){
-		        
-    		    if ((treeView == null) || (!treeView.isShowing())) {
-    		        DefaultMutableTreeNode tree = null;
-                    
-                        try {
-                            tree = thisDoc.buildTree(textArea.getText());
-                        } catch (Exception ex){
-                            System.err.print("Parsing failed");
-                        }
-                   
-                    if(thisDoc.isWellFormed() == true){
-                        treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(), tree );
-                        add(treeView,BorderLayout.WEST);
-                        revalidate();
-                        repaint();
-                    }
-                    else{
-                         
-                        JFrame frame = new JFrame("Cannot Create Tree.");
-                        JOptionPane.showMessageDialog(frame, "Document is not well-formed. Cannot create Tree.","Inane error",JOptionPane.ERROR_MESSAGE);
-                    }
-                    
-                } else{
-                	remove(treeView);
-                	revalidate();
-                	repaint();
-                }
-		    }
-		});
 
 		//Define WordWrapPanel		
 		wordWrapPanel.add(wordWrapLabel);
@@ -250,8 +200,6 @@ public class DocumentGUI extends JPanel{
 		
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);
-		
-	//	textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
 		indentChanger.addChangeListener(new ChangeListener(){
 
@@ -365,6 +313,57 @@ public class DocumentGUI extends JPanel{
 			    textArea.registerKeyboardAction(new AutoIndentAction(false), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 			}
 		}		
+	}
+	
+	private class TreeViewListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			 if ((treeView == null) || (!treeView.isShowing())) {
+ 		        DefaultMutableTreeNode tree = null;
+                 
+                     try {
+                         tree = thisDoc.buildTree(textArea.getText());
+                     } catch (Exception ex){
+                         System.err.print("Parsing failed");
+                     }
+                
+                 if(thisDoc.isWellFormed() == true){
+                     treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(), tree );
+                     add(treeView,BorderLayout.WEST);
+                     revalidate();
+                     repaint();
+                 }
+                 else{                      
+                     JFrame frame = new JFrame("Cannot Create Tree.");
+                     JOptionPane.showMessageDialog(frame, "Document is not well-formed. Cannot create Tree.","Inane error",JOptionPane.ERROR_MESSAGE);
+                 }
+                 
+             } else{
+             	remove(treeView);
+             	revalidate();
+             	repaint();
+             }			
+		}
+		
+	}
+	
+	private class LinkViewListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if ((linkView == null) || (!linkView.isShowing())) {
+				linkView = new LinkView(DocumentGUI.this, "Link View: " + thisDoc.getName());
+				add(linkView, BorderLayout.EAST);
+				revalidate();
+				repaint();
+			} else{
+				remove(linkView);
+				revalidate();
+				repaint();
+			}
+			
+		}
+		
 	}
 		
 }
