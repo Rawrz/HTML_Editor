@@ -76,6 +76,13 @@ public class SimpleTagButton extends JButton{
 		dialog.setVisible(true);
 	}
 	
+	private void launchListDialog(){
+		ListTagDialog dialog = new ListTagDialog(null,textArea);
+		dialog.setLocationRelativeTo(null);
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+	
 	/**
 	 * Action Listener for one line HTML tags
 	 * @author Ben Kantor(bdk3079@rit.edu)
@@ -102,9 +109,7 @@ public class SimpleTagButton extends JButton{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int pos = textArea.getCaretPosition();
-			String insertString = "\n\t<"+tag.toString()+">\n\n\t</"+tag.toString()+">";
-			textArea.insert(insertString, pos);
+			launchListDialog();
 		}
 		
 	

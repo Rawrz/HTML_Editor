@@ -10,7 +10,7 @@ import javax.swing.*;
 
 /**
  * Custom dialog for inserting a table.
- * @author Ben Kantor (bdk3079@rit.edu) *
+ * @author Ben Kantor (bdk3079@rit.edu)
  */
 @SuppressWarnings("serial")
 public class TableTagDialog extends JDialog{

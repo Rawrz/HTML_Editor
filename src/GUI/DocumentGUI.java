@@ -112,7 +112,7 @@ public class DocumentGUI extends JPanel{
 		paraBtn = new SimpleTagButton(textArea,"Paragraph",Tag.P);
 		boldBtn = new SimpleTagButton(textArea,"Bold",Tag.B);
 		italBtn = new SimpleTagButton(textArea,"Italic",Tag.I);
-		listItemBtn = new SimpleTagButton(textArea,"List Item",Tag.LI);
+		listItemBtn = new SimpleTagButton(textArea,"List",Tag.OL);
 		tblRowBtn = new SimpleTagButton(textArea,"Table Row",Tag.TR);
 		tblDataBtn = new SimpleTagButton(textArea,"Table Data",Tag.TD);
 		tblHeadBtn = new SimpleTagButton(textArea,"Table Header",Tag.TH);
