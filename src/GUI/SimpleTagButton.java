@@ -128,9 +128,7 @@ public class SimpleTagButton extends JButton{
 		public void actionPerformed(ActionEvent e) {
 			launchListDialog();
 		}
-		
-	
-		
+			
 	}
 	private class HeaderTagListener implements ActionListener{
 
@@ -149,7 +147,11 @@ public class SimpleTagButton extends JButton{
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class ImgTagListener implements ActionListener{
 
 		@Override
