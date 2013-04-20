@@ -60,6 +60,10 @@ public class DocumentGUI extends JPanel{
 		thisDoc = docParam;
 		docMenu = createDocumentMenu(thisDoc);
 		
+		if(!thisDoc.isWellFormed()){
+		    JFrame frame = new JFrame("Not Well Formed");
+            JOptionPane.showMessageDialog(frame, "This Document is not well-formed.","Inane error",JOptionPane.ERROR_MESSAGE);
+		}
 		DocumentMenuListener docMenuListener = new DocumentMenuListener();
 		this.setLayout(new BorderLayout());
 		
