@@ -189,8 +189,6 @@ public class DocumentGUI extends JPanel{
 		docMenuPanel.add(menuPanel);
 		docMenuPanel.add(insertPanel);
 		
-		
-		
 		//Setup Main Panel
 		
 		textArea.setEditable(true);
@@ -199,7 +197,7 @@ public class DocumentGUI extends JPanel{
 		textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		JScrollPane textPane = new JScrollPane(textArea);
 		textArea.addKeyListener(new mementoListener());
-		
+		textArea.setLineWrap(true);
 		add(docMenuPanel,BorderLayout.NORTH);
 		add(textPane,BorderLayout.CENTER);
 		
@@ -314,9 +312,9 @@ public class DocumentGUI extends JPanel{
 			} else if(action == "Paste"){
 				docMenu.paste();
 			} else if (action == "On "){
-				docMenu.toggleWrap();
+			    textArea.setLineWrap(true);
 			} else if (action == "Off "){
-				docMenu.toggleWrap();
+			    textArea.setLineWrap(false);
 			} else if (action == "On"){
 			    textArea.registerKeyboardAction(new AutoIndentAction(true), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 			} else if (action == "Off"){
@@ -380,9 +378,7 @@ public class DocumentGUI extends JPanel{
 
 	    int count = 0;
         @Override
-        public void keyPressed(KeyEvent arg0) {
-        }
-
+        public void keyPressed(KeyEvent arg0) {}
         @Override
         public void keyReleased(KeyEvent arg0) {
            count++;
@@ -393,15 +389,8 @@ public class DocumentGUI extends JPanel{
                thisDoc.getCareTaker().storeState(thisDoc.getMomento());
            }  
         }
-
         @Override
-        public void keyTyped(KeyEvent arg0) {
-            // TODO Auto-generated method stub
-            
-        }
-
-  
-	    
+        public void keyTyped(KeyEvent arg0) {}
 	}
 		
 }

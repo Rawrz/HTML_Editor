@@ -25,7 +25,9 @@ public class DocCaretaker {
 	 * Method: Returns the most recent saved state of the document
 	 */
 	public DocMomento returnLastState(){
+	    //Don't wanna empty the stack. 
 		if (docStates.size() == 1){
+		    //If size is 1 that is the original state so keep it.
 			return docStates.peek();
 		} else {
 			return docStates.pop();
