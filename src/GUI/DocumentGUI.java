@@ -5,6 +5,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import Commands.CutCommand;
 import Commands.IndentCommand;
@@ -23,10 +26,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 
 /**
  * GUI for each document
+ * @author Roseline Okpara
  * @author Chris Timmons
  * @author Ben Kantor (bdk3079@rit.edu)
  */
@@ -95,8 +100,7 @@ public class DocumentGUI extends JPanel{
 		docMenuPanel.setMaximumSize(new Dimension(150,75));
 		settingsPanel = new JPanel(new GridLayout(4,1));
 		linkViewPanel = new JPanel (new GridLayout(1,2));
-		
-		
+				
 		//Create Buttons
 		linkViewBtn = new JButton("Toggle Link View");
 		treeViewBtn = new JButton ("Toggle Outline Mode");		
@@ -206,10 +210,8 @@ public class DocumentGUI extends JPanel{
             @Override
             public void stateChanged(ChangeEvent arg0) {
                 int tab = (Integer) indentChanger.getValue();
-                textArea.setTabSize(tab);
-                
-            }
-            
+                textArea.setTabSize(tab);               
+            }     
         });
 	}
 	
@@ -218,7 +220,7 @@ public class DocumentGUI extends JPanel{
 	}
 	
 	/**
-	 * creates a doc menu for the document
+	 * Creates a doc menu for the document
 	 * @param theDocument
 	 * @return
 	 */
@@ -236,7 +238,6 @@ public class DocumentGUI extends JPanel{
 		return docMenu;
 	}
 	
-
 	/**
 	 * Gets the text in the JTextArea
 	 * @return the text
@@ -273,7 +274,7 @@ public class DocumentGUI extends JPanel{
 			        }
 			        else{
 			            try {
-                            thisDoc.getReader().parseAndPretty(textArea.getText(),"2");
+                            thisDoc.getReader().parseAndPretty(textArea.getText(),(String) indentChanger.getValue());
                         } catch (Exception e1){}
 			            textArea.setText(thisDoc.getXml());
 			            thisDoc.setWellFormed(true);
@@ -297,7 +298,7 @@ public class DocumentGUI extends JPanel{
                     }
                     else{
                         try {
-                            thisDoc.getReader().parseAndPretty(textArea.getText(),"2");
+                            thisDoc.getReader().parseAndPretty(textArea.getText(),(String) indentChanger.getValue());
                         } catch (Exception e1){}
                         textArea.setText(thisDoc.getXml());
                         thisDoc.setWellFormed(true);
@@ -323,20 +324,26 @@ public class DocumentGUI extends JPanel{
 		}		
 	}
 	
+	/**
+	 * 
+	 * Listener for the tree view
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class TreeViewListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			 if ((treeView == null) || (!treeView.isShowing())) {
- 		        DefaultMutableTreeNode tree = null;
-                 
-                     try {
-                         tree = thisDoc.buildTree(textArea.getText());
-                     } catch (Exception ex){
-                         System.err.print("Parsing failed");
-                     }
-                
-                 if(thisDoc.isWellFormed() == true){
-                     treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(), tree );
+			 if ((treeView == null) || (!treeView.isShowing())) {	     
+ 		         try {
+                    thisDoc.getReader().quickParse(textArea.getText());
+                } catch (Exception e1){
+                    thisDoc.setWellFormed(false);
+                }
+                 if(thisDoc.isWellFormed()){
+                    try {
+                        treeView = new TreeView(DocumentGUI.this, "Tree View: " + thisDoc.getName(),
+                                thisDoc.buildTree(textArea.getText()));
+                    } catch (Exception e2){}
                      add(treeView,BorderLayout.WEST);
                      revalidate();
                      repaint();
@@ -391,6 +398,5 @@ public class DocumentGUI extends JPanel{
         }
         @Override
         public void keyTyped(KeyEvent arg0) {}
-	}
-		
+	}		
 }

@@ -99,6 +99,7 @@ public class TheDocument {
     		  }		
     		  
     		  this.createMomento();
+    		  care.storeState(momento);
 	}
 	
 
@@ -241,7 +242,6 @@ public class TheDocument {
     public DocMomento createMomento(){
         momento = new DocMomento();
         momento.setState(this.xml);
-        care.storeState(momento);
         return momento;
     }
     

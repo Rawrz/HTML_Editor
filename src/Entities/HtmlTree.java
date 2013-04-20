@@ -4,7 +4,8 @@ import org.w3c.dom.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * 
+ * Class that translates the xml dom nodes to 
+ * nodes that the jTree can understand.
  * @author Roseline Okpara
  *
  */
@@ -13,7 +14,10 @@ public class HtmlTree{
     public HtmlTree(Document dom){
         this.dom = dom;          
     }
-    
+    /**
+     * Builds the new tree
+     * @return the root of the tree (attached are it's children
+     */
     public DefaultMutableTreeNode createTree(){
         Element rootNode = (Element) dom.getFirstChild();
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootNode.getTagName());
@@ -27,7 +31,11 @@ public class HtmlTree{
         }  
         return root;
     }
-
+    /**
+     * Traverses through the tree to get its children recursively
+     * @param child
+     * @param parent
+     */
     public void traverse(Node child,DefaultMutableTreeNode parent){
         int type = child.getNodeType();
         if(type == Node.ELEMENT_NODE){
