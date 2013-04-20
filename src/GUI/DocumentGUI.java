@@ -4,10 +4,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.html.HTML.Tag;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import Commands.CutCommand;
 import Commands.IndentCommand;
@@ -26,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 
 /**
@@ -333,6 +328,7 @@ public class DocumentGUI extends JPanel{
 	private class TreeViewListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+		     thisDoc.setWellFormed(true);
 			 if ((treeView == null) || (!treeView.isShowing())) {	     
  		         try {
                     thisDoc.getReader().quickParse(textArea.getText());

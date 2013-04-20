@@ -71,7 +71,6 @@ public class TheDocument {
             		tree = reader.buildTree(domDoc);
         		}catch(Exception e){
         		    this.isWellFormed = false;
-        		    e.printStackTrace();
         		}
     		}
     		
@@ -82,7 +81,12 @@ public class TheDocument {
     		  
     		    FileChannel fc = stream.getChannel();
     		    bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-    		    xml = reader.parseAndPretty(Charset.defaultCharset().decode(bb).toString(),"2");
+    		    if(this.isWellFormed()){
+    		        xml = reader.parseAndPretty(Charset.defaultCharset().decode(bb).toString(),"2");
+    		    }
+    		    else{
+    		        xml = Charset.defaultCharset().decode(bb).toString();
+    		    }
     		  } catch (IOException e) {
                 e.printStackTrace();
     		  } 
