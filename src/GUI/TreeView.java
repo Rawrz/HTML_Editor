@@ -18,6 +18,12 @@ public class TreeView extends JPanel {
     private JTree tree;
     private JScrollPane scrollPane;
     
+    /**
+     * Constuctor for Tree vire
+     * @param docParam
+     * @param titleParam
+     * @param node
+     */
     public TreeView(DocumentGUI docParam, String titleParam, DefaultMutableTreeNode node){
         setLayout(new BorderLayout());
     	tree = new JTree(node);

@@ -88,8 +88,7 @@ public class DocumentGUI extends JPanel{
 		documentMenu.add(cut);
 		documentMenu.add(paste);
 		documentMenu.add(undo);
-		
-		
+				
 		//Create Panels
 		menuPanel = new JPanel();
 		insertPanel = new JPanel(new BorderLayout());

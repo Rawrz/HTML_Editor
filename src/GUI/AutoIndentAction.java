@@ -9,7 +9,7 @@ import javax.swing.text.Document;
 
 
 /**
- * 
+ * Class used to toggle auto indent
  * @author Roseline Okpara
  *
  */
@@ -46,6 +46,9 @@ public class AutoIndentAction  extends AbstractAction {
         }
     } 
  
+    /**
+     * Find the amount of whitespace needed
+     */
     private String getLeadingWhtSpace(String str) { 
         int amtWhtSpace = 0; 
         while(amtWhtSpace < str.length()) { 

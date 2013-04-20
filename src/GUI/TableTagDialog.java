@@ -22,6 +22,11 @@ public class TableTagDialog extends JDialog{
 	private JTextArea textArea;
 	private TableDialogListener dialogListener = new TableDialogListener();
 	
+	/**
+	 * Constructor
+	 * @param aFrame
+	 * @param theTextArea
+	 */
 	public TableTagDialog(Frame aFrame,JTextArea theTextArea){
 		super(aFrame, true);
 		textArea = theTextArea;

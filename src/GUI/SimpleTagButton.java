@@ -57,6 +57,10 @@ public class SimpleTagButton extends JButton{
 		this.addActionListener(new InsertTagListener());
 	}
 	
+	/**
+	 * General dialog for normal tags
+	 * @param tag
+	 */
 	private void launchGenDialog(Tag tag){
 		GeneralTagDialog dialog = new GeneralTagDialog(null,tag,textArea);
 		dialog.setLocationRelativeTo(null);
@@ -64,28 +68,37 @@ public class SimpleTagButton extends JButton{
 		dialog.setVisible(true);
 		
 	}
-	
+
+	/**
+	 * Table dialog for table tag
+	 */
 	private void launchTableDialog(){
 		TableTagDialog dialog = new TableTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
 		dialog.pack();
 		dialog.setVisible(true);
 	}
-	
+	/**
+	 * Dialog for header tag
+	 */
 	private void launchHeaderDialog(){
 		HeaderTagDialog dialog = new HeaderTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
 		dialog.pack();
 		dialog.setVisible(true);
 	}
-	
+	/**
+	 * Dialog for link tag
+	 */
 	private void launchLinkDialog(){
 		LinkTagDialog dialog = new LinkTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
 		dialog.pack();
 		dialog.setVisible(true);
 	}
-	
+	/**
+	 * Dialog fr image tag
+	 */
 	private void launchImgDialog(){
 		ImgTagDialog dialog = new ImgTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
@@ -93,6 +106,9 @@ public class SimpleTagButton extends JButton{
 		dialog.setVisible(true);
 	}
 	
+	/**
+	 * Dialog for list tag
+	 */
 	private void launchListDialog(){
 		ListTagDialog dialog = new ListTagDialog(null,textArea);
 		dialog.setLocationRelativeTo(null);
@@ -112,7 +128,11 @@ public class SimpleTagButton extends JButton{
 		}
 		
 	}
-	
+	/**
+	 * listener to launch table tag
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class TableTagListener implements ActionListener{
 
 		@Override
@@ -121,7 +141,11 @@ public class SimpleTagButton extends JButton{
 		}
 		
 	}
-	
+	/**
+	 * Dialog to launch list tag dialog
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class ListTagListener implements ActionListener{
 
 		@Override
@@ -130,6 +154,11 @@ public class SimpleTagButton extends JButton{
 		}
 			
 	}
+	/**
+	 * Dialog to launch Header Tag
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class HeaderTagListener implements ActionListener{
 
 		@Override
@@ -139,6 +168,11 @@ public class SimpleTagButton extends JButton{
 		
 	}
 	
+	/**
+	 * Dialog tag to launch link dialog
+	 * @author Roz
+	 *
+	 */
 	private class LinkTagListener implements ActionListener{
 
 		@Override
@@ -148,7 +182,7 @@ public class SimpleTagButton extends JButton{
 		
 	}
 	/**
-	 * 
+	 * Dialog to launch image tag
 	 * @author Roseline Okpara
 	 *
 	 */
@@ -160,7 +194,11 @@ public class SimpleTagButton extends JButton{
 		}
 		
 	}
-	
+	/**
+	 * Creates a momento whenever a tag is inserted.
+	 * @author Roseline Okpara
+	 *
+	 */
 	private class InsertTagListener implements ActionListener{
 
         @Override

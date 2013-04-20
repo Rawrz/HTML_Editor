@@ -51,10 +51,7 @@ public class GeneralTagDialog extends JDialog{
 		buttonPanel.add(cancelButton);
 		jPanel.add(buttonPanel);
 		jPanel.add(textField);
-		getContentPane().add(jPanel);
-		
-		
-				
+		getContentPane().add(jPanel);				
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
